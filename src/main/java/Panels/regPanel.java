@@ -7,16 +7,15 @@ package Panels;
 
 //import PanelForms.Test.RegistrationFrame;
 import Dao.DataBase_Connection;
-import PanelForms.Test.Encryption;
-import java.awt.Color;
+import controller.login_controller;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import beans.log_in_pojo;
 
 /**
  *
@@ -28,7 +27,9 @@ public class regPanel extends javax.swing.JPanel {
      ResultSet rs;
      DataBase_Connection dao;
      public String namefromDatabase;
-     public String Warning;
+     log_in_pojo pojo; 
+     ImageIcon bi;
+     login_controller controller;
 
     /**
      * Creates new form regPanel
@@ -36,8 +37,10 @@ public class regPanel extends javax.swing.JPanel {
     public regPanel() {
         initComponents();
         dao = new DataBase_Connection();
-        conInstance = dao.getConnection();
+        controller = new login_controller();
+        pojo = new log_in_pojo();
         txtName.requestFocus();
+        submittButton.setEnabled(false);
     }
 
     /**
@@ -63,19 +66,19 @@ public class regPanel extends javax.swing.JPanel {
 
         setBackground(java.awt.SystemColor.control);
 
-        jLabel5.setFont(new java.awt.Font("Century Schoolbook L", 1, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
         jLabel5.setText("Username :");
 
-        jLabel6.setFont(new java.awt.Font("Century Schoolbook L", 1, 12)); // NOI18N
-        jLabel6.setText("Full Name :");
+        jLabel6.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel6.setText("Name :");
 
-        jLabel7.setFont(new java.awt.Font("Century Schoolbook L", 1, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
         jLabel7.setText("Password :");
 
-        jLabel8.setFont(new java.awt.Font("Century Schoolbook L", 1, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
         jLabel8.setText("Re-Password :");
 
-        pwdConfirmUserPassword.setFont(new java.awt.Font("Century Schoolbook L", 1, 12)); // NOI18N
+        pwdConfirmUserPassword.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
         pwdConfirmUserPassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 pwdConfirmUserPasswordKeyPressed(evt);
@@ -85,7 +88,7 @@ public class regPanel extends javax.swing.JPanel {
             }
         });
 
-        submittButton.setFont(new java.awt.Font("Century Schoolbook L", 3, 15)); // NOI18N
+        submittButton.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
         submittButton.setText("Register");
         submittButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,14 +96,14 @@ public class regPanel extends javax.swing.JPanel {
             }
         });
 
-        pwdUserPassword.setFont(new java.awt.Font("Century Schoolbook L", 1, 12)); // NOI18N
+        pwdUserPassword.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
         pwdUserPassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 pwdUserPasswordKeyPressed(evt);
             }
         });
 
-        txtName.setFont(new java.awt.Font("Century Schoolbook L", 1, 12)); // NOI18N
+        txtName.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
         txtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNameActionPerformed(evt);
@@ -112,7 +115,7 @@ public class regPanel extends javax.swing.JPanel {
             }
         });
 
-        txtUserName.setFont(new java.awt.Font("Century Schoolbook L", 1, 12)); // NOI18N
+        txtUserName.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
         txtUserName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtUserNameFocusGained(evt);
@@ -127,10 +130,10 @@ public class regPanel extends javax.swing.JPanel {
             }
         });
 
-        lblWarning.setFont(new java.awt.Font("Century Schoolbook L", 1, 12)); // NOI18N
+        lblWarning.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
         lblWarning.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        lblUserPwdNotification.setFont(new java.awt.Font("Century Schoolbook L", 1, 12)); // NOI18N
+        lblUserPwdNotification.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
         lblUserPwdNotification.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -138,60 +141,65 @@ public class regPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pwdUserPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(pwdUserPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(pwdConfirmUserPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(submittButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(102, 102, 102)))
+                        .addComponent(lblUserPwdNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 6, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(submittButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(75, 75, 75))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(pwdConfirmUserPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtUserName)))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblWarning, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
-                            .addComponent(lblUserPwdNotification, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(55, Short.MAX_VALUE))))
+                        .addComponent(lblWarning, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {pwdConfirmUserPassword, pwdUserPassword, txtName, txtUserName});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(73, 73, 73)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel6)
-                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel5))
-                    .addComponent(lblWarning, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel8)
-                        .addComponent(pwdConfirmUserPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel7)
-                        .addComponent(pwdUserPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lblUserPwdNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(109, 109, 109)
-                .addComponent(submittButton)
-                .addGap(40, 40, 40))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblWarning, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pwdUserPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pwdConfirmUserPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(lblUserPwdNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(submittButton, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel5, jLabel6, jLabel7, jLabel8, pwdConfirmUserPassword, pwdUserPassword, txtName, txtUserName});
@@ -205,46 +213,14 @@ public class regPanel extends javax.swing.JPanel {
         pwdConfirmUserPassword.setText("");
         lblWarning.setText("");
         lblUserPwdNotification.setText("");
+        submittButton.setEnabled(false);
     }
     
     private void pwdConfirmUserPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwdConfirmUserPasswordKeyReleased
-        String pass = new String (pwdUserPassword.getPassword());
-        String pass1 = new String (pwdConfirmUserPassword.getPassword());
-
-        String mpass = "0000";
-        if((pass.equals(pass1))){
-            lblUserPwdNotification.setText("match");
-            lblUserPwdNotification.setForeground(Color.green);
-        }
-        else
-        {
-            lblUserPwdNotification.setText("error");
-            lblUserPwdNotification.setForeground(Color.red);
-        }
+        
     }//GEN-LAST:event_pwdConfirmUserPasswordKeyReleased
 
-    private void registerUser(){
-        try {
-            String pass = new String (pwdUserPassword.getPassword());
-            String pass1 = new String (pwdConfirmUserPassword.getPassword());
-
-            String mpass = "0000";
-            if((pass.equals(pass1)) && !"".equals(pass)){
-                String Userpassword = Encryption.SHA1(pass);
-                String Masterpassword = Encryption.SHA1(mpass);
-                String insertUser = "insert ignore into Login_tbl values ('"+txtUserName.getText()+"','"+txtName.getText()+"','"+Userpassword+"','"+Masterpassword+"')";
-                smtInstance = conInstance.createStatement();
-                int r = smtInstance.executeUpdate(insertUser);
-                if(r!=0){
-                    JOptionPane.showMessageDialog(null,"User Registered");
-                    reset();
-                }
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(regPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    
     
     
     
@@ -259,8 +235,22 @@ public class regPanel extends javax.swing.JPanel {
                             "Error", JOptionPane.ERROR_MESSAGE);
             txtUserName.requestFocus();
         }
+        else if(pwdUserPassword.getPassword().length<0){
+            JOptionPane.showMessageDialog(this, "Enter Password",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+            txtUserName.requestFocus();
+        }
         else{
-            registerUser();
+            pojo.setUserName(txtName.getText());
+            pojo.setUserId(txtUserName.getText());
+            pojo.setPassword(new String(pwdUserPassword.getPassword()));
+            pojo.setCnfPassword(new String(pwdConfirmUserPassword.getPassword()));
+            pojo.setMasterPassword("00001111");
+            controller.register_user(pojo);
+            lblWarning.setIcon(null);
+            lblUserPwdNotification.setIcon(null);
+            reset();
+            txtName.requestFocus();
         }
 
     }//GEN-LAST:event_submittButtonActionPerformed
@@ -270,37 +260,26 @@ public class regPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNameActionPerformed
 
     private void txtUserNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUserNameFocusGained
-
+        lblWarning.setIcon(null);
     }//GEN-LAST:event_txtUserNameFocusGained
 
     private void txtUserNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUserNameFocusLost
         if(!txtUserName.getText().isEmpty()){
-            try {
-                String check = "select * from Login_tbl where UserId ='"+txtUserName.getText()+"'";
-                smtInstance = conInstance.createStatement();
-                ResultSet rs = smtInstance.executeQuery(check);
-
-                if(!rs.next()){
-                    Warning = "available.";
-                    submittButton.setEnabled(true);
-                }
-                else{
-                    Warning = "unavailable.";
-                    submittButton.setEnabled(false);
-
-                }
-
-            } catch (SQLException ex) {
-                Logger.getLogger(regPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
+            
+            pojo.setUserId(txtUserName.getText());
+            if(new login_controller().is_user_present(pojo)){
+                bi = new ImageIcon(getClass().getResource("/BillingIcon/delete-filled.png"));
+                //submittButton.setEnabled(false);
+            }else{
+                 bi = new ImageIcon(getClass().getResource("/BillingIcon/double-tick.png"));
+                //submittButton.setEnabled(true);
+             }
         }
         else{
-            Warning = "Error";
             txtUserName.requestFocus();
 
         }
-        lblWarning.setText(Warning);
+        lblWarning.setIcon((Icon) bi);
     }//GEN-LAST:event_txtUserNameFocusLost
 
     private void txtNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyPressed
@@ -319,15 +298,36 @@ public class regPanel extends javax.swing.JPanel {
 
     private void pwdUserPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwdUserPasswordKeyPressed
         int key = evt.getKeyCode();
-        if (key == KeyEvent.VK_ENTER) {
+        if ((key == KeyEvent.VK_ENTER )&&(pwdUserPassword.getPassword().length>0)) {
             pwdConfirmUserPassword.requestFocus();
         }
     }//GEN-LAST:event_pwdUserPasswordKeyPressed
 
     private void pwdConfirmUserPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwdConfirmUserPasswordKeyPressed
         int key = evt.getKeyCode();
-        if (key == KeyEvent.VK_ENTER) {
-            submittButton.requestFocus();
+        if ((key == KeyEvent.VK_ENTER)&&(pwdConfirmUserPassword.getPassword().length>0)) {
+            String pass = new String (pwdUserPassword.getPassword());
+            String pass1 = new String (pwdConfirmUserPassword.getPassword());
+        if((pass.equals(pass1))){
+            bi = new ImageIcon(getClass().getResource("/BillingIcon/double-tick.png"));
+            if(!new login_controller().is_user_present(pojo)){
+                submittButton.setEnabled(true);
+                submittButton.requestFocus();
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "UserId not available","Error",JOptionPane.ERROR_MESSAGE);
+                txtUserName.requestFocus();
+            }
+            
+        }else{
+            bi = new ImageIcon(getClass().getResource("/BillingIcon/delete-filled.png"));
+            submittButton.setEnabled(false);
+            JOptionPane.showMessageDialog(this, "Password didnot match","Error",JOptionPane.ERROR_MESSAGE);
+            pwdConfirmUserPassword.requestFocus();
+        }
+         
+        lblUserPwdNotification.setIcon((Icon) bi);
+        
         }
     }//GEN-LAST:event_pwdConfirmUserPasswordKeyPressed
 
