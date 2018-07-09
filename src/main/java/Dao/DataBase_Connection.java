@@ -23,7 +23,7 @@ public class DataBase_Connection {
 
     protected String dbUserName ="root";
     protected String dbPassWord = "";
-    protected String dbUrl ="jdbc:mysql://localhost:3306/hicola_lab";
+    protected String dbUrl ="jdbc:mysql://localhost:3306/photon";
     protected String dbDriver ="com.mysql.jdbc.Driver";
     protected static String configFileName;
     protected Statement smtInstance;
@@ -82,39 +82,14 @@ public class DataBase_Connection {
 
     public Connection getConnection() {
         try {
-            //System.out.println("chala ni");
             Class.forName(getDbDriver());
-            //System.out.println("connection is initiated");
-
             connectionInstance = DriverManager.getConnection(getDbUrl(), getDbUserName(),getDbPassWord());
-            //System.out.println("Database is connected");
             return connectionInstance;
-            //  }
+            } catch (ClassNotFoundException ex) {
 
-        } catch (ClassNotFoundException ex) {
-
-            //System.out.println("Database is not connected");
-
+            
         } catch (SQLException ex) {
             Logger.getLogger(DataBase_Connection.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return connectionInstance;
-    }
-
-    public static Connection getManualConnection(String DB_Driver, String DB_url,
-            String DB_userName, String DB_Password) throws ClassNotFoundException, SQLException {
-        if (connectionInstance == null) {
-
-            Class.forName(DB_Driver);
-            connectionInstance = DriverManager.getConnection(DB_url, DB_userName, DB_Password);
-
-            //System.out.println("connection is initiated");
-
-            return connectionInstance;
-
-        } else {
-            //System.out.println("DATABASE is already connected");
-
         }
         return connectionInstance;
     }
@@ -127,16 +102,7 @@ public class DataBase_Connection {
 
     }
 
-    public static void closeConnectionManually(Connection ConnectionObject) throws SQLException {
-        if (ConnectionObject != null) {
-            ConnectionObject.close();
-            //System.out.println("DataBase Connection is closed");
-        }
-
-    }
-    
- 
-    public static void main(String argc[]) {
+ public static void main(String argc[]) {
         DataBase_Connection db = new DataBase_Connection();
         db.getConnection();
 

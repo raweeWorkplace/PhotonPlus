@@ -105,4 +105,5 @@
             <url>file:${project.basedir}/lib</url>
         </repository>
     </repositories>
+    <name>PhotonPlus(master)</name>
 </project>
