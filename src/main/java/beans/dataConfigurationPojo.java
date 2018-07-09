@@ -5,10 +5,21 @@
  */
 package beans;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import org.hibernate.validator.constraints.Email;
+
 /**
  *
  * @author idiotbox
  */
+@Entity
+@Table(name="company_detail_tbl",schema = "root")
 public class dataConfigurationPojo {
 
     public String getProductKey() {
@@ -20,11 +31,11 @@ public class dataConfigurationPojo {
     }
 
     public String getName() {
-        return name;
+        return company_name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.company_name = name;
     }
 
     public String getEmail() {
@@ -52,12 +63,46 @@ public class dataConfigurationPojo {
     }
 
     public String getPan() {
-        return pan;
+        return pan_no;
     }
 
     public void setPan(String pan) {
-        this.pan = pan;
+        this.pan_no = pan;
     }
-    private String productKey, name, email, contact, address,pan;
+
+    public dataConfigurationPojo(String name, String email, String contact, String address, String pan) {
+        
+        super();
+        this.company_name = name;
+        this.email = email;
+        this.contact = contact;
+        this.address = address;
+        this.pan_no = pan;
+    }
+    @Transient
+    private String productKey;
+    
+    @Column()
+    private String company_name;
+    
+    @Column
+    @Email
+    private String email;
+    
+    @Column
+    private String contact;
+    
+    @Column
+    private String address;
+    
+    @Column
+    private String pan_no;
+    
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private int id;
+
+    public dataConfigurationPojo() {
+    }
     
 }

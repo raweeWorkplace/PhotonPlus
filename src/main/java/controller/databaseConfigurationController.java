@@ -5,8 +5,6 @@
  */
 package controller;
 
-import java.awt.Toolkit;
-import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,8 +12,6 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
 import beans.dataConfigurationPojo;
 
 

@@ -52,7 +52,7 @@ public class homeFrame extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         try {
 
-            bi = ImageIO.read(getClass().getResource("/BillingIcon/ICON.png"));
+            bi = ImageIO.read(getClass().getClassLoader().getResource("BillingIcon/ICON.png"));
             this.setIconImage(bi);
             this.setTitle("PHOTON");
         } catch (IOException ex) {
@@ -298,7 +298,7 @@ public class homeFrame extends javax.swing.JFrame {
                 labelMasterMouseClicked(evt);
             }
         });
-        masterPanel.add(labelMaster, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 130, 50));
+        masterPanel.add(labelMaster, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 140, 50));
 
         reportPanel.setBackground(java.awt.Color.lightGray);
         reportPanel.addMouseListener(new java.awt.event.MouseAdapter() {

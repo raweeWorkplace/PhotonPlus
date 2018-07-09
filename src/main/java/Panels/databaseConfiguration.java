@@ -6,6 +6,7 @@
 package Panels;
 
 import Dao.databaseInitializer;
+import Dao.hibernateConfiguration;
 import controller.databaseConfigurationController;
 import controller.functionTools;
 import java.awt.event.KeyEvent;
@@ -16,6 +17,11 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import beans.dataConfigurationPojo;
+import java.util.Set;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 /**
  *
@@ -36,7 +42,7 @@ public class databaseConfiguration extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         try {
-            bi = ImageIO.read(getClass().getResource("/BillingIcon/invoice.png"));
+            bi = ImageIO.read(getClass().getClassLoader().getResource("BillingIcon/ICON.png"));
             this.setIconImage(bi);
              this.setTitle("PHOTON");
         } catch (IOException ex) {
@@ -128,6 +134,11 @@ public class databaseConfiguration extends javax.swing.JFrame {
         jLabel5.setText("Contact :");
 
         txtContact.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        txtContact.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtContactActionPerformed(evt);
+            }
+        });
         txtContact.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtContactKeyTyped(evt);
@@ -186,6 +197,11 @@ public class databaseConfiguration extends javax.swing.JFrame {
         jLabel9.setText("PAN :");
 
         txtPAN.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        txtPAN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPANActionPerformed(evt);
+            }
+        });
         txtPAN.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtPANKeyTyped(evt);
@@ -328,7 +344,19 @@ public class databaseConfiguration extends javax.swing.JFrame {
             if(controller.validate()){
                 txtProductKey.requestFocus();
                 init.createDataBase();
-                controller.entry_data();
+                
+                ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
+		Validator v = vf.getValidator();
+		Set<ConstraintViolation<dataConfigurationPojo>> seterror=v.validate(pojo);
+		if(!seterror.isEmpty()) {
+			for(ConstraintViolation<dataConfigurationPojo> error:seterror) {
+				//System.out.println(error.getPropertyPath()+":->"+error.getMessage());
+			}
+		}
+		else {
+		new hibernateConfiguration().save(pojo);
+		}
+                //controller.entry_data();
                 this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
                 new functionTools().close(confPanel);
                 new LoginFrame().setVisible(true);
@@ -423,6 +451,14 @@ int key = evt.getKeyCode();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         new functionTools().close(windowPanel);        
     }//GEN-LAST:event_lblCloseMouseClicked
+
+    private void txtPANActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPANActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPANActionPerformed
+
+    private void txtContactActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContactActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtContactActionPerformed
 
     /**
      * @param args the command line arguments

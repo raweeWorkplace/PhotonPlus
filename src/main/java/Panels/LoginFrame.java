@@ -6,26 +6,20 @@
 package Panels;
 
 import Dao.DataBase_Connection;
-import controller.Encryption;
 import controller.functionTools;
 import controller.login_controller;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.HeadlessException;
-import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import beans.log_in_pojo;
 
 /**
@@ -62,7 +56,7 @@ public class LoginFrame extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         try {
-            bi = ImageIO.read(getClass().getResource("/BillingIcon/invoice.png"));
+            bi = ImageIO.read(getClass().getClassLoader().getResource("BillingIcon/ICON.png"));
             this.setIconImage(bi);
              this.setTitle("PHOTON || HICOLA COLOUR LAB");
         } catch (IOException ex) {

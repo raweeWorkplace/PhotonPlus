@@ -17,8 +17,6 @@ import javax.imageio.ImageIO;
  * @author idiotbox
  */
 public class startUp extends javax.swing.JFrame {
-    
-    
     BufferedImage bi;
     
     /**
@@ -28,7 +26,9 @@ public class startUp extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         try {
-            bi = ImageIO.read(getClass().getResource("/BillingIcon/invoice.png"));
+            
+            bi = ImageIO.read(getClass().getClassLoader().getResource("BillingIcon/ICON.png"));
+            
             this.setIconImage(bi);
              this.setTitle("PHOTON");
         } catch (IOException ex) {

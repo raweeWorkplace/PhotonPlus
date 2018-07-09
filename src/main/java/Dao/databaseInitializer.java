@@ -36,7 +36,7 @@ public class databaseInitializer {
             String sql = "create database if not exists photon";
             smtInstance2 = connectionInstance.createStatement();
             int result = smtInstance2.executeUpdate(sql);
-            createTable();
+            //createTable();
             
         } catch (ClassNotFoundException | SQLException ex) {
         }
