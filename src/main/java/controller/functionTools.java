@@ -22,7 +22,6 @@ public class functionTools {
           if(!isEmpty(table)){
 
         int rowCount = tableModel.getRowCount();
-        //Remove rows one by one from the end of the table
         for (int i = rowCount - 1; i >= 0; i--) {
             tableModel.removeRow(i);
         }
@@ -40,5 +39,8 @@ public class functionTools {
         WindowEvent winClosingEvent = new WindowEvent(SwingUtilities.getWindowAncestor(panel), WindowEvent.WINDOW_CLOSING);
         Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
     }
+     
+     
+    
     
 }

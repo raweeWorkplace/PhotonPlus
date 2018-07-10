@@ -20,17 +20,18 @@ public class hibernateConfiguration {
     Session s;
     Transaction t;
     
-    public void doConnection() {
+    public Configuration  doConnection() {
 	cnf = new Configuration();
 	cnf.configure();
-	sf = cnf.buildSessionFactory();
-	s= sf.openSession();
-	t = s.beginTransaction();
-	
+	return cnf;
         }
     
     public void save(Object obj) {
-	doConnection();
+	cnf = doConnection();
+        sf = cnf.buildSessionFactory();
+        s = sf.openSession();
+        t =s.beginTransaction();
+
 	s.saveOrUpdate(obj);
 	t.commit();
 	s.close();

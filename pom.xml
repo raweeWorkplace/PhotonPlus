@@ -90,7 +90,7 @@
            <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.8.2</version>
+            <version>4.12</version>
            </dependency>
     </dependencies>
     <repositories>
@@ -105,5 +105,5 @@
             <url>file:${project.basedir}/lib</url>
         </repository>
     </repositories>
-    <name>PhotonPlus(master)</name>
+    <name>PhotonPlus(3)</name>
 </project>

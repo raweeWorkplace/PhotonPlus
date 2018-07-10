@@ -7,7 +7,10 @@ package Panels;
 
 import controller.functionTools;
 import Dao.DataBase_Connection;
-import java.awt.Color;
+import beans.client_table_pojo;
+import beans.journal_pojo;
+import beans.spcl_customer_pojo;
+import controller.client_registration_controller;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,6 +19,7 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -30,12 +34,14 @@ import javax.swing.table.TableModel;
 public class clientRegPanel extends javax.swing.JPanel {
         protected Connection conInstance;
         protected Statement smtInstance;
+        client_registration_controller controller;
         functionTools fnTools;
         ResultSet rs;
         DataBase_Connection dao;
         DefaultTableModel client_detail_table_model;
         LineBorder lbd;
         String sql1 ="",sql2="",sql3="";
+        String todayDate;
         
     /**
      * Creates new form clientRegPanel
@@ -46,60 +52,18 @@ public class clientRegPanel extends javax.swing.JPanel {
         dao = new DataBase_Connection();
         conInstance = dao.getConnection();
         fnTools = new functionTools();
-        lbd = new LineBorder(Color.RED);
+        controller = new client_registration_controller();
+        
         txtAddress.setText("JANAKPUR DHAM");
-        txtOldDue.setText("0");
+        txtOldDue.setText("0");        
     }
     
-    private void validate_and_save_form(){
-        if(txtCompanyName.getText().isEmpty()){
-         JOptionPane.showMessageDialog(null,"Enter Company Name");
-         txtCompanyName.requestFocus();
-        }
-       else if(txtClientName.getText().isEmpty()){
-         JOptionPane.showMessageDialog(null,"Enter Client Name");
-         txtClientName.requestFocus();
-        }
-        else if(txtContact.getText().isEmpty()){
-         JOptionPane.showMessageDialog(null,"Enter Contact");
-         txtContact.requestFocus();
-        }
-        else if(!txtOldDue.getText().equals(txtOldDue1.getText())){
-         JOptionPane.showMessageDialog(null,"Old due Doesnot match");
-         txtOldDue.requestFocus();
-        }
-        else {
-            
-            String obj = "";
-            obj = cmbCliebtType.getSelectedItem().toString();
-            if("Dealer".equals(obj)){
-                sql1 = "Select client_name from client_detail_table where company_name ='"+txtCompanyName.getText()+"'";
-                sql3 = "INSERT INTO client_detail_table(client_name, company_name, contact, old_due, address) VALUES ('" + txtClientName.getText() + "','" + txtCompanyName.getText() + "','" + txtContact.getText() + "','" + txtOldDue.getText() + "','" + txtAddress.getText() + "')";
-                sql2 = "UPDATE client_detail_table SET client_name='"+txtClientName.getText()+"',contact='"+txtContact.getText()+"',old_due='"+txtOldDue.getText()+"',address='"+txtAddress.getText()+"' Where company_name = '"+txtCompanyName.getText()+"'";
-            }else{
-                sql1 = "Select cust_name from special_customer_table where contact ='"+txtContact.getText()+"'";
-                sql3 = "INSERT INTO special_customer_table(cust_name, contact, old_due) VALUES ('" + txtCompanyName.getText() + "','" + txtContact.getText() + "','" + txtOldDue.getText() + "')";
-                sql2 = "UPDATE special_customer_table SET old_due='"+txtOldDue.getText()+"' Where contact = '"+txtContact.getText()+"'";
-            }
-            saveVendor(sql1,sql2,sql3);
-            resetVendorDetails();
-            fnTools.remove_table_data(client_detail_table_model, client_detail_table);
-            if("Dealer".equals(obj)){
-                
-                fill_client_detail_table();
-            }else{
-                fill_customer_detail_table();
-            }
-            txtCompanyName.requestFocus();
-        }
-    }
-        
     private  void resetVendorDetails(){
         txtCompanyName.setText("");
         txtClientName.setText("");
         txtContact.setText("");
         txtOldDue.setText("0");
-        txtOldDue1.setText("");
+        txtConfirmDue.setText("");
         txtAddress.setText("JANAKPUR DHAM");
         txtClientName.setEditable(true);
         txtCompanyName.setEditable(true);
@@ -108,123 +72,34 @@ public class clientRegPanel extends javax.swing.JPanel {
         txtOldDue.setEditable(true);
                 
     }
-
-    private void saveVendor(String searchVendor,String queryUpdate,String queryInsert) {
-
-     try {
-             //
-             smtInstance = conInstance.createStatement();
-             ResultSet searchVend = smtInstance.executeQuery(searchVendor);
-             int i=0;
-             while(searchVend.next()){
-                 i++;
-             }
-             if(i>0){
-                 
-                 Statement smtInstance1 = conInstance.createStatement();
-                     int result = smtInstance1.executeUpdate(queryUpdate);
-                     if (result != 0) {
-                     JOptionPane.showMessageDialog(null, " Detail Updated ");
-                 }
-              }else {
-
-                 Statement smtInstance2 = conInstance.createStatement();
-                 int result = smtInstance2.executeUpdate(queryInsert);
-                 if (result != 0) {
-                     DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-                    Calendar cal = Calendar.getInstance();
-                    String todayDate =dateformat.format(cal.getTime());
-                     String sql = "Insert into bill_table(date,cust_name,contact,total,due,status)values('"+todayDate+"','"+txtCompanyName.getText()+"', '"+txtContact.getText()+"','"+txtOldDue.getText()+"','"+txtOldDue.getText()+"','Old Entry')";
-                        smtInstance = conInstance.createStatement();
-                        smtInstance.executeUpdate(sql);
-                     JOptionPane.showMessageDialog(null, " Detail Submitted ");
-                 }
-             }
-     }catch (SQLException ex) {
-     }
- }     
-
-    private void fill_client_detail_table() {
-     client_detail_table_model = (DefaultTableModel) client_detail_table.getModel();
-     String name = txtCompanyName.getText();
-     try {
-         conInstance = dao.getConnection();
-         String sql1 = "SELECT * FROM client_detail_table where company_name Like'" + name + "%'";
-         Statement st = conInstance.createStatement();
-         ResultSet rs1 = st.executeQuery(sql1);
-
-         if (rs1 != null) { //if the result set exists
-             int i = 0;
-             while (rs1.next()) //step through the result set
-             {
-                 i++;//count raws
-             }
-
-             int j = 0;
-             fnTools.remove_table_data(client_detail_table_model,client_detail_table);
-             rs1.beforeFirst();
-
-             while (rs1.next()) {
-                 String id = rs1.getString("id");
-                 String A = rs1.getString("company_name");
-                 String B = rs1.getString("client_name");
-                 String D = rs1.getString("contact");
-                 String E = rs1.getString("old_due");
-                 String F = rs1.getString("address");
-
-                 client_detail_table_model.insertRow(j, new Object[]{id,A, B, D,E,F});
-                 
-//                    tableshow.getColumnModel().getColumn(0).setHeaderValue("Madicin Name");
-
-                 j++;
-
-             }
-         }//end if
-     } catch (SQLException ex) {
-         Logger.getLogger(clientRegPanel.class.getName()).log(Level.SEVERE, null, ex);
-     }
-
- }
     
-    private void fill_customer_detail_table() {
-     client_detail_table_model = (DefaultTableModel) client_detail_table.getModel();
-     String name = txtCompanyName.getText();
-     try {
-         conInstance = dao.getConnection();
-         String sql1 = "SELECT * FROM special_customer_table where cust_name Like'" + name + "%'";
-         Statement st = conInstance.createStatement();
-         ResultSet rs1 = st.executeQuery(sql1);
-
-         if (rs1 != null) { //if the result set exists
-             int i = 0;
-             while (rs1.next()) //step through the result set
-             {
-                 i++;//count raws
-             }
-
-             int j = 0;
-             fnTools.remove_table_data(client_detail_table_model,client_detail_table);
-             rs1.beforeFirst();
-
-             while (rs1.next()) {
-                 String id = rs1.getString("id");
-                 String A = rs1.getString("cust_name");
-                 String D = rs1.getString("contact");
-                 String E = rs1.getString("old_due");
-
-                 client_detail_table_model.insertRow(j, new Object[]{id,A,"NA", D,E,"NA"});
-                 
-//                    tableshow.getColumnModel().getColumn(0).setHeaderValue("Madicin Name");
-
-                 j++;
-
-             }
-         }//end if
-     } catch (SQLException ex) {
-         Logger.getLogger(clientRegPanel.class.getName()).log(Level.SEVERE, null, ex);
-     }
-
- }
+    public boolean validate_and_save_form(){
+        if(txtCompanyName.getText().isEmpty()){
+         JOptionPane.showMessageDialog(null,"Enter Company Name");
+         txtCompanyName.requestFocus();
+         return false;
+        }
+       else if(txtClientName.getText().isEmpty()){
+         JOptionPane.showMessageDialog(null,"Enter Client Name");
+         txtClientName.requestFocus();
+         return false;
+        }
+        else if(txtContact.getText().isEmpty()){
+         JOptionPane.showMessageDialog(null,"Enter Contact");
+         txtContact.requestFocus();
+         return false;
+        }
+        else if(!txtOldDue.getText().equals(txtConfirmDue.getText())){
+         JOptionPane.showMessageDialog(null,"Old due Doesnot match");
+         txtOldDue.requestFocus();
+         return false;
+        }
+        else{
+            return true;
+        }
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -242,7 +117,7 @@ public class clientRegPanel extends javax.swing.JPanel {
         btnSubmit = new javax.swing.JButton();
         txtOldDue = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtOldDue1 = new javax.swing.JTextField();
+        txtConfirmDue = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -257,7 +132,7 @@ public class clientRegPanel extends javax.swing.JPanel {
         setBorder(null);
 
         txtCompanyName.setBackground(java.awt.Color.lightGray);
-        txtCompanyName.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtCompanyName.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
         txtCompanyName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCompanyNameActionPerformed(evt);
@@ -273,7 +148,7 @@ public class clientRegPanel extends javax.swing.JPanel {
         });
 
         txtClientName.setBackground(java.awt.Color.lightGray);
-        txtClientName.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtClientName.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
         txtClientName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtClientNameActionPerformed(evt);
@@ -302,10 +177,10 @@ public class clientRegPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Century Schoolbook L", 1, 20)); // NOI18N
         jLabel8.setText("Address  :");
 
-        jLabel7.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Century Schoolbook L", 1, 20)); // NOI18N
         jLabel7.setText("Old due :");
 
         btnSubmit.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
@@ -317,7 +192,7 @@ public class clientRegPanel extends javax.swing.JPanel {
         });
 
         txtOldDue.setBackground(java.awt.Color.lightGray);
-        txtOldDue.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtOldDue.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
         txtOldDue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtOldDueActionPerformed(evt);
@@ -335,35 +210,35 @@ public class clientRegPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel5.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Century Schoolbook L", 1, 20)); // NOI18N
         jLabel5.setText("Contact :");
 
-        txtOldDue1.setBackground(java.awt.Color.lightGray);
-        txtOldDue1.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
-        txtOldDue1.addActionListener(new java.awt.event.ActionListener() {
+        txtConfirmDue.setBackground(java.awt.Color.lightGray);
+        txtConfirmDue.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
+        txtConfirmDue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtOldDue1ActionPerformed(evt);
+                txtConfirmDueActionPerformed(evt);
             }
         });
-        txtOldDue1.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtConfirmDue.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtOldDue1KeyTyped(evt);
+                txtConfirmDueKeyTyped(evt);
             }
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtOldDue1KeyPressed(evt);
+                txtConfirmDueKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtOldDue1KeyReleased(evt);
+                txtConfirmDueKeyReleased(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Century Schoolbook L", 1, 20)); // NOI18N
         jLabel1.setText("Company :");
 
-        jLabel9.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Century Schoolbook L", 1, 20)); // NOI18N
         jLabel9.setText("Confirm :");
 
-        jLabel3.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Century Schoolbook L", 1, 20)); // NOI18N
         jLabel3.setText("Client :");
 
         txtAddress.setBackground(java.awt.Color.lightGray);
@@ -378,7 +253,7 @@ public class clientRegPanel extends javax.swing.JPanel {
         jScrollPane2.setViewportView(txtAddress);
 
         txtContact.setBackground(java.awt.Color.lightGray);
-        txtContact.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtContact.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
         txtContact.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtContactActionPerformed(evt);
@@ -402,11 +277,11 @@ public class clientRegPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Index", "Company", "Client Name", "Contact No.", "Old Dues", "Address"
+                "Index", "Company", "Client Name", "Contact No.", "Address"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -422,17 +297,14 @@ public class clientRegPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(client_detail_table);
         if (client_detail_table.getColumnModel().getColumnCount() > 0) {
             client_detail_table.getColumnModel().getColumn(0).setResizable(false);
-            client_detail_table.getColumnModel().getColumn(0).setPreferredWidth(8);
+            client_detail_table.getColumnModel().getColumn(0).setPreferredWidth(5);
             client_detail_table.getColumnModel().getColumn(1).setResizable(false);
             client_detail_table.getColumnModel().getColumn(1).setPreferredWidth(150);
             client_detail_table.getColumnModel().getColumn(2).setResizable(false);
             client_detail_table.getColumnModel().getColumn(2).setPreferredWidth(150);
             client_detail_table.getColumnModel().getColumn(3).setResizable(false);
-            client_detail_table.getColumnModel().getColumn(3).setPreferredWidth(15);
             client_detail_table.getColumnModel().getColumn(4).setResizable(false);
-            client_detail_table.getColumnModel().getColumn(4).setPreferredWidth(15);
-            client_detail_table.getColumnModel().getColumn(5).setResizable(false);
-            client_detail_table.getColumnModel().getColumn(5).setPreferredWidth(150);
+            client_detail_table.getColumnModel().getColumn(4).setPreferredWidth(150);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -460,7 +332,7 @@ public class clientRegPanel extends javax.swing.JPanel {
                                     .addComponent(jLabel9))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtOldDue1, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtConfirmDue, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtOldDue, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txtContact, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)))
                             .addComponent(txtCompanyName, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -468,12 +340,12 @@ public class clientRegPanel extends javax.swing.JPanel {
                                 .addGap(466, 466, 466)
                                 .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(cmbCliebtType, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(123, Short.MAX_VALUE))
             .addComponent(jScrollPane1)
             .addComponent(jSeparator1)
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtContact, txtOldDue, txtOldDue1});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {txtConfirmDue, txtContact, txtOldDue});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -501,13 +373,13 @@ public class clientRegPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtOldDue1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtConfirmDue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnSubmit)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jLabel3, jLabel5, jLabel7, jLabel8, txtOldDue});
@@ -559,11 +431,10 @@ public class clientRegPanel extends javax.swing.JPanel {
     private void txtCompanyNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCompanyNameKeyReleased
             String obj = "";
             obj = cmbCliebtType.getSelectedItem().toString();
-            fnTools.remove_table_data(client_detail_table_model, client_detail_table);
             if("Dealer".equals(obj)){
-                fill_client_detail_table();
+                controller.fill_client_detail_table(client_detail_table,txtCompanyName.getText());
             }else{
-                fill_customer_detail_table();
+                controller.fill_customer_detail_table(client_detail_table,txtCompanyName.getText());
             }
         
     }//GEN-LAST:event_txtCompanyNameKeyReleased
@@ -578,14 +449,13 @@ public class clientRegPanel extends javax.swing.JPanel {
             txtContact.setEditable(true);
         }else if ((key == KeyEvent.VK_ENTER)&&(!txtContact.getText().isEmpty())&&(!cmbCliebtType.getSelectedItem().toString().equals("Customer"))) {
             txtAddress.requestFocus();
-        }else if ((key == KeyEvent.VK_ENTER)&&(!txtContact.getText().isEmpty())&&(cmbCliebtType.getSelectedItem().toString().equals("Customer"))) {
-            txtOldDue.requestFocus();
-        }
-        else if ((key == KeyEvent.VK_ENTER)&&(txtContact.getText().isEmpty())&&(!cmbCliebtType.getSelectedItem().toString().equals("Customer"))) {
+        } else if ((key == KeyEvent.VK_ENTER)&&(txtContact.getText().isEmpty())&&(!cmbCliebtType.getSelectedItem().toString().equals("Customer"))) {
+            if(!fnTools.isEmpty(client_detail_table)){
             TableModel model2 = client_detail_table.getModel();
             String con = model2.getValueAt(0, 3).toString();
             txtContact.setText(con);
             txtAddress.requestFocus();
+            }
         }else if(((key == KeyEvent.VK_ENTER)&&(txtContact.getText().isEmpty())&&(cmbCliebtType.getSelectedItem().toString().equals("Customer")))){
             if(!fnTools.isEmpty(client_detail_table)){
             TableModel model2 = client_detail_table.getModel();
@@ -616,12 +486,12 @@ public class clientRegPanel extends javax.swing.JPanel {
         if ((key >= KeyEvent.VK_0 && key <= KeyEvent.VK_9)||(key >= KeyEvent.VK_DECIMAL) || (key >= KeyEvent.VK_NUMPAD0 && key <= KeyEvent.VK_NUMPAD9) || (key == KeyEvent.VK_BACK_SPACE)) {
             txtOldDue.setEditable(true);
         }else if ((key == KeyEvent.VK_ENTER)&&(!txtOldDue.getText().isEmpty())) {
-            txtOldDue1.requestFocus();
+            txtConfirmDue.requestFocus();
         }else if ((key == KeyEvent.VK_ENTER)&&(txtOldDue.getText().isEmpty())) {
             TableModel model2 = client_detail_table.getModel();
             String Name = model2.getValueAt(0, 4).toString();
             txtOldDue.setText(Name);
-            txtOldDue1.requestFocus();
+            txtConfirmDue.requestFocus();
         }
         
         else {
@@ -658,7 +528,48 @@ public class clientRegPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtClientNameKeyReleased
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        validate_and_save_form();
+            String obj = "";
+            obj = cmbCliebtType.getSelectedItem().toString();
+            
+            if("Dealer".equals(obj)){
+                client_table_pojo pojo = new client_table_pojo();
+                        
+                pojo.setAddress(txtAddress.getText());
+                pojo.setClient_name(txtClientName.getText());
+                pojo.setCompany_name(txtCompanyName.getText());
+                pojo.setContact(txtContact.getText());
+                
+                journal_pojo j_pojo = new journal_pojo();
+                j_pojo.setFlag(1);
+                j_pojo.setCredit(Double.parseDouble(txtOldDue.getText()));
+                Date date = new Date();
+                j_pojo.setDate(date);
+                if(validate_and_save_form()){
+                    resetVendorDetails();
+                    controller.register_client(pojo,j_pojo);
+                }
+            }else{
+                spcl_customer_pojo pojo = new spcl_customer_pojo();
+                pojo.setCust_name(txtCompanyName.getText());
+                pojo.setContact(txtContact.getText());
+                pojo.setAddress(txtAddress.getText());
+                
+                journal_pojo j_pojo = new journal_pojo();
+                j_pojo.setFlag(0);
+                j_pojo.setCredit(Double.parseDouble(txtOldDue.getText()));
+                Date date = new Date();
+                j_pojo.setDate(date);
+                
+                if(validate_and_save_form()){
+                    resetVendorDetails();
+                    controller.register_customer(pojo, j_pojo);
+                }
+            }
+            txtCompanyName.requestFocus();
+        
+        
+        
+        
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void client_detail_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_client_detail_tableMouseClicked
@@ -698,30 +609,30 @@ public class clientRegPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_cmbCliebtTypeKeyPressed
 
-    private void txtOldDue1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOldDue1ActionPerformed
+    private void txtConfirmDueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConfirmDueActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtOldDue1ActionPerformed
+    }//GEN-LAST:event_txtConfirmDueActionPerformed
 
-    private void txtOldDue1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtOldDue1KeyTyped
+    private void txtConfirmDueKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmDueKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtOldDue1KeyTyped
+    }//GEN-LAST:event_txtConfirmDueKeyTyped
 
-    private void txtOldDue1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtOldDue1KeyPressed
+    private void txtConfirmDueKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmDueKeyPressed
         int key = evt.getKeyCode();
         if ((key >= KeyEvent.VK_0 && key <= KeyEvent.VK_9)||(key >= KeyEvent.VK_DECIMAL)  || (key >= KeyEvent.VK_NUMPAD0 && key <= KeyEvent.VK_NUMPAD9) || (key == KeyEvent.VK_BACK_SPACE)) {
-            txtOldDue1.setEditable(true);
-        }else if ((key == KeyEvent.VK_ENTER)&&(!txtOldDue1.getText().isEmpty())) {
+            txtConfirmDue.setEditable(true);
+        }else if ((key == KeyEvent.VK_ENTER)&&(!txtConfirmDue.getText().isEmpty())) {
             btnSubmit.requestFocus();
         }else {
             evt.consume();
             JOptionPane.showMessageDialog(null, "INVALID INSERT");
-            txtOldDue1.setText("");
+            txtConfirmDue.setText("");
         }
-    }//GEN-LAST:event_txtOldDue1KeyPressed
+    }//GEN-LAST:event_txtConfirmDueKeyPressed
 
-    private void txtOldDue1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtOldDue1KeyReleased
+    private void txtConfirmDueKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmDueKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtOldDue1KeyReleased
+    }//GEN-LAST:event_txtConfirmDueKeyReleased
 
     private void cmbCliebtTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCliebtTypeActionPerformed
         // TODO add your handling code here:
@@ -744,8 +655,8 @@ public class clientRegPanel extends javax.swing.JPanel {
     private javax.swing.JTextArea txtAddress;
     private javax.swing.JTextField txtClientName;
     public javax.swing.JTextField txtCompanyName;
+    private javax.swing.JTextField txtConfirmDue;
     private javax.swing.JTextField txtContact;
     private javax.swing.JTextField txtOldDue;
-    private javax.swing.JTextField txtOldDue1;
     // End of variables declaration//GEN-END:variables
 }
