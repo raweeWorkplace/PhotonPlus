@@ -347,11 +347,12 @@ public class databaseConfiguration extends javax.swing.JFrame {
                 
                 ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
 		Validator v = vf.getValidator();
+
 		Set<ConstraintViolation<data_configuration_pojo>> seterror=v.validate(pojo);
 		if(!seterror.isEmpty()) {
 			for(ConstraintViolation<data_configuration_pojo> error:seterror) {
-				//System.out.println(error.getPropertyPath()+":->"+error.getMessage());
-			}
+                            }
+
 		}
 		else {
 		new hibernateConfiguration().save(pojo);

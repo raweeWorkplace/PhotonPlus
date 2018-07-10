@@ -10,7 +10,15 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
+<<<<<<< HEAD
                 <exec.args>-classpath %classpath Panels.homeFrame</exec.args>
+=======
+<<<<<<< HEAD
+                <exec.args>-classpath %classpath Panels.startUp</exec.args>
+=======
+                <exec.args>-classpath %classpath Panels.homeFrame</exec.args>
+>>>>>>> master
+>>>>>>> 88230811a9c123f5caa1d898a9042ab73c5d3fbd
                 <exec.executable>java</exec.executable>
             </properties>
         </action>
@@ -24,7 +32,15 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
+<<<<<<< HEAD
                 <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath Panels.homeFrame</exec.args>
+=======
+<<<<<<< HEAD
+                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath Panels.startUp</exec.args>
+=======
+                <exec.args>-Xdebug -Xrunjdwp:transport=dt_socket,server=n,address=${jpda.address} -classpath %classpath Panels.homeFrame</exec.args>
+>>>>>>> master
+>>>>>>> 88230811a9c123f5caa1d898a9042ab73c5d3fbd
                 <exec.executable>java</exec.executable>
                 <jpda.listen>true</jpda.listen>
             </properties>
@@ -39,7 +55,15 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
+<<<<<<< HEAD
                 <exec.args>-classpath %classpath Panels.homeFrame</exec.args>
+=======
+<<<<<<< HEAD
+                <exec.args>-classpath %classpath Panels.startUp</exec.args>
+=======
+                <exec.args>-classpath %classpath Panels.homeFrame</exec.args>
+>>>>>>> master
+>>>>>>> 88230811a9c123f5caa1d898a9042ab73c5d3fbd
                 <exec.executable>java</exec.executable>
             </properties>
         </action>

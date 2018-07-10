@@ -50,6 +50,8 @@ Contributor(s):
     <property name="show_sql">true</property>
     
     <mapping class="beans.log_in_pojo"/>
+    <mapping class="beans.dataConfigurationPojo" file="" jar="" package="" resource=""/>
+    <mapping class="beans.log_in_pojo"/>
     <mapping class="beans.data_configuration_pojo"/>
     <mapping class="beans.billing_pojo"/>
     <mapping class="beans.client_table_pojo"/>
