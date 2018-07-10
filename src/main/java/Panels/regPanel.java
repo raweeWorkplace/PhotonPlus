@@ -8,7 +8,7 @@ package Panels;
 //import PanelForms.Test.RegistrationFrame;
 import Dao.DataBase_Connection;
 import Dao.hibernateConfiguration;
-import beans.dataConfigurationPojo;
+import beans.data_configuration_pojo;
 import controller.login_controller;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;

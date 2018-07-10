@@ -5,8 +5,10 @@
  */
 package Panels;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import javax.swing.JPanel;
 
 /**
  *
@@ -86,16 +88,24 @@ public class masterPanel extends javax.swing.JPanel {
         displayPanel.setLayout(displayPanelLayout);
         displayPanelLayout.setHorizontalGroup(
             displayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 912, Short.MAX_VALUE)
+            .addGap(0, 909, Short.MAX_VALUE)
         );
         displayPanelLayout.setVerticalGroup(
             displayPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        imagePanel.setBackground(java.awt.Color.lightGray);
+        imagePanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         imagePanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 imagePanelMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                imagePanelMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                imagePanelMouseEntered(evt);
             }
         });
         imagePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -111,9 +121,17 @@ public class masterPanel extends javax.swing.JPanel {
         jLabel6.setText("Management");
         imagePanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 150, -1));
 
+        clientPanel.setBackground(java.awt.Color.lightGray);
+        clientPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         clientPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 clientPanelMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                clientPanelMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                clientPanelMouseEntered(evt);
             }
         });
         clientPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -129,9 +147,17 @@ public class masterPanel extends javax.swing.JPanel {
         jLabel9.setText("Management");
         clientPanel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 150, -1));
 
+        ratePanel.setBackground(java.awt.Color.lightGray);
+        ratePanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ratePanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ratePanelMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                ratePanelMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                ratePanelMouseEntered(evt);
             }
         });
         ratePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -159,10 +185,10 @@ public class masterPanel extends javax.swing.JPanel {
                             .addComponent(imagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(ratePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(clientPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                        .addGap(9, 9, 9)))
                 .addComponent(displayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
@@ -197,6 +223,42 @@ public class masterPanel extends javax.swing.JPanel {
         clientRate.setVisible(true);
         clientRate.txtCompanyName.requestFocus();
     }//GEN-LAST:event_ratePanelMouseClicked
+
+    private void clientPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clientPanelMouseEntered
+       JPanel parent = (JPanel)evt.getSource();
+        parent.setBackground(Color.decode("#f0be8b"));
+        parent.revalidate();
+    }//GEN-LAST:event_clientPanelMouseEntered
+
+    private void clientPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clientPanelMouseExited
+        JPanel parent = (JPanel)evt.getSource();
+        parent.setBackground(Color.LIGHT_GRAY);
+        parent.revalidate();
+    }//GEN-LAST:event_clientPanelMouseExited
+
+    private void imagePanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagePanelMouseEntered
+        JPanel parent = (JPanel)evt.getSource();
+        parent.setBackground(Color.decode("#f0be8b"));
+        parent.revalidate();
+    }//GEN-LAST:event_imagePanelMouseEntered
+
+    private void ratePanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ratePanelMouseEntered
+       JPanel parent = (JPanel)evt.getSource();
+        parent.setBackground(Color.decode("#f0be8b"));
+        parent.revalidate();
+    }//GEN-LAST:event_ratePanelMouseEntered
+
+    private void imagePanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagePanelMouseExited
+        JPanel parent = (JPanel)evt.getSource();
+        parent.setBackground(Color.LIGHT_GRAY);
+        parent.revalidate();
+    }//GEN-LAST:event_imagePanelMouseExited
+
+    private void ratePanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ratePanelMouseExited
+        JPanel parent = (JPanel)evt.getSource();
+        parent.setBackground(Color.LIGHT_GRAY);
+        parent.revalidate();
+    }//GEN-LAST:event_ratePanelMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

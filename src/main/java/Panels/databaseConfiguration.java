@@ -16,7 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
-import beans.dataConfigurationPojo;
+
+import beans.data_configuration_pojo;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -28,7 +29,7 @@ import javax.validation.ValidatorFactory;
  * @author idiotbox
  */
 public class databaseConfiguration extends javax.swing.JFrame {
-    dataConfigurationPojo pojo = new dataConfigurationPojo();
+    data_configuration_pojo pojo = new data_configuration_pojo();
     BufferedImage bi;
     databaseConfigurationController controller = new databaseConfigurationController();
     databaseInitializer init = new databaseInitializer();
@@ -347,11 +348,10 @@ public class databaseConfiguration extends javax.swing.JFrame {
                 
                 ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
 		Validator v = vf.getValidator();
-		Set<ConstraintViolation<dataConfigurationPojo>> seterror=v.validate(pojo);
+                Set<ConstraintViolation<data_configuration_pojo>> seterror=v.validate(pojo);
 		if(!seterror.isEmpty()) {
-			for(ConstraintViolation<dataConfigurationPojo> error:seterror) {
-				//System.out.println(error.getPropertyPath()+":->"+error.getMessage());
-			}
+			for(ConstraintViolation<data_configuration_pojo> error:seterror) {
+                            }
 		}
 		else {
 		new hibernateConfiguration().save(pojo);

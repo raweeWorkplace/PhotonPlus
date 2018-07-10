@@ -5,6 +5,7 @@
  */
 package Panels;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.image.BufferedImage;
@@ -16,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 /**
  *
@@ -125,19 +127,26 @@ public class homeFrame extends javax.swing.JFrame {
         basePanel = new javax.swing.JPanel();
         sideBarPanel = new javax.swing.JPanel();
         homePanel = new javax.swing.JPanel();
-        labelHome = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        lblHome = new javax.swing.JLabel();
         billingPanel = new javax.swing.JPanel();
-        labelBilling = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         expencePanel = new javax.swing.JPanel();
-        labelExpences = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
         masterPanel = new javax.swing.JPanel();
-        labelMaster = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         reportPanel = new javax.swing.JPanel();
-        labelReport = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         exitPanel = new javax.swing.JPanel();
-        labelExit = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         aboutPanel = new javax.swing.JPanel();
-        labelAbout = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
         scrollPanel = new javax.swing.JScrollPane();
         displayPanel = new javax.swing.JPanel();
 
@@ -200,176 +209,186 @@ public class homeFrame extends javax.swing.JFrame {
         sideBarPanel.setBackground(java.awt.Color.gray);
 
         homePanel.setBackground(java.awt.Color.lightGray);
+        homePanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         homePanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 homePanelMouseClicked(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                onExit(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                onEnter(evt);
+            }
         });
         homePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        labelHome.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
-        labelHome.setForeground(java.awt.Color.white);
-        labelHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BillingIcon/house.png"))); // NOI18N
-        labelHome.setText("HOME");
-        labelHome.setToolTipText("");
-        labelHome.setBorder(null);
-        labelHome.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        labelHome.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
-        labelHome.setIconTextGap(8);
-        labelHome.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                labelHomeMouseClicked(evt);
-            }
-        });
-        homePanel.add(labelHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 110, 50));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BillingIcon/house.png"))); // NOI18N
+        homePanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        lblHome.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        lblHome.setForeground(java.awt.Color.white);
+        lblHome.setText("HOME");
+        homePanel.add(lblHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
 
         billingPanel.setBackground(java.awt.Color.lightGray);
+        billingPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         billingPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 billingPanelMouseClicked(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                onExit(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                onEnter(evt);
+            }
         });
         billingPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        labelBilling.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
-        labelBilling.setForeground(java.awt.Color.white);
-        labelBilling.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BillingIcon/billing-icon.png"))); // NOI18N
-        labelBilling.setText("BILLING");
-        labelBilling.setAlignmentX(5.0F);
-        labelBilling.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        labelBilling.setIconTextGap(8);
-        labelBilling.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                labelBillingMouseClicked(evt);
-            }
-        });
-        billingPanel.add(labelBilling, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 0, 140, 50));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BillingIcon/billing-icon.png"))); // NOI18N
+        billingPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        jLabel10.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel10.setForeground(java.awt.Color.white);
+        jLabel10.setText("BILLING");
+        billingPanel.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
 
         expencePanel.setBackground(java.awt.Color.lightGray);
+        expencePanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         expencePanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 expencePanelMouseClicked(evt);
             }
-        });
-
-        labelExpences.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
-        labelExpences.setForeground(java.awt.Color.white);
-        labelExpences.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BillingIcon/expences-icon.png"))); // NOI18N
-        labelExpences.setText("EXPENCE");
-        labelExpences.setAlignmentX(5.0F);
-        labelExpences.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        labelExpences.setIconTextGap(8);
-        labelExpences.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                labelExpencesMouseClicked(evt);
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                onExit(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                onEnter(evt);
             }
         });
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BillingIcon/expences-icon.png"))); // NOI18N
+
+        jLabel12.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel12.setForeground(java.awt.Color.white);
+        jLabel12.setText("EXPENCE");
 
         javax.swing.GroupLayout expencePanelLayout = new javax.swing.GroupLayout(expencePanel);
         expencePanel.setLayout(expencePanelLayout);
         expencePanelLayout.setHorizontalGroup(
             expencePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(expencePanelLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(labelExpences, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, expencePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel12)
+                .addGap(37, 37, 37))
         );
         expencePanelLayout.setVerticalGroup(
             expencePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelExpences, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, expencePanelLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(expencePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel3))
+                .addContainerGap())
         );
 
         masterPanel.setBackground(java.awt.Color.lightGray);
+        masterPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         masterPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 masterPanelMouseClicked(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                onExit(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                onEnter(evt);
+            }
         });
         masterPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        labelMaster.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
-        labelMaster.setForeground(java.awt.Color.white);
-        labelMaster.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BillingIcon/master-icon.png"))); // NOI18N
-        labelMaster.setText("MASTER");
-        labelMaster.setAlignmentX(5.0F);
-        labelMaster.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        labelMaster.setIconTextGap(8);
-        labelMaster.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                labelMasterMouseClicked(evt);
-            }
-        });
-        masterPanel.add(labelMaster, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 140, 50));
+
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BillingIcon/master-icon.png"))); // NOI18N
+        masterPanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        jLabel13.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel13.setForeground(java.awt.Color.white);
+        jLabel13.setText("MASTER");
+        masterPanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
+
 
         reportPanel.setBackground(java.awt.Color.lightGray);
+        reportPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         reportPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 reportPanelMouseClicked(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                onExit(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                onEnter(evt);
+            }
         });
         reportPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        labelReport.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
-        labelReport.setForeground(java.awt.Color.white);
-        labelReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BillingIcon/clipboard.png"))); // NOI18N
-        labelReport.setText("REPORT");
-        labelReport.setAlignmentX(5.0F);
-        labelReport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        labelReport.setIconTextGap(8);
-        labelReport.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                labelReportMouseClicked(evt);
-            }
-        });
-        reportPanel.add(labelReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 140, 50));
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BillingIcon/clipboard.png"))); // NOI18N
+        reportPanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        jLabel14.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel14.setForeground(java.awt.Color.white);
+        jLabel14.setText("REPORT");
+        reportPanel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
 
         exitPanel.setBackground(java.awt.Color.lightGray);
+        exitPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         exitPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 exitPanelMouseClicked(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                onExit(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                onEnter(evt);
+            }
         });
         exitPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        labelExit.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
-        labelExit.setForeground(java.awt.Color.white);
-        labelExit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BillingIcon/logout.png"))); // NOI18N
-        labelExit.setText("EXIT");
-        labelExit.setAlignmentX(5.0F);
-        labelExit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        labelExit.setIconTextGap(8);
-        labelExit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                labelExitMouseClicked(evt);
-            }
-        });
-        exitPanel.add(labelExit, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 110, 50));
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BillingIcon/logout.png"))); // NOI18N
+        exitPanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        jLabel15.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel15.setForeground(java.awt.Color.white);
+        jLabel15.setText("EXIT");
+        exitPanel.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, -1, -1));
 
         aboutPanel.setBackground(java.awt.Color.lightGray);
+        aboutPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         aboutPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 aboutPanelMouseClicked(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                onExit(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                onEnter(evt);
+            }
         });
         aboutPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        labelAbout.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
-        labelAbout.setForeground(java.awt.Color.white);
-        labelAbout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BillingIcon/about-us-icon.png"))); // NOI18N
-        labelAbout.setText("ABOUT");
-        labelAbout.setAlignmentX(5.0F);
-        labelAbout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        labelAbout.setIconTextGap(8);
-        labelAbout.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                labelAboutMouseClicked(evt);
-            }
-        });
-        labelAbout.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                labelAboutKeyPressed(evt);
-            }
-        });
-        aboutPanel.add(labelAbout, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 140, 50));
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BillingIcon/about-us-icon.png"))); // NOI18N
+        aboutPanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        jLabel16.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel16.setForeground(java.awt.Color.white);
+        jLabel16.setText("ABOUT");
+        aboutPanel.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
 
         displayPanel.setBackground(java.awt.Color.lightGray);
         displayPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
@@ -381,26 +400,24 @@ public class homeFrame extends javax.swing.JFrame {
         sideBarPanelLayout.setHorizontalGroup(
             sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sideBarPanelLayout.createSequentialGroup()
-                .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(expencePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(homePanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(billingPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(masterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(exitPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(reportPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(aboutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(homePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(billingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(exitPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(reportPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(aboutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(expencePanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(masterPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1132, Short.MAX_VALUE))
+                .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1144, Short.MAX_VALUE))
         );
         sideBarPanelLayout.setVerticalGroup(
             sideBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPanel)
+            .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
             .addGroup(sideBarPanelLayout.createSequentialGroup()
-                .addComponent(homePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addContainerGap()
+                .addComponent(homePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(billingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(expencePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -412,8 +429,10 @@ public class homeFrame extends javax.swing.JFrame {
                 .addComponent(exitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(aboutPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        sideBarPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {aboutPanel, billingPanel, exitPanel, expencePanel, homePanel, masterPanel, reportPanel});
 
         javax.swing.GroupLayout basePanelLayout = new javax.swing.GroupLayout(basePanel);
         basePanel.setLayout(basePanelLayout);
@@ -430,51 +449,6 @@ public class homeFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void labelHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelHomeMouseClicked
-        state();
-        home.setVisible(true);
-        home.txtBilNo.requestFocus();
-    }//GEN-LAST:event_labelHomeMouseClicked
-
-    private void labelBillingMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelBillingMouseClicked
-         state();
-        sales.setVisible(true);
-        sales.txtCustName.requestFocus(); 
-    }//GEN-LAST:event_labelBillingMouseClicked
-
-    private void labelExpencesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelExpencesMouseClicked
-         state();
-        expences.setVisible(true);
-        expences.txtItemName.requestFocus(); 
-    }//GEN-LAST:event_labelExpencesMouseClicked
-
-    private void labelExitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelExitMouseClicked
-        
-        int select = JOptionPane.showConfirmDialog(null, "Do you want to close the application ?", "Warning",JOptionPane.YES_NO_OPTION);
-        if(select==JOptionPane.YES_OPTION){
-            System.exit(0);
-        }
-    }//GEN-LAST:event_labelExitMouseClicked
-
-    private void labelAboutKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_labelAboutKeyPressed
-        
-    }//GEN-LAST:event_labelAboutKeyPressed
-
-    private void labelAboutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelAboutMouseClicked
-        state();
-        about.setVisible(true); 
-    }//GEN-LAST:event_labelAboutMouseClicked
-
-    private void labelMasterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMasterMouseClicked
-        state();
-       master.setVisible(true); 
-    }//GEN-LAST:event_labelMasterMouseClicked
-
-    private void labelReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelReportMouseClicked
-        state();
-       report.setVisible(true); 
-    }//GEN-LAST:event_labelReportMouseClicked
 
     private void homePanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homePanelMouseClicked
         state();
@@ -516,6 +490,18 @@ public class homeFrame extends javax.swing.JFrame {
             System.exit(0);
         }        // TODO add your handling code here:
     }//GEN-LAST:event_exitPanelMouseClicked
+
+    private void onExit(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onExit
+        JPanel parent = (JPanel)evt.getSource();
+        parent.setBackground(Color.LIGHT_GRAY);
+        parent.revalidate();
+    }//GEN-LAST:event_onExit
+
+    private void onEnter(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onEnter
+        JPanel parent = (JPanel)evt.getSource();
+        parent.setBackground(Color.decode("#f0be8b"));
+        parent.revalidate();
+    }//GEN-LAST:event_onEnter
 
     /**
      * @param args the command line arguments
@@ -563,20 +549,27 @@ public class homeFrame extends javax.swing.JFrame {
     private javax.swing.JPanel exitPanel;
     private javax.swing.JPanel expencePanel;
     private javax.swing.JPanel homePanel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel labelAbout;
-    private javax.swing.JLabel labelBilling;
-    private javax.swing.JLabel labelExit;
-    private javax.swing.JLabel labelExpences;
-    private javax.swing.JLabel labelHome;
-    public javax.swing.JLabel labelMaster;
-    public javax.swing.JLabel labelReport;
+    private javax.swing.JLabel lblHome;
     private javax.swing.JLabel lblTodayDate;
     private javax.swing.JLabel lblUser;
-    private javax.swing.JPanel masterPanel;
-    private javax.swing.JPanel reportPanel;
+    public javax.swing.JPanel masterPanel;
+    public javax.swing.JPanel reportPanel;
     private javax.swing.JScrollPane scrollPanel;
     private javax.swing.JPanel sideBarPanel;
     // End of variables declaration//GEN-END:variables

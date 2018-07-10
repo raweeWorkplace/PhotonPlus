@@ -5,6 +5,8 @@
  */
 package beans;
 
+
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,7 +20,8 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table( name = "Login_tbl",schema = "root")
-public class log_in_pojo {
+public class log_in_pojo implements Serializable {
+
     
     @Column
     @NotNull
