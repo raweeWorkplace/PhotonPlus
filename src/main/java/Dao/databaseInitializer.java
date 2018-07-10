@@ -36,7 +36,7 @@ public class databaseInitializer {
             String sql = "create database if not exists photon";
             smtInstance2 = connectionInstance.createStatement();
             int result = smtInstance2.executeUpdate(sql);
-            createTable();
+            //createTable();
             
         } catch (ClassNotFoundException | SQLException ex) {
         }
@@ -51,6 +51,7 @@ public class databaseInitializer {
             String sql1 = "CREATE TABLE IF NOT EXISTS bill_table (bill_no int(11) NOT NULL AUTO_INCREMENT,  date date NOT NULL,  cust_name varchar(50) DEFAULT 'Customer',  total double NOT NULL,  contact varchar(10) DEFAULT NULL,  disc double DEFAULT '0',  paid double DEFAULT '0',  due double DEFAULT '0',  status varchar(15) DEFAULT 'Pending',  old_due double DEFAULT '0', PRIMARY KEY (bill_no)) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
             String sql2 = "CREATE TABLE IF NOT EXISTS client_detail_table (id int(11) NOT NULL AUTO_INCREMENT,  company_name varchar(50) NOT NULL,  client_name varchar(50) NOT NULL,  contact varchar(10) NOT NULL,  old_due varchar(15) DEFAULT '0.00',  address varchar(100) DEFAULT NULL, PRIMARY KEY (id), UNIQUE KEY company_name (company_name),  UNIQUE KEY contact (contact)) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
             String sql3 = "CREATE TABLE IF NOT EXISTS client_rate_table (id int(11) NOT NULL AUTO_INCREMENT,  company_name varchar(50) NOT NULL,  size varchar(15) NOT NULL, rate double NOT NULL, PRIMARY KEY (id), UNIQUE KEY client_rate (company_name,size)) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
+            
             String sql4 = "CREATE TABLE IF NOT EXISTS instock_details (item_code int(11) NOT NULL AUTO_INCREMENT,  item_name varchar(50) NOT NULL,  instock int(11) DEFAULT '0',  sold int(11) DEFAULT '0', PRIMARY KEY (item_code)) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
             String sql5 = "CREATE TABLE IF NOT EXISTS instock_entry_table (id int(11) NOT NULL AUTO_INCREMENT,  date date NOT NULL,  item_name varchar(50) NOT NULL,  total double NOT NULL,  item_code int(11) NOT NULL,  unit int(11) NOT NULL, PRIMARY KEY (id)) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1";
             String sql6 = "CREATE TABLE IF NOT EXISTS Login_tbl (  UserId varchar(15) NOT NULL DEFAULT '',  UserName varchar(50) NOT NULL,  Password varchar(50) NOT NULL, masterPassword varchar(50) NOT NULL, PRIMARY KEY (UserId)) ENGINE=InnoDB DEFAULT CHARSET=latin1";

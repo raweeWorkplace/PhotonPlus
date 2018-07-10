@@ -64,7 +64,7 @@ public class login_controller {
             if((pojo.getPassword().equals(pojo.getCnfPassword())) && !"".equals(pojo.getPassword())){
                 String Userpassword = Encryption.SHA1(pojo.getPassword());
                 String Masterpassword = Encryption.SHA1(pojo.getMasterPassword());
-                String insertUser = "insert ignore into Login_tbl (UserId,UserName,Password,masterPassword) values ('"+pojo.getUserId()+"','"+pojo.getUserName()+"','"+Userpassword+"','"+Masterpassword+"')";
+                String insertUser = "insert ignore into Login_tbl values ('"+pojo.getUserId()+"','"+pojo.getUserName()+"','"+Userpassword+"','"+Masterpassword+"')";
                 conInstance = dao.getConnection();
                 smtInstance = conInstance.createStatement();
                 int r = smtInstance.executeUpdate(insertUser);
@@ -111,8 +111,8 @@ public class login_controller {
                    hf.setGlobalVariableCashier(UserName);
                     
                     if("Admin".equals(UserName)){
-                        hf.labelMaster.setEnabled(true);
-                        hf.labelReport.setEnabled(true);
+                        hf.masterPanel.setEnabled(true);
+                        hf.reportPanel.setEnabled(true);
                     }
                     hf.setVisible(true);
                 return true;
