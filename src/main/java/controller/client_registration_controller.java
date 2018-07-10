@@ -28,13 +28,11 @@ public class client_registration_controller {
     SessionFactory sf;
     Session s;
     Transaction t;
-    hibernateConfiguration con;
     List<spcl_customer_pojo>  spcl_list;
     List<client_table_pojo>  cl_list;
     functionTools fnTools;
 
     public client_registration_controller() {
-        con = new hibernateConfiguration();
         fnTools = new functionTools();
         cnf = new Configuration();
         cnf.configure();

@@ -7,13 +7,13 @@ package Panels;
 
 import controller.functionTools;
 import Dao.DataBase_Connection;
+import beans.size_entry_pojo;
+import controller.size_entry_controller;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -23,23 +23,19 @@ import javax.swing.table.DefaultTableModel;
  * @author ranjan
  */
 public class photoSizeDetailPanel extends javax.swing.JPanel {
-    
-    protected Connection conInstance;
-    protected Statement smtInstance;
+
     functionTools fntools;
-    ResultSet rs;
-    DataBase_Connection dao;
     DefaultTableModel size_table_model, size_detail_table_model;
+    size_entry_controller controller;
 
     /**
      * Creates new form purchaseVouchrePanel
      */
     public photoSizeDetailPanel() {
         initComponents();
-        dao = new DataBase_Connection();
-        conInstance = dao.getConnection();
         fntools = new functionTools();
-        fill_photo_size_table();
+        controller = new size_entry_controller();
+        controller.fill_photo_size_table(sizeDetailTable);
         
         
     }
@@ -53,117 +49,25 @@ public class photoSizeDetailPanel extends javax.swing.JPanel {
         
     }
     
-    private void fill_photo_size_table(){
-        size_detail_table_model  =(DefaultTableModel)sizeDetailTable.getModel();
-        try {
-            
-            String  sql1= "SELECT * FROM photo_size_detail_table";
-            smtInstance= conInstance.createStatement();
-            ResultSet rs1 = smtInstance.executeQuery(sql1);
-                fntools.remove_table_data(size_detail_table_model,sizeDetailTable);
-                int i = 0;
-                while ( rs1.next() ){
-                    i++;//count raws
-                }
-                if (i>0){
-                    int j= 0;
-                    rs1.beforeFirst();
-                    while (rs1.next()) {
-                        //`voucherNo`, `date`, `company_name`, `total`, `paid`, `due`, `reference_bill_no`
-                        String id = rs1.getString("id");
-                        String size = rs1.getString("size");
-                        String rate = rs1.getString("rate");
-                        String dispaly = rs1.getString("display");
-                        
-                        size_detail_table_model.insertRow(j,new Object[]{id,size,rate,dispaly});
-                        j++;
-                    }
-                }
-                
-            
-             
-        } catch (SQLException ex) {
-           // Logger.getLogger(Pharmacy_In_Frame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-    }
-    
-    private void fill_size_entry_table(String input, String output, JTable table){
-       size_table_model  =(DefaultTableModel)table.getModel();
-       
-        try {
-                    
-            String  sql1= "SELECT DISTINCT "+output+" FROM photo_size_detail_table where "+output+" Like '"+input+"%'";
-            smtInstance= conInstance.createStatement();
-            ResultSet rs1 = smtInstance.executeQuery(sql1);
-                fntools.remove_table_data(size_table_model,table);
-                int i = 0;
-                while ( rs1.next() ) //step through the result set
-                {
-                    i++;//count raws
-                }
-                if (i>0){
-                        int j= 0;
-                        rs1.beforeFirst();
-                        
-                        while (rs1.next()) {
-                    String size = rs1.getString(output); 
-                            //System.out.println(size);
-                    size_table_model.insertRow(j,new Object[]{size});
-                    j++;
-                }
-                }    
-         } catch (SQLException ex) {
-           // Logger.getLogger(Pharmacy_In_Frame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-              
-}
-    
-    private void validate_and_save_data(){
+    private boolean validate_and_save_data(){
         if(txtsize.getText().isEmpty()){
          JOptionPane.showMessageDialog(null,"Enter Photo Size");
          txtsize.requestFocus();
+         return false;
         }
        else if(txtRate.getText().isEmpty()){
          JOptionPane.showMessageDialog(null,"Enter Original Rate");
          txtRate.requestFocus();
+         return false;
         }
         else if(txtDisplay.getText().isEmpty()){
          JOptionPane.showMessageDialog(null,"Enter Display Rate or '0'");
          txtDisplay.requestFocus();
+         return false;
         }else {
-            try {
-                String searchVendor = "Select id from photo_size_detail_table where size ='"+txtsize.getText()+"'";
-                smtInstance = conInstance.createStatement();
-                ResultSet searchVend = smtInstance.executeQuery(searchVendor);
-                int i=0;
-                while(searchVend.next()){
-                    i++;
-                }
-             if(i>0){
-                 String queryUpdate = "UPDATE photo_size_detail_table SET rate='"+txtRate.getText()+"',display='"+txtDisplay.getText()+"' where size ='"+txtsize.getText()+"'";
-                 Statement smtInstance1 = conInstance.createStatement();
-                     int result = smtInstance1.executeUpdate(queryUpdate);
-                     if (result != 0) {
-                     JOptionPane.showMessageDialog(null, " Detail Updated ");
-                 }
-              }else {
-                
-                
-                String sqlQuery = "Insert into photo_size_detail_table(size,rate,display) values ('"+txtsize.getText()+"','"+txtRate.getText()+"','"+txtDisplay.getText()+"')";
-                smtInstance= conInstance.createStatement();
-                int rs1 = smtInstance.executeUpdate(sqlQuery);
-                if(rs1==1){
-                   JOptionPane.showMessageDialog(null,"Data Submitted");
-                    reset_details(); 
-                }else{
-                    JOptionPane.showMessageDialog(null,"Data Failed");
-                }
-            }
-
-            } catch (SQLException ex) {
-            Logger.getLogger(photoSizeDetailPanel.class.getName()).log(Level.SEVERE, null, ex);
+            return true;
         }
-    }
+            
     }
      
     /**
@@ -323,8 +227,7 @@ public class photoSizeDetailPanel extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel12))
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(jPanel5Layout.createSequentialGroup()
                             .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -397,9 +300,17 @@ public class photoSizeDetailPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
-       validate_and_save_data();
-       fill_photo_size_table();
-       reset_details();
+       size_entry_pojo pojo = new size_entry_pojo();
+       pojo.setSize(txtsize.getText());
+       pojo.setRate(Double.parseDouble(txtRate.getText()));
+       pojo.setDisplay(Double.parseDouble(txtDisplay.getText()));
+        if(validate_and_save_data()){
+           reset_details();
+           controller.save(pojo);
+           
+       }
+       controller.fill_photo_size_table(sizeDetailTable);
+       
        txtsize.requestFocus();
         
     }//GEN-LAST:event_submitButtonActionPerformed
@@ -410,7 +321,7 @@ public class photoSizeDetailPanel extends javax.swing.JPanel {
 
     private void txtsizeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsizeKeyReleased
         String values = txtsize.getText();
-        fill_size_entry_table(values,"size",sizeTable);
+        controller.fill_size_entry_table(sizeTable,values);
     }//GEN-LAST:event_txtsizeKeyReleased
 
     private void txtRateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRateKeyReleased

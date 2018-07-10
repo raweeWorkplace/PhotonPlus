@@ -6,24 +6,13 @@
 package Panels;
 
 import controller.functionTools;
-import Dao.DataBase_Connection;
 import beans.client_table_pojo;
 import beans.journal_pojo;
 import beans.spcl_customer_pojo;
 import controller.client_registration_controller;
 import java.awt.event.KeyEvent;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -32,16 +21,10 @@ import javax.swing.table.TableModel;
  * @author ranjan
  */
 public class clientRegPanel extends javax.swing.JPanel {
-        protected Connection conInstance;
-        protected Statement smtInstance;
+        
         client_registration_controller controller;
         functionTools fnTools;
-        ResultSet rs;
-        DataBase_Connection dao;
         DefaultTableModel client_detail_table_model;
-        LineBorder lbd;
-        String sql1 ="",sql2="",sql3="";
-        String todayDate;
         
     /**
      * Creates new form clientRegPanel
@@ -49,8 +32,6 @@ public class clientRegPanel extends javax.swing.JPanel {
     public clientRegPanel() {
         
         initComponents();
-        dao = new DataBase_Connection();
-        conInstance = dao.getConnection();
         fnTools = new functionTools();
         controller = new client_registration_controller();
         
