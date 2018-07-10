@@ -31,6 +31,7 @@ public class hibernateConfiguration {
         sf = cnf.buildSessionFactory();
         s = sf.openSession();
         t =s.beginTransaction();
+
 	s.saveOrUpdate(obj);
 	t.commit();
 	s.close();

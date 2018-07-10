@@ -48,6 +48,10 @@ Contributor(s):
     <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
     <property name="hbm2ddl.auto">update</property>
     <property name="show_sql">true</property>
+<<<<<<< HEAD
+    <mapping class="beans.log_in_pojo"/>
+    <mapping class="beans.dataConfigurationPojo" file="" jar="" package="" resource=""/>
+=======
     
     <mapping class="beans.log_in_pojo"/>
     <mapping class="beans.data_configuration_pojo"/>
@@ -59,5 +63,6 @@ Contributor(s):
     <mapping class="beans.size_entry_pojo"/>
     <mapping class="beans.spcl_customer_pojo"/>
     <mapping class="beans.journal_pojo"/>
+>>>>>>> master
   </session-factory>
 </hibernate-configuration>
