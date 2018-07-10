@@ -5,15 +5,52 @@
  */
 package beans;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+
 /**
  *
  * @author idiotbox
  */
-public class log_in_pojo {
-    private String UserName, UserId, Password, masterPassword, cnfPassword;
+@Entity
+@Table( name = "Login_tbl",schema = "root")
+public class log_in_pojo implements Serializable {
+    
+    @Column
+    @NotNull
+    private String UserName;
+
+    public log_in_pojo(String UserName, String UserId, String Password, String masterPassword) {
+        this.UserName = UserName;
+        this.UserId = UserId;
+        this.Password = Password;
+        this.masterPassword = masterPassword;
+    }
+    
+    @Id
+    private String UserId;
+    
+    @Column
+    @NotNull
+    private String Password;
+    
+    @Column
+    @NotNull
+    private String masterPassword;
+    
+    @Transient
+    private String cnfPassword;
 
     public String getCnfPassword() {
         return cnfPassword;
+    }
+
+    public log_in_pojo() {
     }
 
     public void setCnfPassword(String cnfPassword) {

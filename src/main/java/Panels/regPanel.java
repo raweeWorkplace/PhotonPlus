@@ -7,6 +7,8 @@ package Panels;
 
 //import PanelForms.Test.RegistrationFrame;
 import Dao.DataBase_Connection;
+import Dao.hibernateConfiguration;
+import beans.data_configuration_pojo;
 import controller.login_controller;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
@@ -16,6 +18,12 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import beans.log_in_pojo;
+import controller.Encryption;
+import java.util.Set;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 /**
  *
@@ -243,10 +251,22 @@ public class regPanel extends javax.swing.JPanel {
         else{
             pojo.setUserName(txtName.getText());
             pojo.setUserId(txtUserName.getText());
-            pojo.setPassword(new String(pwdUserPassword.getPassword()));
-            pojo.setCnfPassword(new String(pwdConfirmUserPassword.getPassword()));
-            pojo.setMasterPassword("00001111");
-            controller.register_user(pojo);
+            pojo.setPassword(Encryption.SHA1(new String(pwdUserPassword.getPassword())));
+            pojo.setCnfPassword(Encryption.SHA1(new String(pwdConfirmUserPassword.getPassword())));
+            pojo.setMasterPassword(Encryption.SHA1("00001111"));
+            
+            ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
+		Validator v = vf.getValidator();
+		Set<ConstraintViolation<log_in_pojo>> seterror=v.validate(pojo);
+		if(!seterror.isEmpty()) {
+			for(ConstraintViolation<log_in_pojo> error:seterror) {
+				//System.out.println(error.getPropertyPath()+":->"+error.getMessage());
+			}
+		}
+		else {
+		new hibernateConfiguration().save(pojo);
+		}
+            
             lblWarning.setIcon(null);
             lblUserPwdNotification.setIcon(null);
             reset();

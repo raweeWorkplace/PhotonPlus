@@ -5,8 +5,6 @@
  */
 package controller;
 
-import java.awt.Toolkit;
-import java.awt.event.WindowEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,9 +12,7 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import beans.dataConfigurationPojo;
+import beans.data_configuration_pojo;
 
 
 /**
@@ -24,7 +20,7 @@ import beans.dataConfigurationPojo;
  * @author idiotbox
  */
 public class databaseConfigurationController {
-    dataConfigurationPojo pojo = new dataConfigurationPojo();
+    data_configuration_pojo pojo = new data_configuration_pojo();
     private String productKey, name, email, contact, address,pan;
     Connection conInstance;
     Statement smtInstance;
@@ -37,7 +33,7 @@ public class databaseConfigurationController {
     }
     
        
-    public void init(dataConfigurationPojo pojo){
+    public void init(data_configuration_pojo pojo){
         this.productKey = pojo.getProductKey();
         this.pan = pojo.getPan();
         this.name = pojo.getName();
