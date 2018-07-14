@@ -8,7 +8,6 @@ package Panels;
 import controller.functionTools;
 import beans.client_table_pojo;
 import beans.journal_pojo;
-import beans.spcl_customer_pojo;
 import controller.client_registration_controller;
 import java.awt.event.KeyEvent;
 import java.util.Date;
@@ -375,36 +374,18 @@ public class clientRegPanel extends javax.swing.JPanel {
 
     private void txtCompanyNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCompanyNameKeyPressed
         int key = evt.getKeyCode();
-        if ((key == KeyEvent.VK_ENTER)&&(!txtCompanyName.getText().isEmpty())&&(!cmbCliebtType.getSelectedItem().toString().equals("Customer"))) {
+        if ((key == KeyEvent.VK_ENTER)&&(!txtCompanyName.getText().isEmpty())) {
             if(!fnTools.isEmpty(client_detail_table)){
             TableModel model2 = client_detail_table.getModel();
             String Name = model2.getValueAt(0, 1).toString();
             txtCompanyName.setText(Name);
+            txtConfirmDue.setText("0");
+            txtOldDue.setEditable(false);
+            txtConfirmDue.setEditable(false);
             }
             txtClientName.requestFocus();
             
-        }else if(((key == KeyEvent.VK_ENTER)&&(!txtCompanyName.getText().isEmpty())&&(cmbCliebtType.getSelectedItem().toString().equals("Customer")))){
-            if(!fnTools.isEmpty(client_detail_table)){
-            TableModel model2 = client_detail_table.getModel();
-            String Name = model2.getValueAt(0, 1).toString();
-            String nm = model2.getValueAt(0, 2).toString();
-            txtClientName.setText(nm);
-            txtClientName.setEditable(false);
-            String con = model2.getValueAt(0, 3).toString();
-            txtContact.setText(con);
-            txtContact.setEditable(false);
-            String old_due = model2.getValueAt(0, 4).toString();
-            txtOldDue.setText(old_due);
-            String add = model2.getValueAt(0, 5).toString();
-            txtAddress.setText(add);
-            txtAddress.setEditable(false);
-            txtCompanyName.setText(Name);
-            txtOldDue.requestFocus();
-            }
-            txtClientName.setText(txtCompanyName.getText());
-            txtClientName.setEditable(false);
-            txtContact.requestFocus();
-        }else if(key==KeyEvent.VK_ESCAPE){
+           }else if(key==KeyEvent.VK_ESCAPE){
             cmbCliebtType.requestFocus();
         }
     }//GEN-LAST:event_txtCompanyNameKeyPressed
@@ -412,11 +393,13 @@ public class clientRegPanel extends javax.swing.JPanel {
     private void txtCompanyNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCompanyNameKeyReleased
             String obj = "";
             obj = cmbCliebtType.getSelectedItem().toString();
+            String sql1;
             if("Dealer".equals(obj)){
-                controller.fill_client_detail_table(client_detail_table,txtCompanyName.getText());
+                sql1 = "FROM client_table_pojo s where s.company_name Like'" + txtCompanyName.getText() + "%' and flag = 1";
             }else{
-                controller.fill_customer_detail_table(client_detail_table,txtCompanyName.getText());
+                sql1 = "FROM client_table_pojo s where s.company_name Like'" + txtCompanyName.getText() + "%' and flag = 0";
             }
+            controller.fill_client_detail_table(client_detail_table, sql1);
         
     }//GEN-LAST:event_txtCompanyNameKeyReleased
 
@@ -428,24 +411,15 @@ public class clientRegPanel extends javax.swing.JPanel {
        int key = evt.getKeyCode();
         if ((key >= KeyEvent.VK_0 && key <= KeyEvent.VK_9) || (key >= KeyEvent.VK_NUMPAD0 && key <= KeyEvent.VK_NUMPAD9) || (key == KeyEvent.VK_BACK_SPACE)) {
             txtContact.setEditable(true);
-        }else if ((key == KeyEvent.VK_ENTER)&&(!txtContact.getText().isEmpty())&&(!cmbCliebtType.getSelectedItem().toString().equals("Customer"))) {
+        }else if ((key == KeyEvent.VK_ENTER)&&(!txtContact.getText().isEmpty())) {
             txtAddress.requestFocus();
-        } else if ((key == KeyEvent.VK_ENTER)&&(txtContact.getText().isEmpty())&&(!cmbCliebtType.getSelectedItem().toString().equals("Customer"))) {
+        } else if ((key == KeyEvent.VK_ENTER)&&(txtContact.getText().isEmpty())) {
             if(!fnTools.isEmpty(client_detail_table)){
             TableModel model2 = client_detail_table.getModel();
             String con = model2.getValueAt(0, 3).toString();
             txtContact.setText(con);
             txtAddress.requestFocus();
             }
-        }else if(((key == KeyEvent.VK_ENTER)&&(txtContact.getText().isEmpty())&&(cmbCliebtType.getSelectedItem().toString().equals("Customer")))){
-            if(!fnTools.isEmpty(client_detail_table)){
-            TableModel model2 = client_detail_table.getModel();
-            String Name = model2.getValueAt(0, 1).toString();
-            String pan = model2.getValueAt(0, 3).toString();
-            txtContact.setText(pan);
-            txtContact.setEditable(false);
-            }
-            txtOldDue.requestFocus();
         }
         else {
             evt.consume();
@@ -465,7 +439,7 @@ public class clientRegPanel extends javax.swing.JPanel {
     private void txtOldDueKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtOldDueKeyPressed
        int key = evt.getKeyCode();
         if ((key >= KeyEvent.VK_0 && key <= KeyEvent.VK_9)||(key >= KeyEvent.VK_DECIMAL) || (key >= KeyEvent.VK_NUMPAD0 && key <= KeyEvent.VK_NUMPAD9) || (key == KeyEvent.VK_BACK_SPACE)) {
-            txtOldDue.setEditable(true);
+            //txtOldDue.setEditable(true);
         }else if ((key == KeyEvent.VK_ENTER)&&(!txtOldDue.getText().isEmpty())) {
             txtConfirmDue.requestFocus();
         }else if ((key == KeyEvent.VK_ENTER)&&(txtOldDue.getText().isEmpty())) {
@@ -511,41 +485,33 @@ public class clientRegPanel extends javax.swing.JPanel {
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
             String obj = "";
             obj = cmbCliebtType.getSelectedItem().toString();
+            client_table_pojo pojo = new client_table_pojo();
+                        
+            pojo.setAddress(txtAddress.getText());
+            pojo.setClient_name(txtClientName.getText());
+            pojo.setCompany_name(txtCompanyName.getText());
+            pojo.setContact(txtContact.getText());
+
+            journal_pojo j_pojo = new journal_pojo();
+            j_pojo.setCredit(Double.parseDouble(txtOldDue.getText()));
+            Date date = new Date();
+            j_pojo.setDate(date);
             
             if("Dealer".equals(obj)){
-                client_table_pojo pojo = new client_table_pojo();
-                        
-                pojo.setAddress(txtAddress.getText());
-                pojo.setClient_name(txtClientName.getText());
-                pojo.setCompany_name(txtCompanyName.getText());
-                pojo.setContact(txtContact.getText());
-                
-                journal_pojo j_pojo = new journal_pojo();
+               
+                pojo.setFlag(1);
                 j_pojo.setFlag(1);
-                j_pojo.setCredit(Double.parseDouble(txtOldDue.getText()));
-                Date date = new Date();
-                j_pojo.setDate(date);
-                if(validate_and_save_form()){
+                
+            }else{
+                pojo.setFlag(0);
+                j_pojo.setFlag(0);
+              }
+            
+            if(validate_and_save_form()){
                     resetVendorDetails();
                     controller.register_client(pojo,j_pojo);
-                }
-            }else{
-                spcl_customer_pojo pojo = new spcl_customer_pojo();
-                pojo.setCust_name(txtCompanyName.getText());
-                pojo.setContact(txtContact.getText());
-                pojo.setAddress(txtAddress.getText());
-                
-                journal_pojo j_pojo = new journal_pojo();
-                j_pojo.setFlag(0);
-                j_pojo.setCredit(Double.parseDouble(txtOldDue.getText()));
-                Date date = new Date();
-                j_pojo.setDate(date);
-                
-                if(validate_and_save_form()){
-                    resetVendorDetails();
-                    controller.register_customer(pojo, j_pojo);
-                }
             }
+            controller.fill_client_detail_table(client_detail_table, "from client_table_pojo where flag ="+pojo.getFlag()+"");
             txtCompanyName.requestFocus();
         
         
@@ -601,7 +567,7 @@ public class clientRegPanel extends javax.swing.JPanel {
     private void txtConfirmDueKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtConfirmDueKeyPressed
         int key = evt.getKeyCode();
         if ((key >= KeyEvent.VK_0 && key <= KeyEvent.VK_9)||(key >= KeyEvent.VK_DECIMAL)  || (key >= KeyEvent.VK_NUMPAD0 && key <= KeyEvent.VK_NUMPAD9) || (key == KeyEvent.VK_BACK_SPACE)) {
-            txtConfirmDue.setEditable(true);
+            //txtConfirmDue.setEditable(true);
         }else if ((key == KeyEvent.VK_ENTER)&&(!txtConfirmDue.getText().isEmpty())) {
             btnSubmit.requestFocus();
         }else {

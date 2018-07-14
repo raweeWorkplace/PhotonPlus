@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -28,8 +30,9 @@ public class journal_pojo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int journal_id;
     
-    @Column(nullable = false)
-    private int client_id;
+    @ManyToOne(optional = false,targetEntity = client_table_pojo.class)
+    @JoinColumn(name = "client_id")
+    private client_table_pojo client_id;
     
     @Temporal(TemporalType.DATE)
     private Date date;
@@ -55,7 +58,16 @@ public class journal_pojo {
     public journal_pojo() {
     }
 
-    public journal_pojo(int client_id, Date date, double debit, double credit, double balance, int flag) {
+    public client_table_pojo getClient_id() {
+        return client_id;
+    }
+
+    public void setClient_id(client_table_pojo client_id) {
+        this.client_id = client_id;
+    }
+    
+
+    public journal_pojo(client_table_pojo client_id, Date date, double debit, double credit, double balance, int flag) {
         this.client_id = client_id;
         this.date = date;
         this.debit = debit;
@@ -63,6 +75,8 @@ public class journal_pojo {
         this.balance = balance;
         this.flag = flag;
     }
+
+
 
 
 
@@ -74,13 +88,6 @@ public class journal_pojo {
         this.journal_id = journal_id;
     }
 
-    public int getClient_id() {
-        return client_id;
-    }
-
-    public void setClient_id(int client_id) {
-        this.client_id = client_id;
-    }
 
     public Date getDate() {
         return date;

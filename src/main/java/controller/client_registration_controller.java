@@ -5,10 +5,8 @@
  */
 package controller;
 
-import Dao.hibernateConfiguration;
 import beans.client_table_pojo;
 import beans.journal_pojo;
-import beans.spcl_customer_pojo;
 import java.util.List;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
@@ -28,7 +26,6 @@ public class client_registration_controller {
     SessionFactory sf;
     Session s;
     Transaction t;
-    List<spcl_customer_pojo>  spcl_list;
     List<client_table_pojo>  cl_list;
     functionTools fnTools;
 
@@ -40,38 +37,7 @@ public class client_registration_controller {
         s = sf.openSession();
     }
    
-    public void register_customer(spcl_customer_pojo pojo, journal_pojo j_pojo) {
-        s = sf.openSession();
-        t = s.beginTransaction();
-        if(isCustomer(pojo)){
-         String sql2 = "UPDATE spcl_customer_pojo s SET s.address = '"+pojo.getAddress()+"' Where s.contact = '"+pojo.getContact()+"'";
-            if ( s.createQuery(sql2).executeUpdate() != 0) {
-                 JOptionPane.showMessageDialog(null, " Detail Updated ");
-             }
-        
-        }else{
-            s.save(pojo);
-            if(isCustomer(pojo)){
-                for(spcl_customer_pojo rs_pojo:spcl_list){
-                j_pojo.setClient_id(rs_pojo.getId());
-            }
-                s.save(j_pojo);
-                JOptionPane.showMessageDialog(null, "Detail Submitted");
-            }
-        }
-        t.commit();
-        s.close();
-        
-             
-             
- } 
-    
-    public boolean isCustomer(spcl_customer_pojo pojo){
-        Query query = s.createQuery("From spcl_customer_pojo s where s.contact = '"+pojo.getContact()+"'");
-        spcl_list = query.getResultList();
-            return !spcl_list.isEmpty();
-        }
-    
+   
     public void register_client(client_table_pojo pojo, journal_pojo j_pojo) {
         s = sf.openSession();
         t = s.beginTransaction();
@@ -83,13 +49,10 @@ public class client_registration_controller {
         
         }else{
             s.save(pojo);
-            if(isClient(pojo)){
-                for(client_table_pojo rs_pojo:cl_list){
-                j_pojo.setClient_id(rs_pojo.getId());
-            }
-                s.save(j_pojo);
-                JOptionPane.showMessageDialog(null, "Detail Submitted");
-            }
+            j_pojo.setClient_id(pojo);
+            s.save(j_pojo);
+            JOptionPane.showMessageDialog(null, "Detail Submitted");
+            
         }
         t.commit();
         s.close();
@@ -103,29 +66,10 @@ public class client_registration_controller {
         cl_list = query.getResultList();
             return !cl_list.isEmpty();
         }
-    
-    public void fill_customer_detail_table(JTable table, String name) {
+         
+    public void fill_client_detail_table(JTable table, String sql1) {
         
         DefaultTableModel table_model = (DefaultTableModel) table.getModel();
-        String sql1 = "FROM spcl_customer_pojo s where s.cust_name Like'" + name + "%'";
-        s = sf.openSession();
-        Query query = s.createQuery(sql1);
-        List<spcl_customer_pojo> list = query.getResultList();
-        fnTools.remove_table_data(table_model,table);
-        int j =0;
-        for(spcl_customer_pojo pojo : list) {
-
-        table_model.insertRow(j, new Object[]{pojo.getId(),pojo.getCust_name(),"NA",pojo.getContact(),pojo.getAddress()});
-        j++;
-
-    }
-    s.close();
- }
-    
-    public void fill_client_detail_table(JTable table, String name) {
-        
-        DefaultTableModel table_model = (DefaultTableModel) table.getModel();
-        String sql1 = "FROM client_table_pojo s where s.company_name Like'" + name + "%'";
         s = sf.openSession();
         Query query = s.createQuery(sql1);
         List<client_table_pojo> list = query.getResultList();

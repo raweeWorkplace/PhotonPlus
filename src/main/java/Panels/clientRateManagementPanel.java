@@ -5,18 +5,14 @@
  */
 package Panels;
 
+import beans.client_table_pojo;
 import controller.functionTools;
-import Dao.DataBase_Connection;
+import beans.rate_table_pojo;
+import beans.size_entry_pojo;
+import controller.rate_controller;
 import java.awt.event.KeyEvent;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DecimalFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -25,178 +21,60 @@ import javax.swing.table.DefaultTableModel;
  */
 public class clientRateManagementPanel extends javax.swing.JPanel {
     
-    protected Connection conInstance;
-    protected Statement smtInstance;
-    ResultSet rs;
-    DataBase_Connection dao;
     DefaultTableModel size_table_model, size_detail_table_model,companyTableModel;
-    private String sql,item_code = "0",display = "";
     functionTools fnTools;
+    rate_controller controller;
+    rate_table_pojo pojo;
+    size_entry_pojo s_pojo;
+    client_table_pojo c_pojo;
 
     /**
      * Creates new form purchaseVouchrePanel
      */
     public clientRateManagementPanel() {
         initComponents();
-        dao = new DataBase_Connection();
-        conInstance = dao.getConnection();
+        s_pojo = new size_entry_pojo();
+        c_pojo = new client_table_pojo();
         txtDiscAmt.setEditable(true);
         fnTools = new functionTools();
-        fill_client_rate_table("select * from client_rate_table");
+        controller = new rate_controller();
         
     }
     
     
     private void reset_details(){
         txtsize.setText("");
-        txtClientRate.setText("");
+        txtNewRate.setText("");
         txtRate.setText("");
         txtDiscAmt.setText("0");
         txtDiscRate.setText("0");
         
     }
+
     
-    private void fill_client_rate_table(String sql){
-        size_detail_table_model  =(DefaultTableModel)clientRateTable.getModel();
-        try {
-            smtInstance= conInstance.createStatement();
-            ResultSet rs1 = smtInstance.executeQuery(sql);
-                fnTools.remove_table_data(size_detail_table_model,clientRateTable);
-                int i = 0;
-                while ( rs1.next() ){
-                    i++;//count raws
-                }
-                if (i>0){
-                    int j= 0;
-                    rs1.beforeFirst();
-                    while (rs1.next()) {
-                        //`voucherNo`, `date`, `company_name`, `total`, `paid`, `due`, `reference_bill_no`
-                        String id = rs1.getString("id");
-                        String size = rs1.getString("company_name");
-                        String sub_size = rs1.getString("size");
-                        String dispaly = rs1.getString("rate");
-                        
-                        size_detail_table_model.insertRow(j,new Object[]{id,size,sub_size,dispaly});
-                        j++;
-                    }
-                }
-                
-            
-             
-        } catch (SQLException ex) {
-           // Logger.getLogger(Pharmacy_In_Frame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-    }
-    
-    private void fill_size_entry_table(String sql,String output, JTable table){
-       size_table_model  =(DefaultTableModel)table.getModel();
-       
-        try {
-            smtInstance= conInstance.createStatement();
-            ResultSet rs1 = smtInstance.executeQuery(sql);
-                fnTools.remove_table_data(size_table_model,table);
-                int i = 0;
-                while ( rs1.next() ) //step through the result set
-                {
-                    i++;//count raws
-                }
-                if (i>0){
-                        int j= 0;
-                        rs1.beforeFirst();
-                        
-                        while (rs1.next()) {
-                    String size = rs1.getString(output); 
-                    size_table_model.insertRow(j,new Object[]{size});
-                    j++;
-                }
-                }    
-         } catch (SQLException ex) {
-           // Logger.getLogger(Pharmacy_In_Frame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-              
-}
-    
-    private void fill_company_name_table(){
-       companyTableModel  =(DefaultTableModel)companyTable.getModel();
-       String values = txtCompanyName.getText();
-        try {
-                    
-            String  sql1= "SELECT * FROM client_detail_table where company_name Like '"+values+"%'";
-            //System.out.println(sql1);
-            smtInstance= conInstance.createStatement();
-            ResultSet rs1 = smtInstance.executeQuery(sql1);
-                fnTools.remove_table_data(companyTableModel,companyTable);
-                int i = 0;
-                while ( rs1.next() ) //step through the result set
-                {
-                    i++;//count raws
-                }
-                if (i>0){
-                        int j= 0;
-                        rs1.beforeFirst();
-                        
-                        while (rs1.next()) {
-                    String C = rs1.getString("company_name");                  
-                    companyTableModel.insertRow(j,new Object[]{C});
-                 
-                    j++;
-                }
-                }    
-         } catch (SQLException ex) {
-           // Logger.getLogger(Pharmacy_In_Frame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-              
-}
-    
-    
-    private void validate_and_save_data(){
+
+    private boolean validate_and_save_data(){
         if(txtsize.getText().isEmpty()){
          JOptionPane.showMessageDialog(null,"Enter Photo Size");
          txtsize.requestFocus();
+         return false;
         }
        else if(txtRate.getText().isEmpty()){
          JOptionPane.showMessageDialog(null,"Enter Original Rate");
          txtRate.requestFocus();
+         return false;
         }
         else if(txtCompanyName.getText().isEmpty()){
          JOptionPane.showMessageDialog(null,"Enter Company Name");
          txtCompanyName.requestFocus();
-        }else {
-            try {
-            String search = "select id from client_rate_table where company_name = '"+txtCompanyName.getText()+"' and size = '"+txtsize.getText()+"'";
-            smtInstance = conInstance.createStatement();
-             ResultSet searchVend = smtInstance.executeQuery(search);
-             int i=0;
-             while(searchVend.next()){
-                 i++;
-             }
-             if(i>0){
-                 String queryUpdate = "UPDATE client_rate_table SET rate='"+txtClientRate.getText()+"' where company_name = '"+txtCompanyName.getText()+"' and size = '"+txtsize.getText()+"'";
-                 Statement smtInstance1 = conInstance.createStatement();
-                     int result = smtInstance1.executeUpdate(queryUpdate);
-                     if (result != 0) {
-                     JOptionPane.showMessageDialog(null, " Detail Updated ");
-                 }
-              }else {
-
-                 String sqlQuery = "Insert into client_rate_table(company_name,size,rate) values ('"+txtCompanyName.getText()+"','"+txtsize.getText()+"','"+txtClientRate.getText()+"')";
-                smtInstance= conInstance.createStatement();
-                int rs1 = smtInstance.executeUpdate(sqlQuery);
-                if(rs1==1){
-                   JOptionPane.showMessageDialog(null,"Data Submitted");
-                    reset_details(); 
-                }
-             }
-            } catch (SQLException ex) {
-             
-            Logger.getLogger(clientRateManagementPanel.class.getName()).log(Level.SEVERE, null, ex);
+         return false;
         }
-    }
+            return true;
     }
     
     private void calculateTotal(){
         String total = Double.toString(Double.parseDouble(txtRate.getText())-Double.parseDouble(txtDiscAmt.getText()));
-        txtClientRate.setText(total);
+        txtNewRate.setText(total);
                
     }
      
@@ -216,7 +94,7 @@ public class clientRateManagementPanel extends javax.swing.JPanel {
         jLabel20 = new javax.swing.JLabel();
         txtsize = new javax.swing.JTextField();
         txtRate = new javax.swing.JTextField();
-        txtClientRate = new javax.swing.JTextField();
+        txtNewRate = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         sizeTable = new javax.swing.JTable();
         btnSubmit = new javax.swing.JButton();
@@ -279,15 +157,15 @@ public class clientRateManagementPanel extends javax.swing.JPanel {
             }
         });
 
-        txtClientRate.setEditable(false);
-        txtClientRate.setBackground(java.awt.Color.lightGray);
-        txtClientRate.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
-        txtClientRate.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtNewRate.setEditable(false);
+        txtNewRate.setBackground(java.awt.Color.lightGray);
+        txtNewRate.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtNewRate.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtClientRateKeyPressed(evt);
+                txtNewRateKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtClientRateKeyReleased(evt);
+                txtNewRateKeyReleased(evt);
             }
         });
 
@@ -498,7 +376,7 @@ public class clientRateManagementPanel extends javax.swing.JPanel {
                                             .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtClientRate, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtNewRate, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtDiscRate, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(37, 37, 37))
@@ -547,7 +425,7 @@ public class clientRateManagementPanel extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtClientRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNewRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -555,7 +433,7 @@ public class clientRateManagementPanel extends javax.swing.JPanel {
 
         jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel12, jLabel14, jLabel18, jLabel20});
 
-        jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtClientRate, txtDiscRate, txtRate});
+        jPanel5Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtDiscRate, txtNewRate, txtRate});
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -587,10 +465,18 @@ public class clientRateManagementPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-       validate_and_save_data();
-       fill_client_rate_table("select * from client_rate_table");
+       pojo = new rate_table_pojo();
+       pojo.setRate(Double.parseDouble(txtNewRate.getText()));
+       pojo.setSize_id(s_pojo);
+       String sql = "from client_table_pojo where company_name ='"+txtCompanyName.getText()+"'";
+       c_pojo = controller.get_client(sql);
+       pojo.setClient_id(c_pojo);
+       if(validate_and_save_data()){
+       controller.register_detail(pojo);
+       controller.fill_detils(clientRateTable);
        reset_details();
        txtsize.requestFocus();
+       }
         
     }//GEN-LAST:event_btnSubmitActionPerformed
 
@@ -599,48 +485,46 @@ public class clientRateManagementPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_sizeTableMouseClicked
 
     private void txtsizeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsizeKeyReleased
-        String values = txtsize.getText();
-        sql = "SELECT Distinct size FROM photo_size_detail_table where size Like '"+values+"%'";
-        fill_size_entry_table(sql,"size",sizeTable);
+        String sql = "from size_entry_pojo as s where s.size like '"+txtsize.getText()+"%'";
+        controller.fill_size_name(sizeTable, sql);
     }//GEN-LAST:event_txtsizeKeyReleased
 
     private void txtRateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRateKeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRateKeyReleased
 
-    private void txtClientRateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClientRateKeyReleased
+    private void txtNewRateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNewRateKeyReleased
           
-    }//GEN-LAST:event_txtClientRateKeyReleased
+    }//GEN-LAST:event_txtNewRateKeyReleased
 
     private void txtRateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRateKeyPressed
         int key = evt.getKeyCode();
         if ((key >= KeyEvent.VK_0 && key <= KeyEvent.VK_9) || (key >= KeyEvent.VK_NUMPAD0 && key <= KeyEvent.VK_NUMPAD9) || (key == KeyEvent.VK_BACK_SPACE)) {
-            //txtRate.setEditable(true);
-        }
+          }
         else if ((key == KeyEvent.VK_ENTER)&&(!txtRate.getText().isEmpty())) {
-            txtClientRate.requestFocus();
+            txtNewRate.requestFocus();
         }
         else {
             evt.consume();
             JOptionPane.showMessageDialog(null, "INVALID INSERT");
-        txtRate.setText("");
+            txtRate.setText("");
         }
     }//GEN-LAST:event_txtRateKeyPressed
 
-    private void txtClientRateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClientRateKeyPressed
+    private void txtNewRateKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNewRateKeyPressed
        int key = evt.getKeyCode();
         if ((key >= KeyEvent.VK_0 && key <= KeyEvent.VK_9) || (key >= KeyEvent.VK_NUMPAD0 && key <= KeyEvent.VK_NUMPAD9) || (key == KeyEvent.VK_BACK_SPACE)) {
-            txtClientRate.setEditable(true);
+            
         }
-        else if ((key == KeyEvent.VK_ENTER)&&(!txtClientRate.getText().isEmpty())) {
+        else if ((key == KeyEvent.VK_ENTER)&&(!txtNewRate.getText().isEmpty())) {
             btnSubmit.requestFocus();
         }
         else {
             evt.consume();
             JOptionPane.showMessageDialog(null, "INVALID INSERT");
-        txtClientRate.setText("");
+            txtNewRate.setText("");
         }
-    }//GEN-LAST:event_txtClientRateKeyPressed
+    }//GEN-LAST:event_txtNewRateKeyPressed
 
     private void txtsizeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsizeKeyPressed
        int key = evt.getKeyCode();
@@ -651,35 +535,12 @@ public class clientRateManagementPanel extends javax.swing.JPanel {
                 size_table_model  =(DefaultTableModel)sizeTable.getModel();
                 String Name = size_table_model.getValueAt(0, 0).toString();
                 txtsize.setText(Name);
-            try {
-                String itemcode = "Select id,rate from client_rate_table where size = '"+txtsize.getText()+"' and company_name = '"+txtCompanyName.getText()+"'";
-                smtInstance = conInstance.createStatement();
-                ResultSet itemcodeRs = smtInstance.executeQuery(itemcode);
-                int i =1;
-                while(itemcodeRs.next()){
-                    i++;
-                    item_code = itemcodeRs.getString(1);
-                    display = itemcodeRs.getString("rate");
-                }
-                
-                if(i==1){
-                    
-                   String item = "Select id,display from photo_size_detail_table where size = '"+txtsize.getText()+"'";
-                   
-                smtInstance = conInstance.createStatement();
-                ResultSet itemcodeRss = smtInstance.executeQuery(item);
-                while(itemcodeRss.next()){
-                    item_code = itemcodeRss.getString(1);
-                    display = itemcodeRss.getString("display");
-                }
-                
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(billingPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                String sql = "from size_entry_pojo where size ='"+txtsize.getText()+"'";
+                s_pojo = controller.get_size(sql);
+                txtRate.setText(Double.toString(s_pojo.getDisplay()));
+                txtDiscRate.requestFocus();
         }
-            txtRate.setText(display);
-            txtDiscRate.requestFocus();
+            
          }else if ((key == KeyEvent.VK_DOWN)) {
             if(!fnTools.isEmpty(sizeTable)){
             size_table_model  =(DefaultTableModel)sizeTable.getModel();
@@ -719,7 +580,8 @@ public class clientRateManagementPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCompanyNameKeyPressed
 
     private void txtCompanyNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCompanyNameKeyReleased
-        fill_company_name_table();
+        String value = txtCompanyName.getText();
+        controller.fill_company_name(companyTable,value);
         
     }//GEN-LAST:event_txtCompanyNameKeyReleased
 
@@ -828,10 +690,10 @@ public class clientRateManagementPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable sizeTable;
-    private javax.swing.JTextField txtClientRate;
     public javax.swing.JTextField txtCompanyName;
     private javax.swing.JTextField txtDiscAmt;
     private javax.swing.JTextField txtDiscRate;
+    private javax.swing.JTextField txtNewRate;
     private javax.swing.JTextField txtRate;
     public javax.swing.JTextField txtsize;
     // End of variables declaration//GEN-END:variables

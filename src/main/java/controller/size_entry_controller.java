@@ -5,15 +5,8 @@
  */
 package controller;
 
-import Dao.hibernateConfiguration;
-import Panels.photoSizeDetailPanel;
 import beans.size_entry_pojo;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -84,13 +77,13 @@ public class size_entry_controller {
         }
 
     
-    public void fill_size_entry_table(JTable table, String input){
+    public void fill_table(JTable table, String sql){
         
         DefaultTableModel size_table_model  =(DefaultTableModel)table.getModel();
         s=sf.openSession();
-        String  sql1= "FROM size_entry_pojo where size Like '"+input+"%'";
+        //String  sql1= "FROM size_entry_pojo where size Like '"+input+"%'";
         fnTools.remove_table_data(size_table_model,table);
-        List<size_entry_pojo> list = s.createQuery(sql1).getResultList();
+        List<size_entry_pojo> list = s.createQuery(sql).getResultList();
         fnTools.remove_table_data(size_table_model,table);
         int j = 0;
         for(size_entry_pojo pojo_rs:list) {

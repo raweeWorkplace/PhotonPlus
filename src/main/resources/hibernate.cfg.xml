@@ -44,7 +44,6 @@ Contributor(s):
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/photon?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
-    
     <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
     <property name="hbm2ddl.auto">update</property>
     <property name="show_sql">true</property>
@@ -58,7 +57,6 @@ Contributor(s):
     <mapping class="beans.rate_table_pojo"/>
     <mapping class="beans.sales_pojo"/>
     <mapping class="beans.size_entry_pojo"/>
-    <mapping class="beans.spcl_customer_pojo"/>
     <mapping class="beans.journal_pojo"/>
   </session-factory>
 </hibernate-configuration>

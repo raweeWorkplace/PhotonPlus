@@ -6,16 +6,10 @@
 package Panels;
 
 import controller.functionTools;
-import Dao.DataBase_Connection;
 import beans.size_entry_pojo;
 import controller.size_entry_controller;
 import java.awt.event.KeyEvent;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -321,7 +315,8 @@ public class photoSizeDetailPanel extends javax.swing.JPanel {
 
     private void txtsizeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsizeKeyReleased
         String values = txtsize.getText();
-        controller.fill_size_entry_table(sizeTable,values);
+        String  sql= "FROM size_entry_pojo where size Like '"+values+"%'";
+        controller.fill_table(sizeTable,sql);
     }//GEN-LAST:event_txtsizeKeyReleased
 
     private void txtRateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRateKeyReleased

@@ -34,20 +34,27 @@ public class client_table_pojo implements Serializable {
     
     @Column
     private String address;
-    
-    
+     
+    @Column
+    private int flag;
 
-    
-    public client_table_pojo(String company_name, String client_name, String contact,String address) {
-        super();
+    public client_table_pojo(String company_name, String client_name, String contact, String address, int flag) {
         this.company_name = company_name;
         this.client_name = client_name;
         this.contact = contact;
         this.address = address;
+        this.flag = flag;
     }
 
+    public int getFlag() {
+        return flag;
+    }
 
-
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
+    
+   
     public int getId() {
         return client_id;
     }
