@@ -66,8 +66,7 @@ public class rate_controller {
          size_entry_pojo pojo = (size_entry_pojo)query.getSingleResult();
          return pojo;
     }
-    
-    
+        
     public client_table_pojo get_client(String sql){
         s = sf.openSession();
         Query query = s.createQuery(sql);

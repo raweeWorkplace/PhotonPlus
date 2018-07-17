@@ -6,16 +6,10 @@
 package Panels;
 
 import controller.functionTools;
-import Dao.DataBase_Connection;
+import beans.instock_entry_pojo;
+import controller.expences_controller;
 import java.awt.event.KeyEvent;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,24 +18,20 @@ import javax.swing.table.DefaultTableModel;
  * @author ranjan
  */
 public class expencesPanel extends javax.swing.JPanel {
-    DataBase_Connection dao;
-    protected Statement smtInstance;
-    protected Connection conInstance;
     DefaultTableModel voucher_item_model;
     functionTools fnTools;
-    private String sql= "SELECT * FROM instock_entry_table";
-    private int productCode;
+    instock_entry_pojo pojo;
+    expences_controller controller;
+    private String sql= "FROM instock_entry_pojo";
     /**
      * Creates new form stockInPanel
      */
     
     public expencesPanel() {
         initComponents();
-        dao = new DataBase_Connection();
-        conInstance = dao.getConnection();
+        controller = new expences_controller();
         fnTools = new functionTools();
-        
-        fill_voucher_item_table(sql);
+        controller.fill_table(itemTable, sql);
         
     }
     
@@ -51,70 +41,22 @@ public class expencesPanel extends javax.swing.JPanel {
         txtpurchaseRate.setText("");
     }
     
-    private void fill_voucher_item_table(String sql){
-       voucher_item_model  =(DefaultTableModel)itemTable.getModel();
-       try {
-            
-            
-            smtInstance = conInstance.createStatement();
-            ResultSet rs1 = smtInstance.executeQuery(sql);
-            fnTools.remove_table_data(voucher_item_model,itemTable);
-            int j= 0;
-            rs1.beforeFirst();
-
-            while (rs1.next()) {
-
-                String a = rs1.getString("date");
-                String b = rs1.getString("item_name");
-                String c = rs1.getString("unit");
-                String d = rs1.getString("total");
-                voucher_item_model.insertRow(j,new Object[]{a,b,c,d});
-
-                j++;
-            }
-                
-            
-             
-         } catch (SQLException ex) {
-           // Logger.getLogger(Pharmacy_In_Frame.class.getName()).log(Level.SEVERE, null, ex);
+   
+    private boolean validateData(){
+        if(txtItemName.getText().isEmpty()){
+            txtItemName.requestFocus();
+            JOptionPane.showMessageDialog(null, "Enter Item Name");
+            return false;
+        }else if(txtQuan.getText().isEmpty()){
+            txtQuan.requestFocus();
+            JOptionPane.showMessageDialog(null, "Enter Quantity of Item");
+            return false;            
+        }else if(txtpurchaseRate.getText().isEmpty()){
+            txtpurchaseRate.requestFocus();
+            JOptionPane.showMessageDialog(null, "Enter total cost");
+            return false;
         }
-              
-}    
-    
-    private void saveData(){
-        try {
-            
-            String sql1;
-            
-            String search = "SELECT * FROM instock_details WHERE item_name = '"+txtItemName.getText()+"'";
-            smtInstance = conInstance.createStatement();
-            ResultSet resultSearch = smtInstance.executeQuery(search);
-            if(resultSearch.next()){
-                productCode = resultSearch.getInt("item_code");
-            }
-            DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-            Calendar cal = Calendar.getInstance();
-            String todayDate =dateformat.format(cal.getTime());
-            
-            conInstance.setAutoCommit(false);
-            sql1 = "INSERT INTO instock_entry_table(item_code, item_name, unit, total,date) values (?,?,?,?,?)";
-            PreparedStatement pst = conInstance.prepareStatement(sql1);
-                pst.setInt(1, productCode);
-                pst.setString(2, txtItemName.getText());
-                pst.setString(3, txtQuan.getText());
-                pst.setString(4, txtpurchaseRate.getText());
-                pst.setString(5, todayDate);
-                
-                pst.addBatch();
-                
-            pst.executeBatch();
-            conInstance.commit(); 
-            
-            
-        } catch (SQLException ex) {
-
-        }
-        
+        return true;
     }
     
 
@@ -330,44 +272,18 @@ public class expencesPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addStockButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStockButtonActionPerformed
-        try{
-            String search = "SELECT * FROM instock_details WHERE item_name = '"+txtItemName.getText()+"'";
-            smtInstance = conInstance.createStatement();
-            ResultSet resultSearch = smtInstance.executeQuery(search);
-            if(resultSearch.next()){
-                String oldStock = resultSearch.getString("instock");
-                String index = resultSearch.getString("item_code");
-                int Stock = Integer.parseInt(oldStock)+Integer.parseInt(txtQuan.getText());
-                String newStock= Integer.toString(Stock);
-                String sqlupdate;
-                sqlupdate = "update instock_details set instock ='"+ newStock +"' where item_code = '"+index+"'";
-                smtInstance = conInstance.createStatement();
-                int result = smtInstance.executeUpdate(sqlupdate);
-                if(result!=0){
-                    JOptionPane.showMessageDialog(null,"Stock Updated");
-                }
-                
-            }
-            else{
-                String sql1;
-
-                sql1= "insert into instock_details (item_name, instock)values ('"+txtItemName.getText()+"','"+txtQuan.getText()+"')";
-                smtInstance = conInstance.createStatement();
-                int result = smtInstance.executeUpdate(sql1);
-                if(result!=0){
-                    JOptionPane.showMessageDialog(null,"Stock inserted");
-                }
-            }
-                
-            
-        }
-        catch(SQLException ex){
-
-        }
-        saveData();
-        resetStockDetails();
+        pojo = new instock_entry_pojo();
+        pojo.setItem_name(txtItemName.getText());
+        pojo.setUnit(Integer.parseInt(txtQuan.getText()));
+        pojo.setTotal_exp(Double.parseDouble(txtpurchaseRate.getText()));
+        Date date = new Date();
+        pojo.setDate(date);
         
-        fill_voucher_item_table(sql);
+        if(validateData()){
+        controller.enter_expences(pojo);
+        }
+        resetStockDetails();
+        controller.fill_table(itemTable, sql);
         txtItemName.requestFocus();
               
     }//GEN-LAST:event_addStockButtonActionPerformed
@@ -396,8 +312,8 @@ public class expencesPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtpurchaseRateKeyReleased
 
     private void txtItemNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtItemNameKeyReleased
-       String sql1= "SELECT * FROM instock_entry_table where item_name like '"+txtItemName.getText()+"%'";
-        fill_voucher_item_table(sql1);
+       String sql1= "FROM instock_entry_pojo where item_name like '"+txtItemName.getText()+"%'";
+       controller.fill_table(itemTable, sql1);
     }//GEN-LAST:event_txtItemNameKeyReleased
 
     private void txtItemNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtItemNameActionPerformed

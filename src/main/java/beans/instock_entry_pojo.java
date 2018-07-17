@@ -37,6 +37,7 @@ public class instock_entry_pojo implements Serializable {
     
     @Column
     private double total_exp;
+    
     @Column
     private int unit;
 

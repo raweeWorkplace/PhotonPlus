@@ -41,11 +41,20 @@ public class journal_pojo {
     private double debit;
     @Column
     private double credit;
-    @Column
-    private double balance;
     
     @Column
     private int flag;
+    
+    @Column
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public int isFlag() {
         return flag;
@@ -67,12 +76,11 @@ public class journal_pojo {
     }
     
 
-    public journal_pojo(client_table_pojo client_id, Date date, double debit, double credit, double balance, int flag) {
+    public journal_pojo(client_table_pojo client_id, Date date, double debit, double credit, int flag) {
         this.client_id = client_id;
         this.date = date;
         this.debit = debit;
         this.credit = credit;
-        this.balance = balance;
         this.flag = flag;
     }
 
@@ -103,7 +111,6 @@ public class journal_pojo {
 
     public void setDebit(double debit) {
         this.debit = debit;
-        this.balance = getDebit()-getCredit();
     }
 
     public double getCredit() {
@@ -112,16 +119,9 @@ public class journal_pojo {
 
     public void setCredit(double credit) {
         this.credit = credit;
-        this.balance = getDebit()-getCredit();
     }
 
-    public double getBalance() {
-        return balance;
-    }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
     
     
     

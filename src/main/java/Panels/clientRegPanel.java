@@ -496,6 +496,7 @@ public class clientRegPanel extends javax.swing.JPanel {
             j_pojo.setCredit(Double.parseDouble(txtOldDue.getText()));
             Date date = new Date();
             j_pojo.setDate(date);
+            j_pojo.setDescription("Old Entry");
             
             if("Dealer".equals(obj)){
                

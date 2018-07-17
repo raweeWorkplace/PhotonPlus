@@ -7,35 +7,19 @@ package Panels;
 
 import controller.functionTools;
 import Dao.DataBase_Connection;
-import controller.MyIntFilter;
+import beans.billing_pojo;
+import beans.journal_pojo;
+import beans.rate_table_pojo;
+import beans.size_entry_pojo;
+import controller.billing_controller;
 import java.awt.event.KeyEvent;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Date;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import javax.swing.text.AbstractDocument;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperPrintManager;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JRDesignQuery;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -43,10 +27,12 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class billingPanel extends javax.swing.JPanel {
     
-    protected Connection conInstance;
-    protected Statement smtInstance;
-    ResultSet rs,rs1, rs2;
-    protected String  customer="",rate="",item_code="0",BillId="", sql="",display="",values="", client_id="";
+    billing_controller controller;
+    journal_pojo j_pojo;
+    size_entry_pojo s_pojo;
+    rate_table_pojo r_pojo;
+    billing_pojo b_pojo;
+    protected String  display="", item_code="";
     DataBase_Connection dao;
     DefaultTableModel billTableModel, clientTableModel, size_table_model;
     functionTools fnTools;
@@ -59,43 +45,17 @@ public class billingPanel extends javax.swing.JPanel {
      */
     public billingPanel() {
         initComponents();
-        dao = new DataBase_Connection();
-        conInstance = dao.getConnection();
+        controller = new billing_controller();
         fnTools = new functionTools();
+        j_pojo = new journal_pojo();
+        r_pojo = new rate_table_pojo();
+        s_pojo = new size_entry_pojo();
         lblPaid.setVisible(false);
         lblPaidlbl.setVisible(false);
         
                         
     }
     
-    private void fill_size_entry_table(String sql,String output, JTable table){
-       size_table_model  =(DefaultTableModel)table.getModel();
-       
-        try {
-            smtInstance= conInstance.createStatement();
-            ResultSet rs1 = smtInstance.executeQuery(sql);
-                fnTools.remove_table_data(size_table_model,table);
-                int i = 0;
-                while ( rs1.next() ) //step through the result set
-                {
-                    i++;//count raws
-                }
-                if (i>0){
-                        int j= 0;
-                        rs1.beforeFirst();
-                        
-                        while (rs1.next()) {
-                    String size = rs1.getString(output); 
-                    size_table_model.insertRow(j,new Object[]{size});
-                    j++;
-                }
-                }    
-         } catch (SQLException ex) {
-           // Logger.getLogger(Pharmacy_In_Frame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-}
-           
     private void resetBill(){
         lblSubTotal.setText("");
         txtContact.setText("");
@@ -129,32 +89,32 @@ public class billingPanel extends javax.swing.JPanel {
     }
     
     private void ireport() throws SQLException{
-        try {
-            String maxId = "Select max(bill_no) from bill_table";
-            smtInstance = conInstance.createStatement();
-            ResultSet max = smtInstance.executeQuery(maxId);
-            while(max.next()){
-                BillId = max.getString(1);
-            }
-                        String reportSql ="select * from bill_table as b, sales_table as s where b.bill_no= s.bill_no and s.bill_no = '"+BillId+"'";   
-                         //System.out.println(reportSql);   
-                            url7 = getClass().getResourceAsStream("/report/report.jrxml");
-                        
-                JasperDesign jd = JRXmlLoader.load(url7);
-                JRDesignQuery newQuery = new JRDesignQuery();
-                newQuery.setText(reportSql);
-                jd.setQuery(newQuery);
-                JasperReport jr = JasperCompileManager.compileReport(jd);
-                JasperPrint jp = JasperFillManager.fillReport(jr, null, conInstance);
-                JasperViewer.viewReport(jp,false);
-                int dialogResult = JOptionPane.showConfirmDialog (null, "Do you want to print Bill?","Warning",JOptionPane.YES_NO_OPTION);
-                if(dialogResult == JOptionPane.YES_OPTION){
-                    JasperPrintManager.printReport(jp, true);
-                }
-                
-        } catch (JRException ex) {
-            Logger.getLogger(billingPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            String maxId = "Select max(bill_no) from bill_table";
+//            smtInstance = conInstance.createStatement();
+//            ResultSet max = smtInstance.executeQuery(maxId);
+//            while(max.next()){
+//                BillId = max.getString(1);
+//            }
+//                        String reportSql ="select * from bill_table as b, sales_table as s where b.bill_no= s.bill_no and s.bill_no = '"+BillId+"'";   
+//                         //System.out.println(reportSql);   
+//                            url7 = getClass().getResourceAsStream("/report/report.jrxml");
+//                        
+//                JasperDesign jd = JRXmlLoader.load(url7);
+//                JRDesignQuery newQuery = new JRDesignQuery();
+//                newQuery.setText(reportSql);
+//                jd.setQuery(newQuery);
+//                JasperReport jr = JasperCompileManager.compileReport(jd);
+//                JasperPrint jp = JasperFillManager.fillReport(jr, null, conInstance);
+//                JasperViewer.viewReport(jp,false);
+//                int dialogResult = JOptionPane.showConfirmDialog (null, "Do you want to print Bill?","Warning",JOptionPane.YES_NO_OPTION);
+//                if(dialogResult == JOptionPane.YES_OPTION){
+//                    JasperPrintManager.printReport(jp, true);
+//                }
+//                
+//        } catch (JRException ex) {
+//            Logger.getLogger(billingPanel.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         
     }
     
@@ -195,6 +155,7 @@ public class billingPanel extends javax.swing.JPanel {
             billTableIndex=0;
             billTableModel.insertRow(billTableIndex, new Object[]{item_code,item_name, quan, rate, cost});
             billTableIndex++;
+            item_code = "";
             resetSelection();
             JOptionPane.showMessageDialog(null, "Item Entered");
             calculateSubtotal();
@@ -203,203 +164,27 @@ public class billingPanel extends javax.swing.JPanel {
         }
         
     }
+    
+    public boolean validateData(){
+        if(txtCustName.getText().isEmpty()){
+            txtCustName.requestFocus();
+            return false;
+        }else if(txtContact.getText().isEmpty()){
+            txtContact.requestFocus();
+            return false;
+        }else if(fnTools.isEmpty(billTable)){
+            txtsize.requestFocus();
+            return false;
+        }else if((txtDiscRate.getText().isEmpty())||(txtDiscAmt.getText().isEmpty())){
+            txtDiscRate.requestFocus();
+            return false;
+        }else if(txtPayment.getText().isEmpty()){
+            txtPayment.requestFocus();
+            return false;
+        }
+        return true;
+    }
    
-    private void billDetails(){
-        try {
-            
-            DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-            Calendar cal = Calendar.getInstance();
-            String todayDate =dateformat.format(cal.getTime());
-            customer = txtCustName.getText();
-            double payment=0;
-            if(Double.parseDouble(lblTotalDue.getText())>Double.parseDouble(txtPayment.getText())){
-                payment = Double.parseDouble(txtPayment.getText());
-            }else {
-                payment = Double.parseDouble(lblTotalDue.getText());
-            }
-            String enterBills = "insert into bill_table(date,cust_name, contact,total,paid,due,disc,old_due) values ('"+todayDate+"','"+customer+"','"+txtContact.getText()+"','"+lblTotal.getText()+"','"+payment+"','"+lblDue.getText()+"','"+txtDiscAmt.getText()+"','"+lblPrevDue.getText()+"')";
-            smtInstance = conInstance.createStatement();
-            int result = smtInstance.executeUpdate(enterBills);
-            if(result!=0){
-                updateDue();
-                resetBill();
-                fill_order();
-                JOptionPane.showMessageDialog(null, "Detailed Entered");
-                txtCustName.requestFocus();
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(billingPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    private void fill_order(){
-        try{
-            String maxId = "Select max(bill_no) from bill_table";
-            smtInstance = conInstance.createStatement();
-            ResultSet max = smtInstance.executeQuery(maxId);
-            while(max.next()){
-                BillId = max.getString(1);
-            }
-            int rows=billTable.getRowCount();
-            conInstance.setAutoCommit(false);
-            
-            String queryco = "insert into sales_table (bill_no,item_code, item_name, qty,cost) values (?,?,?,?,?)";
-            PreparedStatement pst = conInstance.prepareStatement(queryco);
-                for(int row = 0; row<rows; row++){
-            String proCode = (String)billTable.getValueAt(row, 0);
-            String medName = (String)billTable.getValueAt(row, 1);
-            String quan = (String)billTable.getValueAt(row,2);
-            String cost = (String)billTable.getValueAt(row,4);
-            
-                pst.setString(1, BillId);
-                pst.setString(2, proCode);
-                pst.setString(3, medName);
-                pst.setString(4, quan);
-                pst.setString(5, cost);
-                pst.addBatch();
-                }
-            pst.executeBatch();
-            conInstance.commit();
-            resetBill();
-            billTableIndex=0;
-            ireport();
-            resetTables();
-            
-        }   catch (SQLException ex) {
-                Logger.getLogger(billingPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-    }
-    
-    private void getData(){
-        String sql = "(select id, old_due, contact from client_detail_table where company_name ='"+txtCustName.getText()+"') union (select id, old_due, contact from special_customer_table where cust_name = '"+txtCustName.getText()+"')";
-        try {
-            smtInstance = conInstance.createStatement();
-            ResultSet rs3 = smtInstance.executeQuery(sql);
-            int i = 0;
-            if(rs3.next()){
-                i++;
-                
-            }
-            if(i==1){
-                client_id = rs3.getString("id");
-                txtContact.setText(rs3.getString("contact"));
-                lblPrevDue.setText(rs3.getString("old_due"));
-            }else if(i==0){
-                lblPrevDue.setText("0");
-            }
-            
-                    
-        } catch (SQLException ex) {
-            Logger.getLogger(billingPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }
-    
-    private void fillCustTable(){
-       clientTableModel  =(DefaultTableModel)clientTable.getModel();
-       String values = txtCustName.getText();
-        try {
-               //     
-            String  sql1= "(select distinct company_name from client_detail_table where company_name like '"+values+"%') union (select distinct cust_name from special_customer_table where cust_name like '"+values+"%')";
-            smtInstance= conInstance.createStatement();
-            ResultSet rs1 = smtInstance.executeQuery(sql1);
-                fnTools.remove_table_data(clientTableModel,clientTable);
-                int i = 0;
-                while ( rs1.next() ) //step through the result set
-                {
-                    i++;//count raws
-                }
-                if (i>0){
-                        int j= 0;
-                        rs1.beforeFirst();
-                    while (rs1.next()) {
-                    String company_name = rs1.getString("company_name");
-                    clientTableModel.insertRow(j,new Object[]{company_name});
-                    j++;
-                    
-                }
-                }
-        } catch (SQLException ex) {
-           // Logger.getLogger(Pharmacy_In_Frame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-              
-}
-    
-    private void fillTable(String queryUsingSelection){
-         billTableModel= (DefaultTableModel)billTable.getModel();
-        try
-        {
-                Statement smtUsingDate = conInstance.createStatement();
-                rs1 = (ResultSet) smtUsingDate.executeQuery(queryUsingSelection);
-                
-                if (rs1 != null)
-                {
-                    
-                    int i = 0;
-                    while ( rs1.next() ) //step through the result set
-                    {
-                        i++;//count raws
-                    }
-                    int j = 0;
-                    rs1.beforeFirst();
-                    
-                    fnTools.remove_table_data(billTableModel, billTable);
-                    while (rs1.next()) 
-                    {
-                        item_code = rs1.getString("item_code");
-                        String item_name = rs1.getString("item_name");
-                        String qty = rs1.getString("qty");
-                        String rate = "NA";
-                        String cost = rs1.getString("cost");
-                        
-
-                        billTableModel.insertRow(j,new Object[]{item_code,item_name,qty,rate,cost});
-                        j++;
-                    }
-                }
-              } catch (SQLException ex) {
-             Logger.getLogger(billingPanel.class.getName()).log(Level.SEVERE, null, ex);
-         }
-    }
-    
-    private void updateDue(){
-        try {
-            String sql = "update client_detail_table set old_due = '"+lblDue.getText()+"' where company_name ='"+txtCustName.getText()+"' and contact = '"+txtContact.getText()+"'";
-            smtInstance = conInstance.createStatement();
-            int r = smtInstance.executeUpdate(sql);
-            int i = 0;
-            if(r==1){
-                i++;
-            }
-            else if(i==0){
-            String sql1 = "update special_customer_table set old_due = '"+lblDue.getText()+"' where cust_name ='"+txtCustName.getText()+"' and contact = '"+txtContact.getText()+"'";
-            smtInstance = conInstance.createStatement();
-            smtInstance.executeUpdate(sql1);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(billingPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        }
-    
-    private void updateBill(){
-        try {
-            String query3 = "Update bill_table set paid = '"+(Double.parseDouble(lblPaid.getText())+Double.parseDouble(txtPayment.getText()))+"', due = '"+(Double.parseDouble(lblTotalDue.getText())-Double.parseDouble(txtPayment.getText()))+"', disc='"+txtDiscAmt.getText()+"' where bill_no = '"+txtBillId.getText()+"'";
-            smtInstance = conInstance.createStatement();
-            int r = smtInstance.executeUpdate(query3);
-            if(r==1){
-                updateDue();
-                JOptionPane.showMessageDialog(null, "Bill Updated");
-                resetBill();
-                resetTables();
-            }
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(billingPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -466,7 +251,7 @@ public class billingPanel extends javax.swing.JPanel {
 
         txtCost.setEditable(false);
         txtCost.setBackground(java.awt.Color.lightGray);
-        txtCost.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtCost.setFont(new java.awt.Font("Century Schoolbook L", 0, 24)); // NOI18N
         txtCost.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtCostFocusGained(evt);
@@ -526,7 +311,7 @@ public class billingPanel extends javax.swing.JPanel {
         }
 
         txtCustName.setBackground(java.awt.Color.lightGray);
-        txtCustName.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtCustName.setFont(new java.awt.Font("Century Schoolbook L", 0, 24)); // NOI18N
         txtCustName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCustNameKeyPressed(evt);
@@ -551,7 +336,7 @@ public class billingPanel extends javax.swing.JPanel {
         jLabel13.setText("Item :");
 
         txtsize.setBackground(java.awt.Color.lightGray);
-        txtsize.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtsize.setFont(new java.awt.Font("Century Schoolbook L", 0, 24)); // NOI18N
         txtsize.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtsizeKeyPressed(evt);
@@ -595,7 +380,7 @@ public class billingPanel extends javax.swing.JPanel {
         jLabel5.setText("Cont. No. :");
 
         txtContact.setBackground(java.awt.Color.lightGray);
-        txtContact.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtContact.setFont(new java.awt.Font("Century Schoolbook L", 0, 24)); // NOI18N
         txtContact.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtContactFocusGained(evt);
@@ -611,7 +396,7 @@ public class billingPanel extends javax.swing.JPanel {
         });
 
         txtQty.setBackground(java.awt.Color.lightGray);
-        txtQty.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtQty.setFont(new java.awt.Font("Century Schoolbook L", 0, 24)); // NOI18N
         txtQty.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtQtyKeyPressed(evt);
@@ -622,7 +407,7 @@ public class billingPanel extends javax.swing.JPanel {
         });
 
         txtRate.setBackground(java.awt.Color.lightGray);
-        txtRate.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtRate.setFont(new java.awt.Font("Century Schoolbook L", 0, 24)); // NOI18N
         txtRate.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtRateKeyPressed(evt);
@@ -639,7 +424,7 @@ public class billingPanel extends javax.swing.JPanel {
         jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
         txtBillId.setBackground(java.awt.Color.lightGray);
-        txtBillId.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        txtBillId.setFont(new java.awt.Font("Century Schoolbook L", 0, 24)); // NOI18N
         txtBillId.setForeground(java.awt.Color.black);
         txtBillId.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -659,10 +444,10 @@ public class billingPanel extends javax.swing.JPanel {
         });
 
         lblSubTotal.setBackground(java.awt.Color.white);
-        lblSubTotal.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        lblSubTotal.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
         lblSubTotal.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        lblBalance.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        lblBalance.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
         lblBalance.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         lblBalance.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -682,7 +467,7 @@ public class billingPanel extends javax.swing.JPanel {
         jLabel26.setText("Due :");
 
         lblDue.setBackground(java.awt.Color.white);
-        lblDue.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        lblDue.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
         lblDue.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         lblDue.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -708,7 +493,7 @@ public class billingPanel extends javax.swing.JPanel {
         jLabel29.setText("Refund :");
 
         txtDiscRate.setBackground(java.awt.Color.lightGray);
-        txtDiscRate.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        txtDiscRate.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
         txtDiscRate.setText("0");
         txtDiscRate.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -732,7 +517,7 @@ public class billingPanel extends javax.swing.JPanel {
         jLabel27.setText("Payment :");
 
         txtDiscAmt.setBackground(java.awt.Color.lightGray);
-        txtDiscAmt.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        txtDiscAmt.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
         txtDiscAmt.setText("0");
         txtDiscAmt.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -752,7 +537,7 @@ public class billingPanel extends javax.swing.JPanel {
         });
 
         txtPayment.setBackground(java.awt.Color.lightGray);
-        txtPayment.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        txtPayment.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
         txtPayment.setText("0");
         txtPayment.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -787,7 +572,7 @@ public class billingPanel extends javax.swing.JPanel {
         jLabel28.setText("Old Due :");
 
         lblPrevDue.setBackground(java.awt.Color.white);
-        lblPrevDue.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        lblPrevDue.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
         lblPrevDue.setText("0");
         lblPrevDue.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         lblPrevDue.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -801,7 +586,7 @@ public class billingPanel extends javax.swing.JPanel {
         jLabel30.setText("Total Due :");
 
         lblTotalDue.setBackground(java.awt.Color.white);
-        lblTotalDue.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        lblTotalDue.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
         lblTotalDue.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         lblTotalDue.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -812,7 +597,7 @@ public class billingPanel extends javax.swing.JPanel {
         lblPaidlbl.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
         lblPaidlbl.setText("Paid :");
 
-        lblPaid.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        lblPaid.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
         lblPaid.setText("0");
 
         jLabel22.setBackground(java.awt.Color.white);
@@ -820,7 +605,7 @@ public class billingPanel extends javax.swing.JPanel {
         jLabel22.setText("Total :");
 
         lblTotal.setBackground(java.awt.Color.white);
-        lblTotal.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        lblTotal.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
         lblTotal.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jSeparator2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -885,62 +670,47 @@ public class billingPanel extends javax.swing.JPanel {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                                .addGap(2, 2, 2)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblPrevDue, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtDiscRate, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtDiscAmt, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(lblSubTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addGap(12, 12, 12)
-                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblTotalDue, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(jLabel27)
-                                                .addComponent(txtPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addGap(56, 56, 56)
-                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblDue, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addGap(12, 12, 12)
-                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                                .addGap(4, 4, 4)
-                                                .addComponent(lblPaid))
-                                            .addComponent(lblPaidlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)))
-                .addContainerGap())
+                    .addComponent(jLabel24, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDiscRate, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDiscAmt, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblSubTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(2, 2, 2)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPrevDue, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPaidlbl, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblPaid)
+                    .addComponent(jLabel30, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblTotalDue, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel27)
+                    .addComponent(txtPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblBalance, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(113, 113, 113)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDue, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnPrint, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {lblDue, lblPaid, lblSubTotal, txtDiscRate});
@@ -1185,7 +955,9 @@ public class billingPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_lblBalanceKeyTyped
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+       resetSelection();
        resetBill();
+       resetTables();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -1210,7 +982,68 @@ public class billingPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_lblBalanceKeyReleased
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-         txtCustName.requestFocus();
+         if ((txtBillId.getText().isEmpty())||("".equals(txtBillId.getText()))) {
+            if(validateData()){ 
+                int dialogResult = JOptionPane.showConfirmDialog (null, "Would You Like to Make the Sales?","Warning",JOptionPane.YES_NO_OPTION);
+                if(dialogResult == JOptionPane.YES_OPTION){
+                    b_pojo = new billing_pojo();
+                    b_pojo.setCust_name(txtCustName.getText());
+                    b_pojo.setContact(txtContact.getText());
+                    b_pojo.setDate(new Date());
+                    b_pojo.setTotal(Double.parseDouble(lblTotal.getText()));
+                    b_pojo.setDisc(Double.parseDouble(txtDiscAmt.getText()));
+                    double payment=0;
+                    
+                    if(Double.parseDouble(lblTotalDue.getText())>Double.parseDouble(txtPayment.getText())){
+                        payment = Double.parseDouble(txtPayment.getText());
+                    }else {
+                        payment = Double.parseDouble(lblTotalDue.getText());
+                    }
+                    
+                    b_pojo.setDue(Double.parseDouble(lblDue.getText()));
+                    b_pojo.setPaid(payment);
+                    b_pojo.setStatus("Pending");
+                    controller.billDetails(b_pojo);
+                    
+                    if(!fnTools.isEmpty(billTable)){
+                        int rows=billTable.getRowCount();
+
+                        for(int row = 0; row<rows; row++){
+                            int item = Integer.parseInt(billTable.getValueAt(row, 0).toString());
+                            int quan = Integer.parseInt(billTable.getValueAt(row, 2).toString());
+                            double cost = Double.parseDouble(billTable.getValueAt(row, 4).toString());
+                            controller.fill_order(controller.getBillNo(), item, quan, cost);
+                        }
+                    }
+                    
+                    if(!fnTools.isEmpty(clientTable)){
+                        String sql = "from client_table_pojo where company_name = '"+b_pojo.getCust_name()+"'";
+                              
+                        j_pojo=controller.get_client(sql);
+                        journal_pojo pojo = new journal_pojo();  
+                        pojo.setClient_id(j_pojo.getClient_id());
+                        pojo.setDate(b_pojo.getDate());
+                        pojo.setCredit(b_pojo.getTotal());
+                        pojo.setDebit(b_pojo.getPaid());
+                        pojo.setFlag(j_pojo.getClient_id().getFlag());
+                        pojo.setDescription("Bill Payment of bill no:  "+controller.getBillNo()+"");
+                        controller.updateDue(pojo);
+                    }
+                    resetBill();
+                    billTableIndex=0;
+                    //ireport();
+                    resetTables();
+                    resetBill();
+                    txtCustName.requestFocus();
+                }
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Nothing to Print");
+            txtCustName.requestFocus();
+        }
+        }else if((!txtBillId.getText().isEmpty())){
+            //updateBill();
+        }
     }//GEN-LAST:event_btnPrintActionPerformed
 
     private void txtDiscRateKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDiscRateKeyReleased
@@ -1258,15 +1091,25 @@ public class billingPanel extends javax.swing.JPanel {
     private void txtCustNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCustNameKeyPressed
         int key = evt.getKeyCode();
         if ((key == KeyEvent.VK_ENTER)&&(!txtCustName.getText().isEmpty())) {
+            
             if(!fnTools.isEmpty(clientTable)){
-        clientTableModel  =(DefaultTableModel)clientTable.getModel();
-        String Name = clientTableModel.getValueAt(0, 0).toString();
-        txtCustName.setText(Name);
-        getData();
+                
+                clientTableModel  =(DefaultTableModel)clientTable.getModel();
+                String Name = clientTableModel.getValueAt(0, 0).toString();
+                txtCustName.setText(Name);
+                String sql = "from client_table_pojo where company_name = '"+txtCustName.getText()+"'";
+                j_pojo=controller.get_client(sql);
+                
+                txtContact.setText(j_pojo.getClient_id().getContact());
+                lblPrevDue.setText(Double.toString(controller.getBalance(j_pojo.getClient_id().getId())));
+                txtsize.requestFocus();
+                
+            }else{
+                txtContact.requestFocus();
             }
-        txtsize.requestFocus();
+        
         }else if ((key == KeyEvent.VK_ESCAPE)){
-        txtBillId.requestFocus();
+            txtBillId.requestFocus();
         }
         else if ((key == KeyEvent.VK_DOWN)) {
             if(!fnTools.isEmpty(clientTable)){
@@ -1281,7 +1124,7 @@ public class billingPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCustNameKeyPressed
 
     private void txtCustNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCustNameKeyReleased
-        fillCustTable();        
+       controller.fill_company_name(clientTable, txtCustName.getText());
     }//GEN-LAST:event_txtCustNameKeyReleased
 
     private void txtDiscAmtFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDiscAmtFocusLost
@@ -1334,26 +1177,7 @@ public class billingPanel extends javax.swing.JPanel {
             if(txtPayment.getText().equals("0")){
                 lblDue.setText(lblTotalDue.getText());
             }
-            int dialogResult = JOptionPane.showConfirmDialog (null, "Regular Customer ?","Warning",JOptionPane.YES_NO_OPTION);
-            if(dialogResult == JOptionPane.NO_OPTION){
-                 int dialogResult2 = JOptionPane.showConfirmDialog (null, "Make it Special Customer ?","Warning",JOptionPane.YES_NO_OPTION);
-            if(dialogResult2 == JOptionPane.YES_OPTION){
-                     try {
-                         String sql = "insert into special_customer_table(cust_name,contact,old_due) values('"+txtCustName.getText()+"','"+txtContact.getText()+"','"+lblDue.getText()+"')";
-                         smtInstance = conInstance.createStatement();
-                         smtInstance.executeUpdate(sql);
-                         btnPrint.requestFocus();
-                     } catch (SQLException ex) {
-                         Logger.getLogger(billingPanel.class.getName()).log(Level.SEVERE, null, ex);
-                     }
-            }  
-             
-             }else if(dialogResult == JOptionPane.YES_OPTION){
-                 btnPrint.requestFocus();
-             }
-            
-            
-            
+            btnPrint.requestFocus();                       
         }
     }//GEN-LAST:event_txtPaymentKeyPressed
 
@@ -1377,25 +1201,7 @@ public class billingPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtPaymentFocusGained
 
     private void btnPrintKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnPrintKeyPressed
-        int key = evt.getKeyCode();
-        if ((key == KeyEvent.VK_ENTER)&& ((txtBillId.getText().isEmpty())||("".equals(txtBillId.getText())))) {
-        if((!fnTools.isEmpty(billTable)&&(!"".equals(txtPayment.getText()))&&(!"".equals(lblTotalDue.getText())))){
-            int dialogResult = JOptionPane.showConfirmDialog (null, "Would You Like to Make the Sales?","Warning",JOptionPane.YES_NO_OPTION);
-            if(dialogResult == JOptionPane.YES_OPTION){
-                billDetails();
-                txtCustName.requestFocus();
-            }
-        }
-        else{
-            JOptionPane.showMessageDialog(null,"Nothing to Print");
-            txtCustName.requestFocus();
-        }
-        }else if((key == KeyEvent.VK_ENTER)&& (!txtBillId.getText().isEmpty())){
-            updateBill();
-        }else if(key == KeyEvent.VK_ESCAPE){
-            txtCustName.requestFocus();
-        }
-        
+       
     }//GEN-LAST:event_btnPrintKeyPressed
 
     private void txtsizeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsizeKeyPressed
@@ -1405,59 +1211,49 @@ public class billingPanel extends javax.swing.JPanel {
             
         } else if ((key == KeyEvent.VK_ENTER)&&(!txtsize.getText().isEmpty())) {
             
-            if(!fnTools.isEmpty(sizeTable)){
+            if(!fnTools.isEmpty(sizeTable)){ 
+                
                 size_table_model  =(DefaultTableModel)sizeTable.getModel();
                 String Name = size_table_model.getValueAt(0, 0).toString();
                 txtsize.setText(Name);
-            
-                            
-            try {
-                String itemcode = "Select id,rate from client_rate_table where size = '"+txtsize.getText()+"' and company_name = '"+txtCustName.getText()+"'";
-                smtInstance = conInstance.createStatement();
-                ResultSet itemcodeRs = smtInstance.executeQuery(itemcode);
-                int i =1;
-                while(itemcodeRs.next()){
-                    i++;
-                    item_code = itemcodeRs.getString(1);
-                    display = itemcodeRs.getString("rate");
-                }
                 
-                if(i==1){
-                    
-                   String item = "Select id,display from photo_size_detail_table where size = '"+txtsize.getText()+"'";
-                   
-                   smtInstance = conInstance.createStatement();
-                ResultSet itemcodeRss = smtInstance.executeQuery(item);
-                while(itemcodeRss.next()){
-                    item_code = itemcodeRss.getString(1);
-                    display = itemcodeRss.getString("display");
+                String sql ="from size_entry_pojo where size= '"+txtsize.getText()+"'";
+                s_pojo = controller.get_size(sql);
+                if(!fnTools.isEmpty(clientTable)){
+                    String check_rate_sql ="from rate_table_pojo where client_id = "+j_pojo.getClient_id().getId()+" and size_id = "+s_pojo.getSize_id()+"";
+
+                    if(controller.isData(check_rate_sql)){
+
+                        r_pojo = controller.get_rate(check_rate_sql);
+                        display = Double.toString(r_pojo.getRate());
+                        item_code = Integer.toString(r_pojo.getId());
+
+                    }else{
+                    display = Double.toString(s_pojo.getDisplay());
+                    item_code = Integer.toString(s_pojo.getSize_id());
                 }
-                
+                }else{
+                    display = Double.toString(s_pojo.getDisplay());
+                    item_code = Integer.toString(s_pojo.getSize_id());
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(billingPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-            if(!txtContact.getText().isEmpty()){
-                txtQty.requestFocus();
-            }else{
-                txtContact.requestFocus();
-            }
+            txtQty.requestFocus(); 
+        }  
+                  
         }else if ((key == KeyEvent.VK_DOWN)) {
             if(!fnTools.isEmpty(sizeTable)){
+                
             size_table_model  =(DefaultTableModel)sizeTable.getModel();
             sizeTable.setRowSelectionInterval(0, 0);
             sizeTable.requestFocus();
             
             }
-            //txtRate.requestFocus();
         }  
     }//GEN-LAST:event_txtsizeKeyPressed
 
     private void txtsizeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsizeKeyReleased
         String values = txtsize.getText();
-        sql = "SELECT Distinct size FROM photo_size_detail_table where size Like '"+values+"%'";
-        fill_size_entry_table(sql,"size",sizeTable);
+        String sql = "FROM size_entry_pojo where size Like '"+values+"%'";
+        controller.fill_size_name(sizeTable,sql);
         
         
     }//GEN-LAST:event_txtsizeKeyReleased
@@ -1477,12 +1273,13 @@ public class billingPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtContactKeyTyped
 
     private void txtContactKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContactKeyPressed
-        ((AbstractDocument) txtContact.getDocument()).setDocumentFilter(new MyIntFilter());
         int key = evt.getKeyCode();
-        if ((key == KeyEvent.VK_ENTER)&&(!txtBillId.getText().isEmpty())) {
+        if ((key >= KeyEvent.VK_0 && key <= KeyEvent.VK_9) || (key >= KeyEvent.VK_NUMPAD0 && key <= KeyEvent.VK_NUMPAD9) || (key == KeyEvent.VK_BACK_SPACE)) {
+            //txtQty.setEditable(true);
+        }else if ((key == KeyEvent.VK_ENTER)&&(!txtBillId.getText().isEmpty())) {
             txtDiscRate.requestFocus();
         }else if ((key == KeyEvent.VK_ENTER)&&(txtBillId.getText().isEmpty())){
-            txtQty.requestFocus();
+            txtsize.requestFocus();
         }
     }//GEN-LAST:event_txtContactKeyPressed
 
@@ -1492,15 +1289,14 @@ public class billingPanel extends javax.swing.JPanel {
             int row_index = clientTable.getSelectedRow();
             String value = clientTable.getModel().getValueAt(row_index,0).toString();
             txtCustName.setText(value);
-            txtsize.requestFocus();
-            getData();
+            txtCustName.requestFocus();
         }
     }//GEN-LAST:event_clientTableKeyPressed
 
     private void txtQtyKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQtyKeyPressed
         int key = evt.getKeyCode();
         if ((key >= KeyEvent.VK_0 && key <= KeyEvent.VK_9) || (key >= KeyEvent.VK_NUMPAD0 && key <= KeyEvent.VK_NUMPAD9) || (key == KeyEvent.VK_BACK_SPACE)) {
-            txtQty.setEditable(true);
+            //txtQty.setEditable(true);
         }else if ((key == KeyEvent.VK_ENTER)&&(!txtQty.getText().isEmpty())) {
             txtRate.requestFocus();
         }else {
@@ -1563,50 +1359,50 @@ public class billingPanel extends javax.swing.JPanel {
             txtBillId.setEditable(true);
 
         } else if ((key == KeyEvent.VK_ENTER)&&(!txtBillId.getText().isEmpty())) {
-            try {
-                String search = "SELECT * FROM bill_table WHERE bill_no = '"+txtBillId.getText()+"'";
-                smtInstance = conInstance.createStatement();
-                ResultSet resultSearch = smtInstance.executeQuery(search);
-                if(resultSearch.next()){
-                    txtCustName.setText(resultSearch.getString("cust_name"));
-                    lblTotal.setText(resultSearch.getString("total"));
-                    lblPaid.setVisible(true);
-                    lblPaidlbl.setVisible(true);
-                    lblPaid.setText(resultSearch.getString("paid"));
-                    lblDue.setText(resultSearch.getString("due"));
-                    getData();
-                    lblSubTotal.setText(Double.toString(resultSearch.getDouble("total")+resultSearch.getDouble("disc")));
-                    txtDiscAmt.setText(resultSearch.getString("disc"));
-                    double due = 0;
-                    due = resultSearch.getDouble("due");
-                    if((!lblPrevDue.getText().equals("0"))&&(Double.parseDouble(lblPrevDue.getText())!=due)){
-                        String maxId = "Select max(bill_no) from bill_table where cust_name = '"+txtCustName.getText()+"' and contact = '"+txtContact.getText() +"'";
-                        smtInstance = conInstance.createStatement();
-                        ResultSet max = smtInstance.executeQuery(maxId);
-                        while(max.next()){
-                            BillId = max.getString(1);
-                        }
-                        JOptionPane.showMessageDialog(null,"Out-dated bill ! Previous Due might be different. Your Updated bill is "+BillId+"");
-                        resetBill();
-                        txtBillId.requestFocus();
-                    }else{
-                        lblPrevDue.setText(resultSearch.getString("old_due"));
-                        txtDiscRate.requestFocus();
-                    }
-                    
-                }
-
-                
-            } catch (SQLException ex) {
-                Logger.getLogger(expencesPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
+//            try {
+//                String search = "SELECT * FROM bill_table WHERE bill_no = '"+txtBillId.getText()+"'";
+//                smtInstance = conInstance.createStatement();
+//                ResultSet resultSearch = smtInstance.executeQuery(search);
+//                if(resultSearch.next()){
+//                    txtCustName.setText(resultSearch.getString("cust_name"));
+//                    lblTotal.setText(resultSearch.getString("total"));
+//                    lblPaid.setVisible(true);
+//                    lblPaidlbl.setVisible(true);
+//                    lblPaid.setText(resultSearch.getString("paid"));
+//                    lblDue.setText(resultSearch.getString("due"));
+//                    getData();
+//                    lblSubTotal.setText(Double.toString(resultSearch.getDouble("total")+resultSearch.getDouble("disc")));
+//                    txtDiscAmt.setText(resultSearch.getString("disc"));
+//                    double due = 0;
+//                    due = resultSearch.getDouble("due");
+//                    if((!lblPrevDue.getText().equals("0"))&&(Double.parseDouble(lblPrevDue.getText())!=due)){
+//                        String maxId = "Select max(bill_no) from bill_table where cust_name = '"+txtCustName.getText()+"' and contact = '"+txtContact.getText() +"'";
+//                        smtInstance = conInstance.createStatement();
+//                        ResultSet max = smtInstance.executeQuery(maxId);
+//                        while(max.next()){
+//                            BillId = max.getString(1);
+//                        }
+//                        JOptionPane.showMessageDialog(null,"Out-dated bill ! Previous Due might be different. Your Updated bill is "+BillId+"");
+//                        resetBill();
+//                        txtBillId.requestFocus();
+//                    }else{
+//                        lblPrevDue.setText(resultSearch.getString("old_due"));
+//                        txtDiscRate.requestFocus();
+//                    }
+//                    
+//                }
+//
+//                
+//            } catch (SQLException ex) {
+//                Logger.getLogger(expencesPanel.class.getName()).log(Level.SEVERE, null, ex);
+//            }
         }else {
             evt.consume();
             JOptionPane.showMessageDialog(null, "INVALID INSERT");
             txtBillId.setText("");
         }
-        values = txtCustName.getText();
-        fillTable("SELECT * FROM sales_table WHERE bill_no = '"+txtBillId.getText()+"'");
+        String values = txtCustName.getText();
+        //fillTable("SELECT * FROM sales_table WHERE bill_no = '"+txtBillId.getText()+"'");
         //calculate();
     }//GEN-LAST:event_txtBillIdKeyPressed
 

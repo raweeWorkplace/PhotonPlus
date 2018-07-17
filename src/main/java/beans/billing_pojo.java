@@ -50,9 +50,7 @@ public class billing_pojo implements Serializable {
     @Column
     private double due;
     
-    @Column
-    private double old_due;
-    
+       
     @Column
     private String status;
 
@@ -123,14 +121,6 @@ public class billing_pojo implements Serializable {
         this.due = due;
     }
 
-    public double getOld_due() {
-        return old_due;
-    }
-
-    public void setOld_due(double old_due) {
-        this.old_due = old_due;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -143,7 +133,7 @@ public class billing_pojo implements Serializable {
     
     
     
-    public billing_pojo(Date date, String cust_name, String contact, double total, double disc, double paid, double due, double old_due, String status) {
+    public billing_pojo(Date date, String cust_name, String contact, double total, double disc, double paid, double due, String status) {
         super();
         this.date = date;
         this.cust_name = cust_name;
@@ -152,7 +142,6 @@ public class billing_pojo implements Serializable {
         this.disc = disc;
         this.paid = paid;
         this.due = due;
-        this.old_due = old_due;
         this.status = status;
     }
     

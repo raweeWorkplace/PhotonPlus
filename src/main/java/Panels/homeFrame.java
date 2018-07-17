@@ -52,6 +52,7 @@ public class homeFrame extends javax.swing.JFrame {
     public homeFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
+        //this.setBackground(new Color(0,0,0,0));
         try {
 
             bi = ImageIO.read(getClass().getClassLoader().getResource("BillingIcon/ICON.png"));
@@ -310,8 +311,6 @@ public class homeFrame extends javax.swing.JFrame {
         });
         masterPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-
-
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BillingIcon/master-icon.png"))); // NOI18N
         masterPanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
@@ -319,7 +318,6 @@ public class homeFrame extends javax.swing.JFrame {
         jLabel13.setForeground(java.awt.Color.white);
         jLabel13.setText("MASTER");
         masterPanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
-
 
         reportPanel.setBackground(java.awt.Color.lightGray);
         reportPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -519,15 +517,14 @@ public class homeFrame extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(homeFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(homeFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(homeFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(homeFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
