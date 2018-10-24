@@ -6,7 +6,7 @@
 package Panels;
 
 import controller.functionTools;
-import beans.client_table_pojo;
+import beans.clientPojo;
 import beans.journal_pojo;
 import controller.client_registration_controller;
 import java.awt.event.KeyEvent;
@@ -395,9 +395,9 @@ public class clientRegPanel extends javax.swing.JPanel {
             obj = cmbCliebtType.getSelectedItem().toString();
             String sql1;
             if("Dealer".equals(obj)){
-                sql1 = "FROM client_table_pojo s where s.company_name Like'" + txtCompanyName.getText() + "%' and flag = 1";
+                sql1 = "FROM clientPojo s where s.company_name Like'" + txtCompanyName.getText() + "%' and flag = 1";
             }else{
-                sql1 = "FROM client_table_pojo s where s.company_name Like'" + txtCompanyName.getText() + "%' and flag = 0";
+                sql1 = "FROM clientPojo s where s.company_name Like'" + txtCompanyName.getText() + "%' and flag = 0";
             }
             controller.fill_client_detail_table(client_detail_table, sql1);
         
@@ -485,7 +485,7 @@ public class clientRegPanel extends javax.swing.JPanel {
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
             String obj = "";
             obj = cmbCliebtType.getSelectedItem().toString();
-            client_table_pojo pojo = new client_table_pojo();
+            clientPojo pojo = new clientPojo();
                         
             pojo.setAddress(txtAddress.getText());
             pojo.setClient_name(txtClientName.getText());
@@ -512,7 +512,7 @@ public class clientRegPanel extends javax.swing.JPanel {
                     resetVendorDetails();
                     controller.register_client(pojo,j_pojo);
             }
-            controller.fill_client_detail_table(client_detail_table, "from client_table_pojo where flag ="+pojo.getFlag()+"");
+            controller.fill_client_detail_table(client_detail_table, "from clientPojo where flag ="+pojo.getFlag()+"");
             txtCompanyName.requestFocus();
         
         

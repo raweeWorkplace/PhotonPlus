@@ -56,7 +56,7 @@ public class LoginFrame extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         try {
-            bi = ImageIO.read(getClass().getClassLoader().getResource("BillingIcon/ICON.png"));
+            bi = ImageIO.read(getClass().getClassLoader().getResource("BillingIcon/1LOGO.png"));
             this.setIconImage(bi);
              this.setTitle("PHOTON || HICOLA COLOUR LAB");
         } catch (IOException ex) {
@@ -189,17 +189,19 @@ public class LoginFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(forgotPassword))
                     .addGroup(logInPanelLayout.createSequentialGroup()
-                        .addGap(223, 223, 223)
-                        .addGroup(logInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
                         .addGroup(logInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(logInPanelLayout.createSequentialGroup()
+                                .addGap(169, 169, 169)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logInPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel3)
+                                .addGap(17, 17, 17)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(logInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(Submit_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(logInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(pwdPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                                .addComponent(txtUserId)))
-                        .addGap(0, 110, Short.MAX_VALUE)))
+                            .addComponent(txtUserId, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
+                            .addComponent(pwdPassword))))
                 .addContainerGap())
         );
         logInPanelLayout.setVerticalGroup(
@@ -231,7 +233,7 @@ public class LoginFrame extends javax.swing.JFrame {
             .addGroup(introPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(logInPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
         introPanelLayout.setVerticalGroup(
             introPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

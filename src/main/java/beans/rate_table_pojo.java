@@ -27,9 +27,9 @@ public class rate_table_pojo implements Serializable {
    @GeneratedValue(strategy = GenerationType.AUTO)
     private int client_rate_id;
     
-    @ManyToOne(optional = false,targetEntity = client_table_pojo.class)
+    @ManyToOne(optional = false,targetEntity = clientPojo.class)
     @JoinColumn(name = "client_id")
-    private client_table_pojo client_id;
+    private clientPojo client_id;
     
     
     @ManyToOne(optional = false,targetEntity = size_entry_pojo.class)
@@ -38,7 +38,7 @@ public class rate_table_pojo implements Serializable {
     @Column()
     private double rate;
 
-    public rate_table_pojo(client_table_pojo client_id, size_entry_pojo size_id, double rate) {
+    public rate_table_pojo(clientPojo client_id, size_entry_pojo size_id, double rate) {
         this.client_id = client_id;
         this.size_id = size_id;
         this.rate = rate;
@@ -52,11 +52,11 @@ public class rate_table_pojo implements Serializable {
         this.client_rate_id = client_rate_id;
     }
 
-    public client_table_pojo getClient_id() {
+    public clientPojo getClient_id() {
         return client_id;
     }
 
-    public void setClient_id(client_table_pojo client_id) {
+    public void setClient_id(clientPojo client_id) {
         this.client_id = client_id;
     }
 

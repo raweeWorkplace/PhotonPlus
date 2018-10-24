@@ -5,6 +5,7 @@
  */
 package controller;
 
+import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import javax.swing.JPanel;
@@ -40,7 +41,17 @@ public class functionTools {
         Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
     }
      
+     public static void enter(java.awt.event.MouseEvent evt){
+         JPanel parent = (JPanel)evt.getSource();
+        parent.setBackground(Color.decode("#f0be8b"));
+        parent.revalidate();
+     }
      
+     public static void exit(java.awt.event.MouseEvent evt){
+         JPanel parent = (JPanel)evt.getSource();
+        parent.setBackground(Color.LIGHT_GRAY);
+        parent.revalidate();
+     }
     
     
 }

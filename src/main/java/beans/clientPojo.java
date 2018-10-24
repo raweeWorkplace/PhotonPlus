@@ -18,7 +18,7 @@ import javax.persistence.Table;
  * @author idiotbox
  */@Entity
  @Table(name="client_detail_table", schema = "root")
-public class client_table_pojo implements Serializable {
+public class clientPojo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int client_id;
@@ -38,7 +38,7 @@ public class client_table_pojo implements Serializable {
     @Column
     private int flag;
 
-    public client_table_pojo(String company_name, String client_name, String contact, String address, int flag) {
+    public clientPojo(String company_name, String client_name, String contact, String address, int flag) {
         this.company_name = company_name;
         this.client_name = client_name;
         this.contact = contact;
@@ -96,7 +96,7 @@ public class client_table_pojo implements Serializable {
         this.address = address;
     }
 
-    public client_table_pojo() {
+    public clientPojo() {
     }
     
     

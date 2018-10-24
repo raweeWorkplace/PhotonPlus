@@ -5,8 +5,11 @@
  */
 package Panels;
 
+import controller.functionTools;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import javax.swing.JPanel;
 
 /**
  *
@@ -47,6 +50,8 @@ public class reportPanel extends javax.swing.JPanel {
         displayPanel.add(stockSummary, gridBag);
 
     }
+    
+    
 
     private void state() {
         
@@ -97,6 +102,12 @@ public class reportPanel extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 dailyReportPanelMouseClicked(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                dailyReportPanelMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                dailyReportPanelMouseEntered(evt);
+            }
         });
         dailyReportPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -115,6 +126,12 @@ public class reportPanel extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 clientReportPanelMouseClicked(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                clientReportPanelMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                clientReportPanelMouseEntered(evt);
+            }
         });
         clientReportPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -132,6 +149,12 @@ public class reportPanel extends javax.swing.JPanel {
         stockSummaryPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 stockSummaryPanelMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                stockSummaryPanelMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                stockSummaryPanelMouseEntered(evt);
             }
         });
         stockSummaryPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -195,6 +218,30 @@ public class reportPanel extends javax.swing.JPanel {
         stockSummary.setVisible(true);
         stockSummary.btnSearch.requestFocus();
     }//GEN-LAST:event_stockSummaryPanelMouseClicked
+
+    private void clientReportPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clientReportPanelMouseEntered
+        functionTools.enter(evt);
+    }//GEN-LAST:event_clientReportPanelMouseEntered
+
+    private void clientReportPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clientReportPanelMouseExited
+       functionTools.exit(evt);
+    }//GEN-LAST:event_clientReportPanelMouseExited
+
+    private void dailyReportPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dailyReportPanelMouseEntered
+       functionTools.enter(evt);
+    }//GEN-LAST:event_dailyReportPanelMouseEntered
+
+    private void dailyReportPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dailyReportPanelMouseExited
+       functionTools.exit(evt);
+    }//GEN-LAST:event_dailyReportPanelMouseExited
+
+    private void stockSummaryPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stockSummaryPanelMouseEntered
+      functionTools.enter(evt);
+    }//GEN-LAST:event_stockSummaryPanelMouseEntered
+
+    private void stockSummaryPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_stockSummaryPanelMouseExited
+       functionTools.exit(evt);
+    }//GEN-LAST:event_stockSummaryPanelMouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -98,12 +98,13 @@ public class databaseConfiguration extends javax.swing.JFrame {
         jLabel4.setForeground(java.awt.Color.white);
         jLabel4.setText("PHOTON");
 
-        confPanel.setBackground(new java.awt.Color(94, 164, 240));
+        confPanel.setBackground(java.awt.SystemColor.control);
 
         jLabel1.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
-        jLabel1.setForeground(java.awt.Color.white);
+        jLabel1.setForeground(java.awt.Color.black);
         jLabel1.setText("Product Key :");
 
+        txtProductKey.setForeground(java.awt.Color.black);
         txtProductKey.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtProductKey.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,9 +121,10 @@ public class databaseConfiguration extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
-        jLabel2.setForeground(java.awt.Color.white);
+        jLabel2.setForeground(java.awt.Color.black);
         jLabel2.setText("Name :");
 
+        txtName.setForeground(java.awt.Color.black);
         txtName.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -131,9 +133,10 @@ public class databaseConfiguration extends javax.swing.JFrame {
         });
 
         jLabel5.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
-        jLabel5.setForeground(java.awt.Color.white);
+        jLabel5.setForeground(java.awt.Color.black);
         jLabel5.setText("Contact :");
 
+        txtContact.setForeground(java.awt.Color.black);
         txtContact.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtContact.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,9 +153,10 @@ public class databaseConfiguration extends javax.swing.JFrame {
         });
 
         jLabel6.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
-        jLabel6.setForeground(java.awt.Color.white);
+        jLabel6.setForeground(java.awt.Color.black);
         jLabel6.setText("Email :");
 
+        txtEmail.setForeground(java.awt.Color.black);
         txtEmail.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -161,10 +165,11 @@ public class databaseConfiguration extends javax.swing.JFrame {
         });
 
         jLabel7.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
-        jLabel7.setForeground(java.awt.Color.white);
+        jLabel7.setForeground(java.awt.Color.black);
         jLabel7.setText("Address :");
 
         txtAddress.setColumns(20);
+        txtAddress.setForeground(java.awt.Color.black);
         txtAddress.setRows(5);
         txtAddress.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtAddress.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -190,13 +195,14 @@ public class databaseConfiguration extends javax.swing.JFrame {
 
         jLabel8.setBackground(java.awt.Color.white);
         jLabel8.setFont(new java.awt.Font("Century Schoolbook L", 2, 18)); // NOI18N
-        jLabel8.setForeground(java.awt.Color.white);
+        jLabel8.setForeground(java.awt.Color.black);
         jLabel8.setText("The following details will be displayed on invoice.");
 
         jLabel9.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
-        jLabel9.setForeground(java.awt.Color.white);
+        jLabel9.setForeground(java.awt.Color.black);
         jLabel9.setText("PAN :");
 
+        txtPAN.setForeground(java.awt.Color.black);
         txtPAN.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtPAN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

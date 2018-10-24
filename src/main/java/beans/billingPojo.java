@@ -22,7 +22,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "bill_table", schema = "root")
-public class billing_pojo implements Serializable {
+public class billingPojo implements Serializable {
     
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -54,7 +54,7 @@ public class billing_pojo implements Serializable {
     @Column
     private String status;
 
-    public billing_pojo() {
+    public billingPojo() {
     }
 
     public int getBill() {
@@ -133,7 +133,7 @@ public class billing_pojo implements Serializable {
     
     
     
-    public billing_pojo(Date date, String cust_name, String contact, double total, double disc, double paid, double due, String status) {
+    public billingPojo(Date date, String cust_name, String contact, double total, double disc, double paid, double due, String status) {
         super();
         this.date = date;
         this.cust_name = cust_name;

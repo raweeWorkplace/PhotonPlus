@@ -5,7 +5,7 @@
  */
 package Panels;
 
-import beans.client_table_pojo;
+import beans.clientPojo;
 import controller.functionTools;
 import beans.rate_table_pojo;
 import beans.size_entry_pojo;
@@ -26,7 +26,7 @@ public class clientRateManagementPanel extends javax.swing.JPanel {
     rate_controller controller;
     rate_table_pojo pojo;
     size_entry_pojo s_pojo;
-    client_table_pojo c_pojo;
+    clientPojo c_pojo;
 
     /**
      * Creates new form purchaseVouchrePanel
@@ -34,7 +34,7 @@ public class clientRateManagementPanel extends javax.swing.JPanel {
     public clientRateManagementPanel() {
         initComponents();
         s_pojo = new size_entry_pojo();
-        c_pojo = new client_table_pojo();
+        c_pojo = new clientPojo();
         txtDiscAmt.setEditable(true);
         fnTools = new functionTools();
         controller = new rate_controller();
@@ -468,7 +468,7 @@ public class clientRateManagementPanel extends javax.swing.JPanel {
        pojo = new rate_table_pojo();
        pojo.setRate(Double.parseDouble(txtNewRate.getText()));
        pojo.setSize_id(s_pojo);
-       String sql = "from client_table_pojo where company_name ='"+txtCompanyName.getText()+"'";
+       String sql = "from clientPojo where company_name ='"+txtCompanyName.getText()+"'";
        c_pojo = controller.get_client(sql);
        pojo.setClient_id(c_pojo);
        if(validate_and_save_data()){

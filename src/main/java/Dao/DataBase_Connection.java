@@ -23,7 +23,7 @@ public class DataBase_Connection {
 
     protected String dbUserName ="root";
     protected String dbPassWord = "";
-    protected String dbUrl ="jdbc:mysql://localhost:3306/photon";
+    protected String dbUrl ="jdbc:mysql://localhost:3306/photon?createDatabaseIfNotExist=true";
     protected String dbDriver ="com.mysql.jdbc.Driver";
     protected static String configFileName;
     protected Statement smtInstance;

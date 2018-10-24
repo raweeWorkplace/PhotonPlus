@@ -21,7 +21,7 @@ public class databaseInitializer {
     protected static Connection connectionInstance;
     protected String dbUserName ="root";
     protected String dbPassWord = "";
-    protected String dbUrl ="jdbc:mysql://localhost:3306/";
+    protected String dbUrl ="jdbc:mysql://localhost:3306";
     protected String dbDriver ="com.mysql.jdbc.Driver";
     protected Statement smtInstance2;
     DataBase_Connection dao = new DataBase_Connection();

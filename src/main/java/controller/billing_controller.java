@@ -5,16 +5,31 @@
  */
 package controller;
 
-import beans.billing_pojo;
-import beans.client_table_pojo;
+import beans.billingPojo;
+import beans.clientPojo;
 import beans.journal_pojo;
 import beans.rate_table_pojo;
 import beans.sales_pojo;
 import beans.size_entry_pojo;
+import java.io.InputStream;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -30,7 +45,9 @@ public class billing_controller {
     Transaction t;
     Configuration conf;
     functionTools fnTools;
-    List<client_table_pojo>  r_list;
+    List<clientPojo>  r_list;
+    InputStream url7;
+    
 
     public billing_controller() {
         conf = new Configuration();
@@ -63,7 +80,7 @@ public class billing_controller {
         s = sf.openSession();
         Query query = s.createQuery(sql);
         journal_pojo j_pojo = new journal_pojo();
-        client_table_pojo c_pojo = (client_table_pojo)query.getSingleResult();
+        clientPojo c_pojo = (clientPojo)query.getSingleResult();
         List<journal_pojo> list = s.createQuery("from journal_pojo where client_id = "+c_pojo.getId()+"").getResultList();
         for(journal_pojo pojo :list){
             j_pojo = pojo;
@@ -75,10 +92,10 @@ public class billing_controller {
         DefaultTableModel table_model = (DefaultTableModel) table.getModel();
         s= sf.openSession();
         Query query = s.createQuery("from client_table_pojo where company_name like '"+str+"%'");
-        List<client_table_pojo> list = query.getResultList();
+        List<clientPojo> list = query.getResultList();
         fnTools.remove_table_data(table_model, table);
         int j=0;
-        for(client_table_pojo rs_pojo :list){
+        for(clientPojo rs_pojo :list){
             table_model.insertRow(j, new Object[]{rs_pojo.getCompany_name()});
             j++;
         }
@@ -100,7 +117,7 @@ public class billing_controller {
         
     }
     
-    public void billDetails(billing_pojo b_pojo){
+    public void billDetails(billingPojo b_pojo){
         s = sf.openSession();
         t=s.beginTransaction();
         s.saveOrUpdate(b_pojo);
@@ -119,7 +136,7 @@ public class billing_controller {
     }
         
     public int getBillNo(){
-    String sql = "select max(j.bill_no) from billing_pojo j";
+    String sql = "select max(j.bill_no) from billingPojo j";
     s= sf.openSession();
     org.hibernate.query.Query query =s.createQuery(sql);
     return (int) query.getSingleResult();
@@ -192,4 +209,29 @@ public class billing_controller {
     org.hibernate.query.Query query =s.createQuery(sql);
     return (double) query.getSingleResult();
     } 
+    
+    public void ireport(){
+        try {
+            s = sf.openSession();
+            
+            String reportSql ="from billingPojo s where s.bill_no = '"+getBillNo()+"'";
+            List list = s.createQuery(reportSql).getResultList();
+            
+            url7 = getClass().getResourceAsStream("/report/report.jrxml");
+            JasperDesign jd = JRXmlLoader.load(url7);
+            JRDesignQuery newQuery = new JRDesignQuery();
+            newQuery.setText(reportSql);
+            jd.setQuery(newQuery);
+            JasperReport jr = JasperCompileManager.compileReport(jd);
+            JasperPrint jp = JasperFillManager.fillReport(jr, null, new JRBeanCollectionDataSource(list));
+            JasperViewer.viewReport(jp,false);
+            int dialogResult = JOptionPane.showConfirmDialog (null, "Do you want to print Bill?","Warning",JOptionPane.YES_NO_OPTION);
+            if(dialogResult == JOptionPane.YES_OPTION){
+                JasperPrintManager.printReport(jp, true);
+            }
+        } catch (JRException ex) {
+            Logger.getLogger(billing_controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                
+    }
 }

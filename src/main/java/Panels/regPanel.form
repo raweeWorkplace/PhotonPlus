@@ -23,42 +23,37 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jLabel8" alignment="1" min="-2" pref="177" max="-2" attributes="0"/>
-                                  <Component id="jLabel6" alignment="1" min="-2" pref="87" max="-2" attributes="0"/>
-                                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="txtName" linkSize="3" alignment="0" min="-2" pref="299" max="-2" attributes="0"/>
-                                  <Component id="pwdUserPassword" linkSize="3" alignment="0" min="-2" pref="299" max="-2" attributes="0"/>
-                                  <Component id="pwdConfirmUserPassword" linkSize="3" alignment="0" min="-2" pref="262" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="submittButton" min="-2" pref="140" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <Component id="lblUserPwdNotification" min="-2" pref="106" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="6" max="32767" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="79" max="32767" attributes="0"/>
                       <Component id="jLabel5" min="-2" pref="153" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="txtUserName" linkSize="3" min="-2" pref="263" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lblWarning" min="-2" pref="112" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="jLabel8" min="-2" pref="186" max="-2" attributes="0"/>
+                          <Component id="jLabel6" alignment="1" min="-2" pref="87" max="-2" attributes="0"/>
+                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="submittButton" min="-2" pref="140" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="txtName" linkSize="3" alignment="1" min="-2" pref="299" max="-2" attributes="0"/>
+                          <Component id="txtUserName" linkSize="3" alignment="1" min="-2" pref="263" max="-2" attributes="0"/>
+                          <Component id="pwdUserPassword" linkSize="3" alignment="1" min="-2" pref="299" max="-2" attributes="0"/>
+                          <Component id="pwdConfirmUserPassword" linkSize="3" alignment="1" min="-2" pref="262" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblUserPwdNotification" alignment="1" min="-2" pref="106" max="-2" attributes="0"/>
+                          <Component id="lblWarning" alignment="1" min="-2" pref="112" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace pref="31" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -90,9 +85,9 @@
                   <Component id="jLabel8" linkSize="2" min="-2" max="-2" attributes="0"/>
                   <Component id="lblUserPwdNotification" min="-2" pref="46" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="submittButton" min="-2" pref="54" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

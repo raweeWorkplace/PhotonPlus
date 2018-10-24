@@ -5,10 +5,9 @@
  */
 package Panels;
 
-import java.awt.Color;
+import controller.functionTools;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import javax.swing.JPanel;
 
 /**
  *
@@ -115,7 +114,7 @@ public class masterPanel extends javax.swing.JPanel {
 
         jLabel5.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
         jLabel5.setText("Picture");
-        imagePanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 70, -1));
+        imagePanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 80, -1));
 
         jLabel6.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
         jLabel6.setText("Management");
@@ -225,39 +224,27 @@ public class masterPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_ratePanelMouseClicked
 
     private void clientPanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clientPanelMouseEntered
-       JPanel parent = (JPanel)evt.getSource();
-        parent.setBackground(Color.decode("#f0be8b"));
-        parent.revalidate();
+       functionTools.enter(evt);
     }//GEN-LAST:event_clientPanelMouseEntered
 
     private void clientPanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clientPanelMouseExited
-        JPanel parent = (JPanel)evt.getSource();
-        parent.setBackground(Color.LIGHT_GRAY);
-        parent.revalidate();
+        functionTools.exit(evt);
     }//GEN-LAST:event_clientPanelMouseExited
 
     private void imagePanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagePanelMouseEntered
-        JPanel parent = (JPanel)evt.getSource();
-        parent.setBackground(Color.decode("#f0be8b"));
-        parent.revalidate();
+        functionTools.enter(evt);
     }//GEN-LAST:event_imagePanelMouseEntered
 
     private void ratePanelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ratePanelMouseEntered
-       JPanel parent = (JPanel)evt.getSource();
-        parent.setBackground(Color.decode("#f0be8b"));
-        parent.revalidate();
+       functionTools.enter(evt);
     }//GEN-LAST:event_ratePanelMouseEntered
 
     private void imagePanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagePanelMouseExited
-        JPanel parent = (JPanel)evt.getSource();
-        parent.setBackground(Color.LIGHT_GRAY);
-        parent.revalidate();
+        functionTools.exit(evt);
     }//GEN-LAST:event_imagePanelMouseExited
 
     private void ratePanelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ratePanelMouseExited
-        JPanel parent = (JPanel)evt.getSource();
-        parent.setBackground(Color.LIGHT_GRAY);
-        parent.revalidate();
+        functionTools.exit(evt);
     }//GEN-LAST:event_ratePanelMouseExited
 
 

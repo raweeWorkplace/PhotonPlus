@@ -5,7 +5,7 @@
  */
 package controller;
 
-import beans.client_table_pojo;
+import beans.clientPojo;
 import beans.journal_pojo;
 import java.util.List;
 import javax.persistence.Query;
@@ -26,7 +26,7 @@ public class client_registration_controller {
     SessionFactory sf;
     Session s;
     Transaction t;
-    List<client_table_pojo>  cl_list;
+    List<clientPojo>  cl_list;
     functionTools fnTools;
 
     public client_registration_controller() {
@@ -38,11 +38,11 @@ public class client_registration_controller {
     }
    
    
-    public void register_client(client_table_pojo pojo, journal_pojo j_pojo) {
+    public void register_client(clientPojo pojo, journal_pojo j_pojo) {
         s = sf.openSession();
         t = s.beginTransaction();
         if(isClient(pojo)){
-          String  sql2 = "UPDATE client_table_pojo s SET s.address = '"+pojo.getAddress()+"', s.contact = '"+pojo.getContact()+"', s.client_name = '"+pojo.getClient_name()+"' Where s.company_name = '"+pojo.getCompany_name()+"'";
+          String  sql2 = "UPDATE clientPojo s SET s.address = '"+pojo.getAddress()+"', s.contact = '"+pojo.getContact()+"', s.client_name = '"+pojo.getClient_name()+"' Where s.company_name = '"+pojo.getCompany_name()+"'";
             if ( s.createQuery(sql2).executeUpdate() != 0) {
                  JOptionPane.showMessageDialog(null, " Detail Updated ");
              }
@@ -61,8 +61,8 @@ public class client_registration_controller {
              
  } 
     
-    public boolean isClient(client_table_pojo pojo){
-        Query query = s.createQuery("From client_table_pojo s where s.company_name = '"+pojo.getCompany_name()+"'");
+    public boolean isClient(clientPojo pojo){
+        Query query = s.createQuery("From clientPojo s where s.company_name = '"+pojo.getCompany_name()+"'");
         cl_list = query.getResultList();
             return !cl_list.isEmpty();
         }
@@ -72,10 +72,10 @@ public class client_registration_controller {
         DefaultTableModel table_model = (DefaultTableModel) table.getModel();
         s = sf.openSession();
         Query query = s.createQuery(sql1);
-        List<client_table_pojo> list = query.getResultList();
+        List<clientPojo> list = query.getResultList();
         fnTools.remove_table_data(table_model,table);
         int j =0;
-        for(client_table_pojo pojo : list) {
+        for(clientPojo pojo : list) {
 
         table_model.insertRow(j, new Object[]{pojo.getId(),pojo.getCompany_name(),pojo.getClient_name(),pojo.getContact(),pojo.getAddress()});
         j++;

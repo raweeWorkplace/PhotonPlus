@@ -5,7 +5,7 @@
  */
 package controller;
 
-import beans.client_table_pojo;
+import beans.clientPojo;
 import beans.rate_table_pojo;
 import beans.size_entry_pojo;
 import java.util.List;
@@ -28,7 +28,7 @@ public class rate_controller {
     Transaction t;
     Configuration conf;
     functionTools fnTools;
-    List<client_table_pojo>  r_list;
+    List<clientPojo>  r_list;
 
     public rate_controller() {
         conf = new Configuration();
@@ -67,21 +67,21 @@ public class rate_controller {
          return pojo;
     }
         
-    public client_table_pojo get_client(String sql){
+    public clientPojo get_client(String sql){
         s = sf.openSession();
         Query query = s.createQuery(sql);
-         client_table_pojo pojo = (client_table_pojo)query.getSingleResult();
+         clientPojo pojo = (clientPojo)query.getSingleResult();
          return pojo;
     }
     
     public void fill_company_name(JTable table, String str){
         DefaultTableModel table_model = (DefaultTableModel) table.getModel();
         s= sf.openSession();
-        Query query = s.createQuery("from client_table_pojo where company_name like '"+str+"%'");
-        List<client_table_pojo> list = query.getResultList();
+        Query query = s.createQuery("from clientPojo where company_name like '"+str+"%'");
+        List<clientPojo> list = query.getResultList();
         fnTools.remove_table_data(table_model, table);
         int j=0;
-        for(client_table_pojo rs_pojo :list){
+        for(clientPojo rs_pojo :list){
             table_model.insertRow(j, new Object[]{rs_pojo.getCompany_name()});
             j++;
         }

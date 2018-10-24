@@ -30,9 +30,9 @@ public class journal_pojo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int journal_id;
     
-    @ManyToOne(optional = false,targetEntity = client_table_pojo.class)
+    @ManyToOne(optional = false,targetEntity = clientPojo.class)
     @JoinColumn(name = "client_id")
-    private client_table_pojo client_id;
+    private clientPojo client_id;
     
     @Temporal(TemporalType.DATE)
     private Date date;
@@ -67,16 +67,16 @@ public class journal_pojo {
     public journal_pojo() {
     }
 
-    public client_table_pojo getClient_id() {
+    public clientPojo getClient_id() {
         return client_id;
     }
 
-    public void setClient_id(client_table_pojo client_id) {
+    public void setClient_id(clientPojo client_id) {
         this.client_id = client_id;
     }
     
 
-    public journal_pojo(client_table_pojo client_id, Date date, double debit, double credit, int flag) {
+    public journal_pojo(clientPojo client_id, Date date, double debit, double credit, int flag) {
         this.client_id = client_id;
         this.date = date;
         this.debit = debit;
