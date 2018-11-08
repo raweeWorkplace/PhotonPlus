@@ -38,33 +38,55 @@ public class aboutPanel extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
 
-        jLabel1.setFont(new java.awt.Font("URW Chancery L", 3, 48)); // NOI18N
-        jLabel1.setText("LAB ASSISTANT");
+        setBackground(java.awt.Color.darkGray);
 
+        jLabel1.setBackground(java.awt.Color.darkGray);
+        jLabel1.setFont(new java.awt.Font("URW Chancery L", 3, 48)); // NOI18N
+        jLabel1.setForeground(java.awt.Color.white);
+        jLabel1.setText("Photon plus");
+
+        jLabel2.setBackground(java.awt.Color.darkGray);
+        jLabel2.setForeground(java.awt.Color.white);
         jLabel2.setText("version : 1.0.0");
 
+        jLabel3.setBackground(java.awt.Color.darkGray);
         jLabel3.setFont(new java.awt.Font("TlwgMono", 1, 15)); // NOI18N
+        jLabel3.setForeground(java.awt.Color.white);
         jLabel3.setText("Billing and Management Software");
 
+        jLabel4.setBackground(java.awt.Color.darkGray);
         jLabel4.setFont(new java.awt.Font("TlwgMono", 1, 15)); // NOI18N
+        jLabel4.setForeground(java.awt.Color.white);
         jLabel4.setText("Project Manager :");
 
+        jLabel5.setBackground(java.awt.Color.darkGray);
         jLabel5.setFont(new java.awt.Font("TlwgMono", 1, 15)); // NOI18N
+        jLabel5.setForeground(java.awt.Color.white);
         jLabel5.setText("Project Developer :");
 
+        jLabel6.setBackground(java.awt.Color.darkGray);
         jLabel6.setFont(new java.awt.Font("TlwgMono", 1, 15)); // NOI18N
+        jLabel6.setForeground(java.awt.Color.white);
         jLabel6.setText("RAVI RANJAN MALLIK");
 
+        jLabel7.setBackground(java.awt.Color.darkGray);
         jLabel7.setFont(new java.awt.Font("TlwgMono", 1, 15)); // NOI18N
+        jLabel7.setForeground(java.awt.Color.white);
         jLabel7.setText("RAVI RANJAN MALLIK");
 
+        jLabel8.setBackground(java.awt.Color.darkGray);
         jLabel8.setFont(new java.awt.Font("TlwgMono", 1, 15)); // NOI18N
+        jLabel8.setForeground(java.awt.Color.white);
         jLabel8.setText("Copyright (c) @ Ravi Ranjan Mallik");
 
+        jLabel9.setBackground(java.awt.Color.darkGray);
         jLabel9.setFont(new java.awt.Font("TlwgMono", 1, 15)); // NOI18N
+        jLabel9.setForeground(java.awt.Color.white);
         jLabel9.setText("Buying and selling of this software without knowledge of");
 
+        jLabel10.setBackground(java.awt.Color.darkGray);
         jLabel10.setFont(new java.awt.Font("TlwgMono", 1, 15)); // NOI18N
+        jLabel10.setForeground(java.awt.Color.white);
         jLabel10.setText("developer is punishable.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -73,9 +95,6 @@ public class aboutPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(108, 108, 108)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,19 +115,20 @@ public class aboutPanel extends javax.swing.JPanel {
                             .addComponent(jLabel10)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(215, 215, 215)
-                        .addComponent(jLabel2)))
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(130, 130, 130)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))))
                 .addContainerGap(28, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(17, 17, 17)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)

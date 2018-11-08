@@ -108,11 +108,12 @@ public class clientRegPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         client_detail_table = new javax.swing.JTable();
 
-        setBackground(java.awt.Color.lightGray);
+        setBackground(java.awt.Color.darkGray);
         setBorder(null);
 
-        txtCompanyName.setBackground(java.awt.Color.lightGray);
+        txtCompanyName.setBackground(java.awt.Color.darkGray);
         txtCompanyName.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
+        txtCompanyName.setForeground(java.awt.Color.white);
         txtCompanyName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCompanyNameActionPerformed(evt);
@@ -127,8 +128,9 @@ public class clientRegPanel extends javax.swing.JPanel {
             }
         });
 
-        txtClientName.setBackground(java.awt.Color.lightGray);
+        txtClientName.setBackground(java.awt.Color.darkGray);
         txtClientName.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
+        txtClientName.setForeground(java.awt.Color.white);
         txtClientName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtClientNameActionPerformed(evt);
@@ -157,10 +159,14 @@ public class clientRegPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel8.setBackground(java.awt.Color.darkGray);
         jLabel8.setFont(new java.awt.Font("Century Schoolbook L", 1, 20)); // NOI18N
+        jLabel8.setForeground(java.awt.Color.white);
         jLabel8.setText("Address  :");
 
+        jLabel7.setBackground(java.awt.Color.darkGray);
         jLabel7.setFont(new java.awt.Font("Century Schoolbook L", 1, 20)); // NOI18N
+        jLabel7.setForeground(java.awt.Color.white);
         jLabel7.setText("Old due :");
 
         btnSubmit.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
@@ -171,8 +177,9 @@ public class clientRegPanel extends javax.swing.JPanel {
             }
         });
 
-        txtOldDue.setBackground(java.awt.Color.lightGray);
+        txtOldDue.setBackground(java.awt.Color.darkGray);
         txtOldDue.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
+        txtOldDue.setForeground(java.awt.Color.white);
         txtOldDue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtOldDueActionPerformed(evt);
@@ -190,11 +197,14 @@ public class clientRegPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel5.setBackground(java.awt.Color.darkGray);
         jLabel5.setFont(new java.awt.Font("Century Schoolbook L", 1, 20)); // NOI18N
+        jLabel5.setForeground(java.awt.Color.white);
         jLabel5.setText("Contact :");
 
-        txtConfirmDue.setBackground(java.awt.Color.lightGray);
+        txtConfirmDue.setBackground(java.awt.Color.darkGray);
         txtConfirmDue.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
+        txtConfirmDue.setForeground(java.awt.Color.white);
         txtConfirmDue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtConfirmDueActionPerformed(evt);
@@ -212,13 +222,19 @@ public class clientRegPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setBackground(java.awt.Color.darkGray);
         jLabel1.setFont(new java.awt.Font("Century Schoolbook L", 1, 20)); // NOI18N
+        jLabel1.setForeground(java.awt.Color.white);
         jLabel1.setText("Company :");
 
+        jLabel9.setBackground(java.awt.Color.darkGray);
         jLabel9.setFont(new java.awt.Font("Century Schoolbook L", 1, 20)); // NOI18N
+        jLabel9.setForeground(java.awt.Color.white);
         jLabel9.setText("Confirm :");
 
+        jLabel3.setBackground(java.awt.Color.darkGray);
         jLabel3.setFont(new java.awt.Font("Century Schoolbook L", 1, 20)); // NOI18N
+        jLabel3.setForeground(java.awt.Color.white);
         jLabel3.setText("Client :");
 
         txtAddress.setBackground(java.awt.Color.lightGray);
@@ -232,8 +248,9 @@ public class clientRegPanel extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(txtAddress);
 
-        txtContact.setBackground(java.awt.Color.lightGray);
+        txtContact.setBackground(java.awt.Color.darkGray);
         txtContact.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
+        txtContact.setForeground(java.awt.Color.white);
         txtContact.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtContactActionPerformed(evt);
@@ -251,6 +268,7 @@ public class clientRegPanel extends javax.swing.JPanel {
             }
         });
 
+        client_detail_table.setBackground(new java.awt.Color(184, 165, 165));
         client_detail_table.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         client_detail_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -299,25 +317,27 @@ public class clientRegPanel extends javax.swing.JPanel {
                             .addComponent(jLabel3)
                             .addComponent(jLabel1)
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtClientName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7)
-                                    .addComponent(jLabel9))
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtConfirmDue, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtOldDue, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtContact, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)))
-                            .addComponent(txtCompanyName, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtClientName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel7)
+                                            .addComponent(jLabel9))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(txtConfirmDue, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtOldDue, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtContact, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)))
+                                    .addComponent(txtCompanyName, javax.swing.GroupLayout.PREFERRED_SIZE, 634, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(466, 466, 466)
+                                .addGap(484, 484, 484)
                                 .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addComponent(cmbCliebtType, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(123, Short.MAX_VALUE))
@@ -333,15 +353,16 @@ public class clientRegPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(cmbCliebtType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCompanyName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtClientName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtContact))
+                    .addComponent(txtCompanyName))
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtClientName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtContact, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -351,20 +372,20 @@ public class clientRegPanel extends javax.swing.JPanel {
                             .addComponent(jLabel7)
                             .addComponent(txtOldDue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtConfirmDue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtConfirmDue)
+                                .addGap(7, 7, 7)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSubmit)
-                .addGap(18, 18, 18)
+                .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jLabel3, jLabel5, jLabel7, jLabel8, txtOldDue});
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtClientName, txtCompanyName, txtContact});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jLabel3, jLabel5, jLabel7, jLabel8, txtCompanyName, txtOldDue});
 
     }// </editor-fold>//GEN-END:initComponents
 

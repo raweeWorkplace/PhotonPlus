@@ -157,20 +157,20 @@ public class homeFrame extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(24, 141, 52));
+        jPanel1.setBackground(java.awt.Color.darkGray);
 
-        jLabel9.setFont(new java.awt.Font("Ubuntu", 3, 15)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Century Schoolbook L", 1, 15)); // NOI18N
         jLabel9.setForeground(java.awt.Color.white);
         jLabel9.setText("Date:");
 
-        lblTodayDate.setFont(new java.awt.Font("Ubuntu", 3, 15)); // NOI18N
+        lblTodayDate.setFont(new java.awt.Font("Century Schoolbook L", 1, 15)); // NOI18N
         lblTodayDate.setForeground(java.awt.Color.white);
 
-        jLabel11.setFont(new java.awt.Font("Ubuntu", 3, 15)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Century Schoolbook L", 1, 15)); // NOI18N
         jLabel11.setForeground(java.awt.Color.white);
         jLabel11.setText("Welcome:");
 
-        lblUser.setFont(new java.awt.Font("Ubuntu", 3, 15)); // NOI18N
+        lblUser.setFont(new java.awt.Font("Century Schoolbook L", 1, 15)); // NOI18N
         lblUser.setForeground(java.awt.Color.white);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -179,14 +179,14 @@ public class homeFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel11)
-                .addGap(58, 58, 58)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblUser, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 596, Short.MAX_VALUE)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
-                .addComponent(lblTodayDate, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48))
+                .addComponent(lblTodayDate, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -207,9 +207,10 @@ public class homeFrame extends javax.swing.JFrame {
 
         basePanel.setBackground(java.awt.Color.gray);
 
-        sideBarPanel.setBackground(new java.awt.Color(24, 141, 52));
+        sideBarPanel.setBackground(java.awt.Color.darkGray);
 
-        homePanel.setBackground(java.awt.SystemColor.control);
+        homePanel.setBackground(java.awt.Color.darkGray);
+        homePanel.setForeground(java.awt.Color.darkGray);
         homePanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         homePanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -222,17 +223,35 @@ public class homeFrame extends javax.swing.JFrame {
                 onEnter(evt);
             }
         });
-        homePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BillingIcon/house.png"))); // NOI18N
-        homePanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         lblHome.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
-        lblHome.setForeground(new java.awt.Color(73, 14, 14));
+        lblHome.setForeground(java.awt.Color.white);
         lblHome.setText("HOME");
-        homePanel.add(lblHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
 
-        billingPanel.setBackground(java.awt.SystemColor.control);
+        javax.swing.GroupLayout homePanelLayout = new javax.swing.GroupLayout(homePanel);
+        homePanel.setLayout(homePanelLayout);
+        homePanelLayout.setHorizontalGroup(
+            homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(homePanelLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel1)
+                .addGap(8, 8, 8)
+                .addComponent(lblHome))
+        );
+        homePanelLayout.setVerticalGroup(
+            homePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(homePanelLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel1))
+            .addGroup(homePanelLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lblHome))
+        );
+
+        billingPanel.setBackground(java.awt.Color.darkGray);
+        billingPanel.setForeground(java.awt.Color.darkGray);
         billingPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         billingPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -248,14 +267,15 @@ public class homeFrame extends javax.swing.JFrame {
         billingPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BillingIcon/billing-icon.png"))); // NOI18N
-        billingPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        billingPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(73, 14, 14));
+        jLabel10.setForeground(java.awt.Color.white);
         jLabel10.setText("BILLING");
-        billingPanel.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
+        billingPanel.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
 
-        expencePanel.setBackground(java.awt.SystemColor.control);
+        expencePanel.setBackground(java.awt.Color.darkGray);
+        expencePanel.setForeground(java.awt.Color.darkGray);
         expencePanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         expencePanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -272,7 +292,7 @@ public class homeFrame extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BillingIcon/expences-icon.png"))); // NOI18N
 
         jLabel12.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(73, 14, 14));
+        jLabel12.setForeground(java.awt.Color.white);
         jLabel12.setText("EXPENCE");
 
         javax.swing.GroupLayout expencePanelLayout = new javax.swing.GroupLayout(expencePanel);
@@ -296,7 +316,8 @@ public class homeFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        masterPanel.setBackground(java.awt.SystemColor.control);
+        masterPanel.setBackground(java.awt.Color.darkGray);
+        masterPanel.setForeground(java.awt.Color.darkGray);
         masterPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         masterPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -315,11 +336,12 @@ public class homeFrame extends javax.swing.JFrame {
         masterPanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         jLabel13.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(73, 14, 14));
+        jLabel13.setForeground(java.awt.Color.white);
         jLabel13.setText("MASTER");
         masterPanel.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
 
-        reportPanel.setBackground(java.awt.SystemColor.control);
+        reportPanel.setBackground(java.awt.Color.darkGray);
+        reportPanel.setForeground(java.awt.Color.darkGray);
         reportPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         reportPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -338,11 +360,12 @@ public class homeFrame extends javax.swing.JFrame {
         reportPanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         jLabel14.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(73, 14, 14));
+        jLabel14.setForeground(java.awt.Color.white);
         jLabel14.setText("REPORT");
         reportPanel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
 
-        exitPanel.setBackground(java.awt.SystemColor.control);
+        exitPanel.setBackground(java.awt.Color.darkGray);
+        exitPanel.setForeground(java.awt.Color.darkGray);
         exitPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         exitPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -361,11 +384,12 @@ public class homeFrame extends javax.swing.JFrame {
         exitPanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         jLabel15.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(73, 14, 14));
+        jLabel15.setForeground(java.awt.Color.white);
         jLabel15.setText("EXIT");
         exitPanel.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, -1, -1));
 
-        aboutPanel.setBackground(java.awt.SystemColor.control);
+        aboutPanel.setBackground(java.awt.Color.darkGray);
+        aboutPanel.setForeground(java.awt.Color.darkGray);
         aboutPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         aboutPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -384,11 +408,11 @@ public class homeFrame extends javax.swing.JFrame {
         aboutPanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         jLabel16.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(73, 14, 14));
+        jLabel16.setForeground(java.awt.Color.white);
         jLabel16.setText("ABOUT");
         aboutPanel.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
 
-        displayPanel.setBackground(java.awt.SystemColor.control);
+        displayPanel.setBackground(java.awt.Color.darkGray);
         displayPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
         displayPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         scrollPanel.setViewportView(displayPanel);
@@ -414,7 +438,7 @@ public class homeFrame extends javax.swing.JFrame {
             .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
             .addGroup(sideBarPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(homePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(homePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(billingPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -491,7 +515,7 @@ public class homeFrame extends javax.swing.JFrame {
 
     private void onExit(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_onExit
         JPanel parent = (JPanel)evt.getSource();
-        parent.setBackground(Color.decode("#dfdfdf"));
+        parent.setBackground(Color.DARK_GRAY);
         parent.revalidate();
     }//GEN-LAST:event_onExit
 

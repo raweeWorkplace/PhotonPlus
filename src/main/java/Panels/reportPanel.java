@@ -84,7 +84,7 @@ public class reportPanel extends javax.swing.JPanel {
 
         setBackground(java.awt.Color.gray);
 
-        displayPanel.setBackground(java.awt.Color.lightGray);
+        displayPanel.setBackground(java.awt.Color.darkGray);
         displayPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         javax.swing.GroupLayout displayPanelLayout = new javax.swing.GroupLayout(displayPanel);

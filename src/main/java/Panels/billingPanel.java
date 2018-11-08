@@ -216,11 +216,12 @@ public class billingPanel extends javax.swing.JPanel {
 
         jPanel2.setBackground(java.awt.Color.darkGray);
 
-        jPanel3.setBackground(java.awt.Color.lightGray);
+        jPanel3.setBackground(java.awt.Color.darkGray);
 
         txtCost.setEditable(false);
-        txtCost.setBackground(java.awt.Color.lightGray);
+        txtCost.setBackground(java.awt.Color.darkGray);
         txtCost.setFont(new java.awt.Font("Century Schoolbook L", 0, 24)); // NOI18N
+        txtCost.setForeground(java.awt.Color.white);
         txtCost.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtCostFocusGained(evt);
@@ -232,16 +233,24 @@ public class billingPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel11.setBackground(java.awt.Color.darkGray);
         jLabel11.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel11.setForeground(java.awt.Color.white);
         jLabel11.setText("Rate  :");
 
+        jLabel1.setBackground(java.awt.Color.darkGray);
         jLabel1.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel1.setForeground(java.awt.Color.white);
         jLabel1.setText("Name :");
 
+        jLabel6.setBackground(java.awt.Color.darkGray);
         jLabel6.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel6.setForeground(java.awt.Color.white);
         jLabel6.setText("Quan :");
 
+        jLabel12.setBackground(java.awt.Color.darkGray);
         jLabel12.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel12.setForeground(java.awt.Color.white);
         jLabel12.setText("Cost  :");
 
         clientTable.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -279,8 +288,9 @@ public class billingPanel extends javax.swing.JPanel {
             clientTable.getColumnModel().getColumn(0).setResizable(false);
         }
 
-        txtCustName.setBackground(java.awt.Color.lightGray);
+        txtCustName.setBackground(java.awt.Color.darkGray);
         txtCustName.setFont(new java.awt.Font("Century Schoolbook L", 0, 24)); // NOI18N
+        txtCustName.setForeground(java.awt.Color.white);
         txtCustName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCustNameKeyPressed(evt);
@@ -300,12 +310,14 @@ public class billingPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel13.setBackground(java.awt.Color.lightGray);
+        jLabel13.setBackground(java.awt.Color.darkGray);
         jLabel13.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel13.setForeground(java.awt.Color.white);
         jLabel13.setText("Item :");
 
-        txtsize.setBackground(java.awt.Color.lightGray);
+        txtsize.setBackground(java.awt.Color.darkGray);
         txtsize.setFont(new java.awt.Font("Century Schoolbook L", 0, 24)); // NOI18N
+        txtsize.setForeground(null);
         txtsize.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtsizeKeyPressed(evt);
@@ -345,11 +357,14 @@ public class billingPanel extends javax.swing.JPanel {
         });
         jScrollPane3.setViewportView(sizeTable);
 
+        jLabel5.setBackground(java.awt.Color.darkGray);
         jLabel5.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel5.setForeground(java.awt.Color.white);
         jLabel5.setText("Cont. No. :");
 
-        txtContact.setBackground(java.awt.Color.lightGray);
+        txtContact.setBackground(java.awt.Color.darkGray);
         txtContact.setFont(new java.awt.Font("Century Schoolbook L", 0, 24)); // NOI18N
+        txtContact.setForeground(java.awt.Color.white);
         txtContact.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtContactFocusGained(evt);
@@ -364,8 +379,9 @@ public class billingPanel extends javax.swing.JPanel {
             }
         });
 
-        txtQty.setBackground(java.awt.Color.lightGray);
+        txtQty.setBackground(java.awt.Color.darkGray);
         txtQty.setFont(new java.awt.Font("Century Schoolbook L", 0, 24)); // NOI18N
+        txtQty.setForeground(java.awt.Color.white);
         txtQty.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtQtyKeyPressed(evt);
@@ -375,8 +391,9 @@ public class billingPanel extends javax.swing.JPanel {
             }
         });
 
-        txtRate.setBackground(java.awt.Color.lightGray);
+        txtRate.setBackground(java.awt.Color.darkGray);
         txtRate.setFont(new java.awt.Font("Century Schoolbook L", 0, 24)); // NOI18N
+        txtRate.setForeground(java.awt.Color.white);
         txtRate.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtRateKeyPressed(evt);
@@ -386,22 +403,23 @@ public class billingPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel4.setBackground(java.awt.Color.darkGray);
         jLabel4.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
-        jLabel4.setForeground(java.awt.Color.black);
+        jLabel4.setForeground(java.awt.Color.white);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BillingIcon/icons8-search-25.png"))); // NOI18N
         jLabel4.setText("Bill Id ");
         jLabel4.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
 
-        txtBillId.setBackground(java.awt.Color.lightGray);
+        txtBillId.setBackground(java.awt.Color.darkGray);
         txtBillId.setFont(new java.awt.Font("Century Schoolbook L", 0, 24)); // NOI18N
-        txtBillId.setForeground(java.awt.Color.black);
+        txtBillId.setForeground(java.awt.Color.white);
         txtBillId.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtBillIdKeyPressed(evt);
             }
         });
 
-        jPanel4.setBackground(java.awt.Color.lightGray);
+        jPanel4.setBackground(java.awt.Color.darkGray);
 
         cancelButton.setFont(new java.awt.Font("DejaVu Serif", 0, 24)); // NOI18N
         cancelButton.setText("Cancel");
@@ -412,11 +430,14 @@ public class billingPanel extends javax.swing.JPanel {
             }
         });
 
-        lblSubTotal.setBackground(java.awt.Color.white);
+        lblSubTotal.setBackground(java.awt.Color.darkGray);
         lblSubTotal.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
+        lblSubTotal.setForeground(java.awt.Color.white);
         lblSubTotal.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        lblBalance.setBackground(java.awt.Color.darkGray);
         lblBalance.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
+        lblBalance.setForeground(java.awt.Color.white);
         lblBalance.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         lblBalance.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -427,16 +448,19 @@ public class billingPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel21.setBackground(java.awt.Color.white);
+        jLabel21.setBackground(java.awt.Color.darkGray);
         jLabel21.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel21.setForeground(java.awt.Color.white);
         jLabel21.setText("Disc. % :");
 
-        jLabel26.setBackground(java.awt.Color.white);
+        jLabel26.setBackground(java.awt.Color.darkGray);
         jLabel26.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel26.setForeground(java.awt.Color.white);
         jLabel26.setText("Due :");
 
-        lblDue.setBackground(java.awt.Color.white);
+        lblDue.setBackground(java.awt.Color.darkGray);
         lblDue.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
+        lblDue.setForeground(java.awt.Color.white);
         lblDue.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         lblDue.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -458,11 +482,14 @@ public class billingPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel29.setBackground(java.awt.Color.darkGray);
         jLabel29.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel29.setForeground(java.awt.Color.white);
         jLabel29.setText("Refund :");
 
-        txtDiscRate.setBackground(java.awt.Color.lightGray);
+        txtDiscRate.setBackground(java.awt.Color.darkGray);
         txtDiscRate.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
+        txtDiscRate.setForeground(java.awt.Color.white);
         txtDiscRate.setText("0");
         txtDiscRate.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -481,12 +508,14 @@ public class billingPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel27.setBackground(java.awt.Color.white);
+        jLabel27.setBackground(java.awt.Color.darkGray);
         jLabel27.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel27.setForeground(java.awt.Color.white);
         jLabel27.setText("Payment :");
 
-        txtDiscAmt.setBackground(java.awt.Color.lightGray);
+        txtDiscAmt.setBackground(java.awt.Color.darkGray);
         txtDiscAmt.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
+        txtDiscAmt.setForeground(java.awt.Color.white);
         txtDiscAmt.setText("0");
         txtDiscAmt.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -505,8 +534,9 @@ public class billingPanel extends javax.swing.JPanel {
             }
         });
 
-        txtPayment.setBackground(java.awt.Color.lightGray);
+        txtPayment.setBackground(java.awt.Color.darkGray);
         txtPayment.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
+        txtPayment.setForeground(java.awt.Color.white);
         txtPayment.setText("0");
         txtPayment.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -528,20 +558,24 @@ public class billingPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel23.setBackground(java.awt.Color.white);
+        jLabel23.setBackground(java.awt.Color.darkGray);
         jLabel23.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel23.setForeground(java.awt.Color.white);
         jLabel23.setText("Disc.Rs. :");
 
-        jLabel24.setBackground(java.awt.Color.white);
+        jLabel24.setBackground(java.awt.Color.darkGray);
         jLabel24.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel24.setForeground(java.awt.Color.white);
         jLabel24.setText("Sub total :");
 
-        jLabel28.setBackground(java.awt.Color.white);
+        jLabel28.setBackground(java.awt.Color.darkGray);
         jLabel28.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel28.setForeground(java.awt.Color.white);
         jLabel28.setText("Old Due :");
 
-        lblPrevDue.setBackground(java.awt.Color.white);
+        lblPrevDue.setBackground(java.awt.Color.darkGray);
         lblPrevDue.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
+        lblPrevDue.setForeground(java.awt.Color.white);
         lblPrevDue.setText("0");
         lblPrevDue.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         lblPrevDue.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -550,12 +584,14 @@ public class billingPanel extends javax.swing.JPanel {
             }
         });
 
-        jLabel30.setBackground(java.awt.Color.white);
+        jLabel30.setBackground(java.awt.Color.darkGray);
         jLabel30.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel30.setForeground(java.awt.Color.white);
         jLabel30.setText("Total Due :");
 
-        lblTotalDue.setBackground(java.awt.Color.white);
+        lblTotalDue.setBackground(java.awt.Color.darkGray);
         lblTotalDue.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
+        lblTotalDue.setForeground(java.awt.Color.white);
         lblTotalDue.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         lblTotalDue.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -563,18 +599,24 @@ public class billingPanel extends javax.swing.JPanel {
             }
         });
 
+        lblPaidlbl.setBackground(java.awt.Color.darkGray);
         lblPaidlbl.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        lblPaidlbl.setForeground(java.awt.Color.white);
         lblPaidlbl.setText("Paid :");
 
+        lblPaid.setBackground(java.awt.Color.darkGray);
         lblPaid.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
+        lblPaid.setForeground(java.awt.Color.white);
         lblPaid.setText("0");
 
-        jLabel22.setBackground(java.awt.Color.white);
+        jLabel22.setBackground(java.awt.Color.darkGray);
         jLabel22.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel22.setForeground(java.awt.Color.white);
         jLabel22.setText("Total :");
 
-        lblTotal.setBackground(java.awt.Color.white);
+        lblTotal.setBackground(java.awt.Color.darkGray);
         lblTotal.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
+        lblTotal.setForeground(java.awt.Color.white);
         lblTotal.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         jSeparator2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));

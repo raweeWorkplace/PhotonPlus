@@ -234,10 +234,12 @@ public class clientReportPanel extends javax.swing.JPanel {
 
         setBackground(java.awt.Color.darkGray);
 
-        jPanel3.setBackground(java.awt.Color.lightGray);
+        jPanel3.setBackground(java.awt.Color.darkGray);
         jPanel3.setBorder(null);
+        jPanel3.setForeground(java.awt.Color.white);
 
         rbnDate.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        rbnDate.setForeground(java.awt.Color.white);
         rbnDate.setText("Daily");
         rbnDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -253,7 +255,9 @@ public class clientReportPanel extends javax.swing.JPanel {
             }
         });
 
+        salesTable.setBackground(java.awt.Color.darkGray);
         salesTable.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        salesTable.setForeground(java.awt.Color.white);
         salesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -295,19 +299,23 @@ public class clientReportPanel extends javax.swing.JPanel {
         }
 
         txtTotalSales.setEditable(false);
-        txtTotalSales.setBackground(java.awt.Color.lightGray);
+        txtTotalSales.setBackground(java.awt.Color.darkGray);
         txtTotalSales.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel2.setForeground(java.awt.Color.white);
         jLabel2.setText("Sales :");
 
+        dateFrom.setBackground(java.awt.Color.darkGray);
         dateFrom.setDateFormatString("dd-MM-yyyy");
         dateFrom.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
+        dateTo.setBackground(java.awt.Color.darkGray);
         dateTo.setDateFormatString("dd-MM-yyyy");
         dateTo.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         rbnMonthly.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        rbnMonthly.setForeground(java.awt.Color.white);
         rbnMonthly.setText("Monthly");
         rbnMonthly.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -316,24 +324,27 @@ public class clientReportPanel extends javax.swing.JPanel {
         });
 
         jLabel4.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel4.setForeground(java.awt.Color.white);
         jLabel4.setText("Recieved :");
 
         txtRecieved.setEditable(false);
-        txtRecieved.setBackground(java.awt.Color.lightGray);
+        txtRecieved.setBackground(java.awt.Color.darkGray);
         txtRecieved.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel8.setForeground(java.awt.Color.white);
         jLabel8.setText("Balance :");
 
         txtBalance.setEditable(false);
-        txtBalance.setBackground(java.awt.Color.lightGray);
+        txtBalance.setBackground(java.awt.Color.darkGray);
         txtBalance.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
 
         jLabel12.setBackground(java.awt.Color.lightGray);
         jLabel12.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel12.setForeground(java.awt.Color.white);
         jLabel12.setText("Company  :");
 
-        txtCompanyName.setBackground(java.awt.Color.lightGray);
+        txtCompanyName.setBackground(java.awt.Color.darkGray);
         txtCompanyName.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
         txtCompanyName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -344,7 +355,9 @@ public class clientReportPanel extends javax.swing.JPanel {
             }
         });
 
+        companyTable.setBackground(java.awt.Color.darkGray);
         companyTable.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        companyTable.setForeground(java.awt.Color.white);
         companyTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -439,10 +452,10 @@ public class clientReportPanel extends javax.swing.JPanel {
                             .addComponent(dateFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSearch)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)

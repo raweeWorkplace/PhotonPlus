@@ -30,9 +30,7 @@ public class expences_controller {
         fnTools = new functionTools();
         conf = new Configuration();
         conf.configure();
-        sf = conf.buildSessionFactory();
-        
-    }
+        sf = conf.buildSessionFactory();}
     
     public void enter_expences(instock_entry_pojo pojo){
         s= sf.openSession();
