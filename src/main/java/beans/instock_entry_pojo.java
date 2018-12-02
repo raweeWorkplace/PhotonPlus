@@ -41,12 +41,24 @@ public class instock_entry_pojo implements Serializable {
     @Column
     private int unit;
 
-    public instock_entry_pojo(Date date, String item_name, double total_exp, int unit) {
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+    
+    @Column
+    private String category;
+
+    public instock_entry_pojo(Date date, String category,String item_name, double total_exp, int unit) {
         super();
         this.date = date;
         this.item_name = item_name;
         this.total_exp = total_exp;
         this.unit = unit;
+        this.category = category;
     }
 
     public instock_entry_pojo() {

@@ -8,6 +8,7 @@ package Panels;
 import controller.functionTools;
 import beans.instock_entry_pojo;
 import controller.expences_controller;
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -32,6 +33,8 @@ public class expencesPanel extends javax.swing.JPanel {
         controller = new expences_controller();
         fnTools = new functionTools();
         controller.fill_table(itemTable, sql);
+        itemTable.getTableHeader().setFont(new Font("SansSerif", Font.ITALIC, 16));
+        
         
     }
     
@@ -78,16 +81,18 @@ public class expencesPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtpurchaseRate = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        cmbCategory = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         itemTable = new javax.swing.JTable();
 
-        setBackground(java.awt.Color.lightGray);
+        setBackground(java.awt.Color.darkGray);
         setBorder(null);
 
-        jPanel1.setBackground(java.awt.Color.lightGray);
+        jPanel1.setBackground(java.awt.Color.darkGray);
         jPanel1.setBorder(null);
 
-        jPanel3.setBackground(java.awt.Color.lightGray);
+        jPanel3.setBackground(java.awt.Color.darkGray);
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         addStockButton.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
@@ -104,10 +109,12 @@ public class expencesPanel extends javax.swing.JPanel {
         });
 
         jLabel2.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel2.setForeground(java.awt.Color.white);
         jLabel2.setText("Item Name :");
 
-        txtItemName.setBackground(java.awt.Color.lightGray);
-        txtItemName.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtItemName.setBackground(java.awt.Color.darkGray);
+        txtItemName.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        txtItemName.setForeground(java.awt.Color.white);
         txtItemName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtItemNameFocusGained(evt);
@@ -127,8 +134,9 @@ public class expencesPanel extends javax.swing.JPanel {
             }
         });
 
-        txtQuan.setBackground(java.awt.Color.lightGray);
-        txtQuan.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtQuan.setBackground(java.awt.Color.darkGray);
+        txtQuan.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        txtQuan.setForeground(java.awt.Color.white);
         txtQuan.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtQuanKeyPressed(evt);
@@ -139,19 +147,36 @@ public class expencesPanel extends javax.swing.JPanel {
         });
 
         jLabel3.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel3.setForeground(java.awt.Color.white);
         jLabel3.setText("Unit:");
 
         jLabel4.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel4.setForeground(java.awt.Color.white);
         jLabel4.setText("Total Expense :");
 
-        txtpurchaseRate.setBackground(java.awt.Color.lightGray);
-        txtpurchaseRate.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtpurchaseRate.setBackground(java.awt.Color.darkGray);
+        txtpurchaseRate.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        txtpurchaseRate.setForeground(java.awt.Color.white);
         txtpurchaseRate.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtpurchaseRateKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtpurchaseRateKeyReleased(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel5.setForeground(java.awt.Color.white);
+        jLabel5.setText("Category :");
+
+        cmbCategory.setBackground(java.awt.Color.white);
+        cmbCategory.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        cmbCategory.setForeground(java.awt.Color.white);
+        cmbCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Auto and Transport", "Breakfast and Food", "Investment", "Bills and Utilities", "Taxes", "Misc", "Maintainance", "Stationery", "Electronics", "Salary", "Rent", " " }));
+        cmbCategory.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cmbCategoryKeyPressed(evt);
             }
         });
 
@@ -162,51 +187,62 @@ public class expencesPanel extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cmbCategory, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtQuan))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(addStockButton)
                     .addComponent(txtItemName, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtQuan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-                        .addComponent(txtpurchaseRate, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(txtpurchaseRate, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(addStockButton)))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbCategory, txtItemName});
+
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(29, 29, 29)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtItemName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, Short.MAX_VALUE)
-                    .addComponent(txtQuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtQuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtpurchaseRate))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(addStockButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+                    .addComponent(txtpurchaseRate)
+                    .addComponent(addStockButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27))
         );
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {addStockButton, jLabel3, jLabel4, txtItemName});
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {addStockButton, cmbCategory, jLabel3, jLabel4, txtItemName});
 
+        itemTable.setBackground(java.awt.Color.darkGray);
         itemTable.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        itemTable.setForeground(java.awt.Color.white);
         itemTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Date", "Item", "Qnty", "Expence"
+                "Date", "Category", "Item", "Qnty", "Expense"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -228,12 +264,14 @@ public class expencesPanel extends javax.swing.JPanel {
         jScrollPane2.setViewportView(itemTable);
         if (itemTable.getColumnModel().getColumnCount() > 0) {
             itemTable.getColumnModel().getColumn(0).setResizable(false);
+            itemTable.getColumnModel().getColumn(0).setPreferredWidth(10);
             itemTable.getColumnModel().getColumn(1).setResizable(false);
-            itemTable.getColumnModel().getColumn(1).setPreferredWidth(150);
             itemTable.getColumnModel().getColumn(2).setResizable(false);
-            itemTable.getColumnModel().getColumn(2).setPreferredWidth(10);
+            itemTable.getColumnModel().getColumn(2).setPreferredWidth(100);
             itemTable.getColumnModel().getColumn(3).setResizable(false);
-            itemTable.getColumnModel().getColumn(3).setPreferredWidth(10);
+            itemTable.getColumnModel().getColumn(3).setPreferredWidth(5);
+            itemTable.getColumnModel().getColumn(4).setResizable(false);
+            itemTable.getColumnModel().getColumn(4).setPreferredWidth(10);
         }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -242,18 +280,18 @@ public class expencesPanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -266,25 +304,27 @@ public class expencesPanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void addStockButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addStockButtonActionPerformed
         pojo = new instock_entry_pojo();
-        pojo.setItem_name(txtItemName.getText());
+        pojo.setItem_name(txtItemName.getText().toUpperCase());
         pojo.setUnit(Integer.parseInt(txtQuan.getText()));
         pojo.setTotal_exp(Double.parseDouble(txtpurchaseRate.getText()));
+        pojo.setCategory(cmbCategory.getSelectedItem().toString());
         Date date = new Date();
         pojo.setDate(date);
         
         if(validateData()){
         controller.enter_expences(pojo);
-        }
         resetStockDetails();
         controller.fill_table(itemTable, sql);
         txtItemName.requestFocus();
+        }
+
               
     }//GEN-LAST:event_addStockButtonActionPerformed
 
@@ -368,6 +408,8 @@ public class expencesPanel extends javax.swing.JPanel {
             itemTable.requestFocus();
             
             }
+        }else if(key==KeyEvent.VK_ESCAPE){
+            cmbCategory.requestFocus();
         }
     }//GEN-LAST:event_txtItemNameKeyPressed
 
@@ -389,13 +431,22 @@ public class expencesPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_itemTableKeyPressed
 
+    private void cmbCategoryKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmbCategoryKeyPressed
+               int key = evt.getKeyCode();
+        if (key == KeyEvent.VK_ENTER) {
+            txtItemName.requestFocus();
+        }
+    }//GEN-LAST:event_cmbCategoryKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addStockButton;
+    private javax.swing.JComboBox<String> cmbCategory;
     private javax.swing.JTable itemTable;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;

@@ -7,6 +7,7 @@ package Panels;
 
 import controller.functionTools;
 import Dao.DataBase_Connection;
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -63,7 +64,8 @@ public class clientReportPanel extends javax.swing.JPanel {
         ButtonGroup();
         dateFrom.setDate(Calendar.getInstance().getTime());
         dateTo.setDate(Calendar.getInstance().getTime());
-        
+        companyTable.getTableHeader().setFont(new Font("SansSerif", Font.ITALIC, 16));
+        salesTable.getTableHeader().setFont(new Font("SansSerif", Font.ITALIC, 16));
     }
     
     private void ButtonGroup() {
@@ -386,6 +388,9 @@ public class clientReportPanel extends javax.swing.JPanel {
             }
         });
         jScrollPane4.setViewportView(companyTable);
+        if (companyTable.getColumnModel().getColumnCount() > 0) {
+            companyTable.getColumnModel().getColumn(0).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);

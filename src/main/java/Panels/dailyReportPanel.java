@@ -7,6 +7,7 @@ package Panels;
 
 import controller.functionTools;
 import Dao.DataBase_Connection;
+import java.awt.Font;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -68,6 +69,8 @@ public class dailyReportPanel extends javax.swing.JPanel {
         ButtonGroup();
         dateFrom.setDate(Calendar.getInstance().getTime());
         dateTo.setDate(Calendar.getInstance().getTime());
+        purchaseTable.getTableHeader().setFont(new Font("SansSerif", Font.ITALIC, 16));
+        salesTable.getTableHeader().setFont(new Font("SansSerif", Font.ITALIC, 16));
         
     }
     
@@ -217,10 +220,11 @@ public class dailyReportPanel extends javax.swing.JPanel {
 
         setBackground(java.awt.Color.darkGray);
 
-        jPanel3.setBackground(java.awt.Color.lightGray);
+        jPanel3.setBackground(java.awt.Color.darkGray);
         jPanel3.setBorder(null);
 
         rbnDate.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        rbnDate.setForeground(java.awt.Color.white);
         rbnDate.setText("Daily");
         rbnDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -236,7 +240,9 @@ public class dailyReportPanel extends javax.swing.JPanel {
             }
         });
 
+        salesTable.setBackground(java.awt.Color.darkGray);
         salesTable.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        salesTable.setForeground(java.awt.Color.white);
         salesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -274,17 +280,24 @@ public class dailyReportPanel extends javax.swing.JPanel {
         }
 
         txtTotalSales.setEditable(false);
-        txtTotalSales.setBackground(java.awt.Color.lightGray);
+        txtTotalSales.setBackground(java.awt.Color.darkGray);
         txtTotalSales.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtTotalSales.setForeground(java.awt.Color.white);
 
         jLabel2.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel2.setForeground(java.awt.Color.white);
         jLabel2.setText("Total Sales :");
 
+        dateFrom.setBackground(java.awt.Color.darkGray);
+        dateFrom.setForeground(java.awt.Color.white);
         dateFrom.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
+        dateTo.setBackground(java.awt.Color.darkGray);
+        dateTo.setForeground(java.awt.Color.white);
         dateTo.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         rbnMonthly.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        rbnMonthly.setForeground(java.awt.Color.white);
         rbnMonthly.setText("Monthly");
         rbnMonthly.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -293,10 +306,13 @@ public class dailyReportPanel extends javax.swing.JPanel {
         });
 
         txtTotalPurchase.setEditable(false);
-        txtTotalPurchase.setBackground(java.awt.Color.lightGray);
+        txtTotalPurchase.setBackground(java.awt.Color.darkGray);
         txtTotalPurchase.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtTotalPurchase.setForeground(java.awt.Color.white);
 
+        purchaseTable.setBackground(java.awt.Color.darkGray);
         purchaseTable.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        purchaseTable.setForeground(java.awt.Color.white);
         purchaseTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -334,14 +350,17 @@ public class dailyReportPanel extends javax.swing.JPanel {
         }
 
         jLabel3.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel3.setForeground(java.awt.Color.white);
         jLabel3.setText("Total Purchase :");
 
         jLabel4.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel4.setForeground(java.awt.Color.white);
         jLabel4.setText("Balance :");
 
         txtBalance.setEditable(false);
-        txtBalance.setBackground(java.awt.Color.lightGray);
+        txtBalance.setBackground(java.awt.Color.darkGray);
         txtBalance.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtBalance.setForeground(java.awt.Color.white);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);

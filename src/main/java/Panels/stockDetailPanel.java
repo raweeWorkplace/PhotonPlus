@@ -7,6 +7,7 @@ package Panels;
 
 import controller.functionTools;
 import Dao.DataBase_Connection;
+import java.awt.Font;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -49,6 +50,7 @@ public class stockDetailPanel extends javax.swing.JPanel {
         ButtonGroup();
         dateFrom.setDate(Calendar.getInstance().getTime());
         dateTo.setDate(Calendar.getInstance().getTime());
+        item_count_table.getTableHeader().setFont(new Font("SansSerif", Font.ITALIC, 16));
         
     }
     
@@ -157,10 +159,11 @@ private void calculateSubtotal(){
 
         setBackground(java.awt.Color.darkGray);
 
-        jPanel3.setBackground(java.awt.Color.lightGray);
+        jPanel3.setBackground(java.awt.Color.darkGray);
         jPanel3.setBorder(null);
 
         rbnDate.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        rbnDate.setForeground(java.awt.Color.white);
         rbnDate.setText("Daily");
         rbnDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,13 +179,16 @@ private void calculateSubtotal(){
             }
         });
 
-        dateFrom.setBackground(java.awt.Color.lightGray);
+        dateFrom.setBackground(java.awt.Color.darkGray);
+        dateFrom.setForeground(java.awt.Color.white);
         dateFrom.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
-        dateTo.setBackground(java.awt.Color.lightGray);
+        dateTo.setBackground(java.awt.Color.darkGray);
+        dateTo.setForeground(java.awt.Color.white);
         dateTo.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         rbnMonthly.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        rbnMonthly.setForeground(java.awt.Color.white);
         rbnMonthly.setText("Monthly");
         rbnMonthly.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -191,10 +197,13 @@ private void calculateSubtotal(){
         });
 
         txtTotalPurchase.setEditable(false);
-        txtTotalPurchase.setBackground(java.awt.Color.lightGray);
+        txtTotalPurchase.setBackground(java.awt.Color.darkGray);
         txtTotalPurchase.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtTotalPurchase.setForeground(java.awt.Color.white);
 
+        item_count_table.setBackground(java.awt.Color.darkGray);
         item_count_table.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
+        item_count_table.setForeground(java.awt.Color.white);
         item_count_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -228,6 +237,7 @@ private void calculateSubtotal(){
         }
 
         jLabel3.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel3.setForeground(java.awt.Color.white);
         jLabel3.setText("Total Item Printed :");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);

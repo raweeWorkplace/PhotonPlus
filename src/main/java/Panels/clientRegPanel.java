@@ -9,6 +9,7 @@ import controller.functionTools;
 import beans.clientPojo;
 import beans.journal_pojo;
 import controller.client_registration_controller;
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -33,7 +34,7 @@ public class clientRegPanel extends javax.swing.JPanel {
         initComponents();
         fnTools = new functionTools();
         controller = new client_registration_controller();
-        
+        client_detail_table.getTableHeader().setFont(new Font("SansSerif", Font.ITALIC, 16));
         txtAddress.setText("JANAKPUR DHAM");
         txtOldDue.setText("0");        
     }
@@ -50,6 +51,7 @@ public class clientRegPanel extends javax.swing.JPanel {
         txtContact.setEditable(true);
         txtAddress.setEditable(true);
         txtOldDue.setEditable(true);
+        txtConfirmDue.setEditable(true);
                 
     }
     
@@ -91,7 +93,7 @@ public class clientRegPanel extends javax.swing.JPanel {
 
         txtCompanyName = new javax.swing.JTextField();
         txtClientName = new javax.swing.JTextField();
-        cmbCliebtType = new javax.swing.JComboBox<>();
+        cmbClientType = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         btnSubmit = new javax.swing.JButton();
@@ -114,6 +116,7 @@ public class clientRegPanel extends javax.swing.JPanel {
         txtCompanyName.setBackground(java.awt.Color.darkGray);
         txtCompanyName.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
         txtCompanyName.setForeground(java.awt.Color.white);
+        txtCompanyName.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtCompanyName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCompanyNameActionPerformed(evt);
@@ -131,6 +134,7 @@ public class clientRegPanel extends javax.swing.JPanel {
         txtClientName.setBackground(java.awt.Color.darkGray);
         txtClientName.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
         txtClientName.setForeground(java.awt.Color.white);
+        txtClientName.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtClientName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtClientNameActionPerformed(evt);
@@ -145,17 +149,17 @@ public class clientRegPanel extends javax.swing.JPanel {
             }
         });
 
-        cmbCliebtType.setBackground(java.awt.Color.lightGray);
-        cmbCliebtType.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
-        cmbCliebtType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dealer", "Customer" }));
-        cmbCliebtType.addActionListener(new java.awt.event.ActionListener() {
+        cmbClientType.setBackground(java.awt.Color.lightGray);
+        cmbClientType.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        cmbClientType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Dealer", "Customer" }));
+        cmbClientType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbCliebtTypeActionPerformed(evt);
+                cmbClientTypeActionPerformed(evt);
             }
         });
-        cmbCliebtType.addKeyListener(new java.awt.event.KeyAdapter() {
+        cmbClientType.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                cmbCliebtTypeKeyPressed(evt);
+                cmbClientTypeKeyPressed(evt);
             }
         });
 
@@ -180,6 +184,7 @@ public class clientRegPanel extends javax.swing.JPanel {
         txtOldDue.setBackground(java.awt.Color.darkGray);
         txtOldDue.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
         txtOldDue.setForeground(java.awt.Color.white);
+        txtOldDue.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtOldDue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtOldDueActionPerformed(evt);
@@ -205,6 +210,7 @@ public class clientRegPanel extends javax.swing.JPanel {
         txtConfirmDue.setBackground(java.awt.Color.darkGray);
         txtConfirmDue.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
         txtConfirmDue.setForeground(java.awt.Color.white);
+        txtConfirmDue.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtConfirmDue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtConfirmDueActionPerformed(evt);
@@ -237,10 +243,12 @@ public class clientRegPanel extends javax.swing.JPanel {
         jLabel3.setForeground(java.awt.Color.white);
         jLabel3.setText("Client :");
 
-        txtAddress.setBackground(java.awt.Color.lightGray);
+        txtAddress.setBackground(java.awt.Color.darkGray);
         txtAddress.setColumns(20);
         txtAddress.setFont(new java.awt.Font("Century Schoolbook L", 0, 16)); // NOI18N
+        txtAddress.setForeground(java.awt.Color.white);
         txtAddress.setRows(5);
+        txtAddress.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtAddress.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtAddressKeyPressed(evt);
@@ -251,6 +259,7 @@ public class clientRegPanel extends javax.swing.JPanel {
         txtContact.setBackground(java.awt.Color.darkGray);
         txtContact.setFont(new java.awt.Font("Century Schoolbook L", 0, 20)); // NOI18N
         txtContact.setForeground(java.awt.Color.white);
+        txtContact.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtContact.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtContactActionPerformed(evt);
@@ -339,7 +348,7 @@ public class clientRegPanel extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(484, 484, 484)
                                 .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(cmbCliebtType, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmbClientType, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(123, Short.MAX_VALUE))
             .addComponent(jScrollPane1)
             .addComponent(jSeparator1)
@@ -351,7 +360,7 @@ public class clientRegPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(cmbCliebtType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbClientType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -382,7 +391,7 @@ public class clientRegPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jLabel3, jLabel5, jLabel7, jLabel8, txtCompanyName, txtOldDue});
@@ -407,13 +416,13 @@ public class clientRegPanel extends javax.swing.JPanel {
             txtClientName.requestFocus();
             
            }else if(key==KeyEvent.VK_ESCAPE){
-            cmbCliebtType.requestFocus();
+            cmbClientType.requestFocus();
         }
     }//GEN-LAST:event_txtCompanyNameKeyPressed
 
     private void txtCompanyNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCompanyNameKeyReleased
             String obj = "";
-            obj = cmbCliebtType.getSelectedItem().toString();
+            obj = cmbClientType.getSelectedItem().toString();
             String sql1;
             if("Dealer".equals(obj)){
                 sql1 = "FROM clientPojo s where s.company_name Like'" + txtCompanyName.getText() + "%' and flag = 1";
@@ -464,10 +473,12 @@ public class clientRegPanel extends javax.swing.JPanel {
         }else if ((key == KeyEvent.VK_ENTER)&&(!txtOldDue.getText().isEmpty())) {
             txtConfirmDue.requestFocus();
         }else if ((key == KeyEvent.VK_ENTER)&&(txtOldDue.getText().isEmpty())) {
+            if(!fnTools.isEmpty(client_detail_table)){
             TableModel model2 = client_detail_table.getModel();
             String Name = model2.getValueAt(0, 4).toString();
             txtOldDue.setText(Name);
             txtConfirmDue.requestFocus();
+        }
         }
         
         else {
@@ -490,10 +501,12 @@ public class clientRegPanel extends javax.swing.JPanel {
         if ((key == KeyEvent.VK_ENTER)&&(!txtClientName.getText().isEmpty())) {
             txtContact.requestFocus();
         }else if ((key == KeyEvent.VK_ENTER)&&(txtClientName.getText().isEmpty())) {
+            if(!fnTools.isEmpty(client_detail_table)){
             TableModel model2 = client_detail_table.getModel();
             String Name = model2.getValueAt(0, 2).toString();
             txtClientName.setText(Name);
             txtContact.requestFocus();
+            }
         }
         
             
@@ -505,13 +518,13 @@ public class clientRegPanel extends javax.swing.JPanel {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
             String obj = "";
-            obj = cmbCliebtType.getSelectedItem().toString();
+            obj = cmbClientType.getSelectedItem().toString();
             clientPojo pojo = new clientPojo();
                         
-            pojo.setAddress(txtAddress.getText());
-            pojo.setClient_name(txtClientName.getText());
-            pojo.setCompany_name(txtCompanyName.getText());
+            pojo.setAddress(txtAddress.getText().toUpperCase());
+            pojo.setCompany_name(txtCompanyName.getText().toUpperCase());
             pojo.setContact(txtContact.getText());
+            
 
             journal_pojo j_pojo = new journal_pojo();
             j_pojo.setCredit(Double.parseDouble(txtOldDue.getText()));
@@ -522,22 +535,21 @@ public class clientRegPanel extends javax.swing.JPanel {
             if("Dealer".equals(obj)){
                
                 pojo.setFlag(1);
+                pojo.setClient_name(txtClientName.getText().toUpperCase());
                 j_pojo.setFlag(1);
                 
             }else{
                 pojo.setFlag(0);
                 j_pojo.setFlag(0);
+                pojo.setClient_name(txtCompanyName.getText().toUpperCase());
               }
             
             if(validate_and_save_form()){
                     resetVendorDetails();
                     controller.register_client(pojo,j_pojo);
+                    controller.fill_client_detail_table(client_detail_table, "from clientPojo where flag ="+pojo.getFlag()+"");
+                    txtCompanyName.requestFocus();
             }
-            controller.fill_client_detail_table(client_detail_table, "from clientPojo where flag ="+pojo.getFlag()+"");
-            txtCompanyName.requestFocus();
-        
-        
-        
         
     }//GEN-LAST:event_btnSubmitActionPerformed
 
@@ -562,21 +574,23 @@ public class clientRegPanel extends javax.swing.JPanel {
         if (key == KeyEvent.VK_ENTER) {
             txtOldDue.requestFocus();
         }else if ((key == KeyEvent.VK_ENTER)&&(txtAddress.getText().isEmpty())) {
+            if(!fnTools.isEmpty(client_detail_table)){
             TableModel model2 = client_detail_table.getModel();
             String Name = model2.getValueAt(0, 5).toString();
             txtAddress.setText(Name);
             txtOldDue.selectAll();
             txtOldDue.requestFocus();
+            }
             
         }
     }//GEN-LAST:event_txtAddressKeyPressed
 
-    private void cmbCliebtTypeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmbCliebtTypeKeyPressed
+    private void cmbClientTypeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmbClientTypeKeyPressed
         int key = evt.getKeyCode();
         if (key == KeyEvent.VK_ENTER) {
             txtCompanyName.requestFocus();
         }
-    }//GEN-LAST:event_cmbCliebtTypeKeyPressed
+    }//GEN-LAST:event_cmbClientTypeKeyPressed
 
     private void txtConfirmDueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConfirmDueActionPerformed
         // TODO add your handling code here:
@@ -603,15 +617,15 @@ public class clientRegPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtConfirmDueKeyReleased
 
-    private void cmbCliebtTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCliebtTypeActionPerformed
+    private void cmbClientTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbClientTypeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbCliebtTypeActionPerformed
+    }//GEN-LAST:event_cmbClientTypeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSubmit;
     private javax.swing.JTable client_detail_table;
-    public javax.swing.JComboBox<String> cmbCliebtType;
+    public javax.swing.JComboBox<String> cmbClientType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;

@@ -31,7 +31,7 @@ public class masterPanel extends javax.swing.JPanel {
         addPanel();
         state();
         clientReg.setVisible(true);
-        clientReg.cmbCliebtType.requestFocus();
+        clientReg.cmbClientType.requestFocus();
     }
 
     private void init() {
@@ -78,7 +78,7 @@ public class masterPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
-        setBackground(java.awt.Color.gray);
+        setBackground(java.awt.Color.darkGray);
 
         displayPanel.setBackground(java.awt.Color.darkGray);
         displayPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -94,7 +94,7 @@ public class masterPanel extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        imagePanel.setBackground(java.awt.Color.lightGray);
+        imagePanel.setBackground(java.awt.Color.darkGray);
         imagePanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         imagePanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -113,14 +113,16 @@ public class masterPanel extends javax.swing.JPanel {
         imagePanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 68, -1));
 
         jLabel5.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel5.setForeground(java.awt.Color.white);
         jLabel5.setText("Picture");
         imagePanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 80, -1));
 
         jLabel6.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel6.setForeground(java.awt.Color.white);
         jLabel6.setText("Management");
-        imagePanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 150, -1));
+        imagePanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 130, -1));
 
-        clientPanel.setBackground(java.awt.Color.lightGray);
+        clientPanel.setBackground(java.awt.Color.darkGray);
         clientPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         clientPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -139,14 +141,16 @@ public class masterPanel extends javax.swing.JPanel {
         clientPanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 68, -1));
 
         jLabel8.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel8.setForeground(java.awt.Color.white);
         jLabel8.setText("Client ");
         clientPanel.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 70, -1));
 
         jLabel9.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel9.setForeground(java.awt.Color.white);
         jLabel9.setText("Management");
-        clientPanel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 150, -1));
+        clientPanel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 130, -1));
 
-        ratePanel.setBackground(java.awt.Color.lightGray);
+        ratePanel.setBackground(java.awt.Color.darkGray);
         ratePanel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         ratePanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -165,29 +169,26 @@ public class masterPanel extends javax.swing.JPanel {
         ratePanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 68, -1));
 
         jLabel2.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel2.setForeground(java.awt.Color.white);
         jLabel2.setText("Rate ");
         ratePanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 70, -1));
 
         jLabel3.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel3.setForeground(java.awt.Color.white);
         jLabel3.setText("Management");
-        ratePanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 150, -1));
+        ratePanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 130, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(imagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ratePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(clientPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9)))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(imagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                    .addComponent(clientPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ratePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(9, 9, 9)
                 .addComponent(displayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
@@ -207,7 +208,7 @@ public class masterPanel extends javax.swing.JPanel {
     private void clientPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clientPanelMouseClicked
         state();
         clientReg.setVisible(true);
-        clientReg.cmbCliebtType.requestFocus();
+        clientReg.cmbClientType.requestFocus();
     }//GEN-LAST:event_clientPanelMouseClicked
 
     private void imagePanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_imagePanelMouseClicked

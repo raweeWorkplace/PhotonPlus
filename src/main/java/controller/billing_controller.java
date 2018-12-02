@@ -12,7 +12,9 @@ import beans.rate_table_pojo;
 import beans.sales_pojo;
 import beans.size_entry_pojo;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.Query;
@@ -28,8 +30,10 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.query.JRHibernateQueryExecuterFactory;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -88,10 +92,10 @@ public class billing_controller {
         return j_pojo;
     }
     
-    public void fill_company_name(JTable table, String str){
+    public void fill_company_name(JTable table, String sql){
         DefaultTableModel table_model = (DefaultTableModel) table.getModel();
         s= sf.openSession();
-        Query query = s.createQuery("from client_table_pojo where company_name like '"+str+"%'");
+        Query query = s.createQuery(sql);
         List<clientPojo> list = query.getResultList();
         fnTools.remove_table_data(table_model, table);
         int j=0;
@@ -210,10 +214,17 @@ public class billing_controller {
     return (double) query.getSingleResult();
     } 
     
+    private static Map getParameter(Session session){
+        Map params = new HashMap();
+        params.put(JRHibernateQueryExecuterFactory.PARAMETER_HIBERNATE_SESSION,session);
+        return params;
+    }
+    
     public void ireport(){
         try {
             s = sf.openSession();
             
+            Map params = getParameter(s);
             String reportSql ="from billingPojo s where s.bill_no = '"+getBillNo()+"'";
             List list = s.createQuery(reportSql).getResultList();
             
@@ -223,7 +234,7 @@ public class billing_controller {
             newQuery.setText(reportSql);
             jd.setQuery(newQuery);
             JasperReport jr = JasperCompileManager.compileReport(jd);
-            JasperPrint jp = JasperFillManager.fillReport(jr, null, new JRBeanCollectionDataSource(list));
+            JasperPrint jp = JasperFillManager.fillReport(jr,params);
             JasperViewer.viewReport(jp,false);
             int dialogResult = JOptionPane.showConfirmDialog (null, "Do you want to print Bill?","Warning",JOptionPane.YES_NO_OPTION);
             if(dialogResult == JOptionPane.YES_OPTION){

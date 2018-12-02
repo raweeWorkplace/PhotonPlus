@@ -82,7 +82,7 @@ public class reportPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
-        setBackground(java.awt.Color.gray);
+        setBackground(java.awt.Color.darkGray);
 
         displayPanel.setBackground(java.awt.Color.darkGray);
         displayPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -98,6 +98,7 @@ public class reportPanel extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        dailyReportPanel.setBackground(java.awt.Color.darkGray);
         dailyReportPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 dailyReportPanelMouseClicked(evt);
@@ -115,13 +116,16 @@ public class reportPanel extends javax.swing.JPanel {
         dailyReportPanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 68, -1));
 
         jLabel5.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel5.setForeground(java.awt.Color.white);
         jLabel5.setText("Daily");
         dailyReportPanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 70, -1));
 
         jLabel6.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel6.setForeground(java.awt.Color.white);
         jLabel6.setText("Report");
-        dailyReportPanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 120, -1));
+        dailyReportPanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 70, -1));
 
+        clientReportPanel.setBackground(java.awt.Color.darkGray);
         clientReportPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 clientReportPanelMouseClicked(evt);
@@ -139,13 +143,16 @@ public class reportPanel extends javax.swing.JPanel {
         clientReportPanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 68, -1));
 
         jLabel8.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel8.setForeground(java.awt.Color.white);
         jLabel8.setText("Client ");
         clientReportPanel.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 70, -1));
 
         jLabel9.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel9.setForeground(java.awt.Color.white);
         jLabel9.setText("Report");
-        clientReportPanel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 120, -1));
+        clientReportPanel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 80, -1));
 
+        stockSummaryPanel.setBackground(java.awt.Color.darkGray);
         stockSummaryPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 stockSummaryPanelMouseClicked(evt);
@@ -163,29 +170,26 @@ public class reportPanel extends javax.swing.JPanel {
         stockSummaryPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 68, -1));
 
         jLabel2.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel2.setForeground(java.awt.Color.white);
         jLabel2.setText("Stock");
         stockSummaryPanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 70, -1));
 
         jLabel3.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
+        jLabel3.setForeground(java.awt.Color.white);
         jLabel3.setText("Summary");
-        stockSummaryPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 130, -1));
+        stockSummaryPanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 100, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dailyReportPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(stockSummaryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(clientReportPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
+                    .addComponent(clientReportPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dailyReportPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(stockSummaryPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addComponent(displayPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(

@@ -8,6 +8,7 @@ package Panels;
 import controller.functionTools;
 import beans.size_entry_pojo;
 import controller.size_entry_controller;
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -30,6 +31,8 @@ public class photoSizeDetailPanel extends javax.swing.JPanel {
         fntools = new functionTools();
         controller = new size_entry_controller();
         controller.fill_photo_size_table(sizeDetailTable);
+        sizeDetailTable.getTableHeader().setFont(new Font("SansSerif", Font.ITALIC, 16));
+        sizeTable.getTableHeader().setFont(new Font("SansSerif", Font.ITALIC, 16));
         
         
     }
@@ -93,23 +96,28 @@ public class photoSizeDetailPanel extends javax.swing.JPanel {
         jPanel4.setBackground(java.awt.Color.gray);
         jPanel4.setBorder(null);
 
-        jPanel5.setBackground(java.awt.Color.lightGray);
+        jPanel5.setBackground(java.awt.Color.darkGray);
         jPanel5.setBorder(null);
 
         jLabel12.setBackground(java.awt.Color.lightGray);
         jLabel12.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel12.setForeground(java.awt.Color.white);
         jLabel12.setText("Item :");
 
         jLabel18.setBackground(java.awt.Color.lightGray);
         jLabel18.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel18.setForeground(java.awt.Color.white);
         jLabel18.setText("Rate :");
 
         jLabel20.setBackground(java.awt.Color.lightGray);
         jLabel20.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        jLabel20.setForeground(java.awt.Color.white);
         jLabel20.setText("Disp. Rate :");
 
-        txtsize.setBackground(java.awt.Color.lightGray);
+        txtsize.setBackground(java.awt.Color.darkGray);
         txtsize.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtsize.setForeground(java.awt.Color.white);
+        txtsize.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtsize.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtsizeKeyPressed(evt);
@@ -119,8 +127,10 @@ public class photoSizeDetailPanel extends javax.swing.JPanel {
             }
         });
 
-        txtRate.setBackground(java.awt.Color.lightGray);
+        txtRate.setBackground(java.awt.Color.darkGray);
         txtRate.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtRate.setForeground(java.awt.Color.white);
+        txtRate.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtRate.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtRateKeyPressed(evt);
@@ -130,8 +140,10 @@ public class photoSizeDetailPanel extends javax.swing.JPanel {
             }
         });
 
-        txtDisplay.setBackground(java.awt.Color.lightGray);
+        txtDisplay.setBackground(java.awt.Color.darkGray);
         txtDisplay.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtDisplay.setForeground(java.awt.Color.white);
+        txtDisplay.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtDisplay.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtDisplayKeyPressed(evt);
@@ -141,6 +153,7 @@ public class photoSizeDetailPanel extends javax.swing.JPanel {
             }
         });
 
+        sizeTable.setBackground(java.awt.Color.darkGray);
         sizeTable.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         sizeTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -183,6 +196,7 @@ public class photoSizeDetailPanel extends javax.swing.JPanel {
             }
         });
 
+        sizeDetailTable.setBackground(java.awt.Color.darkGray);
         sizeDetailTable.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
         sizeDetailTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -204,7 +218,7 @@ public class photoSizeDetailPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(sizeDetailTable);
         if (sizeDetailTable.getColumnModel().getColumnCount() > 0) {
             sizeDetailTable.getColumnModel().getColumn(0).setResizable(false);
-            sizeDetailTable.getColumnModel().getColumn(0).setPreferredWidth(15);
+            sizeDetailTable.getColumnModel().getColumn(0).setPreferredWidth(8);
             sizeDetailTable.getColumnModel().getColumn(1).setResizable(false);
             sizeDetailTable.getColumnModel().getColumn(2).setResizable(false);
             sizeDetailTable.getColumnModel().getColumn(2).setPreferredWidth(15);
@@ -295,7 +309,7 @@ public class photoSizeDetailPanel extends javax.swing.JPanel {
 
     private void submitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitButtonActionPerformed
        size_entry_pojo pojo = new size_entry_pojo();
-       pojo.setSize(txtsize.getText());
+       pojo.setSize(txtsize.getText().toUpperCase());
        pojo.setRate(Double.parseDouble(txtRate.getText()));
        pojo.setDisplay(Double.parseDouble(txtDisplay.getText()));
         if(validate_and_save_data()){

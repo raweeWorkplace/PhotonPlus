@@ -49,7 +49,7 @@ public class functionTools {
      
      public static void exit(java.awt.event.MouseEvent evt){
          JPanel parent = (JPanel)evt.getSource();
-        parent.setBackground(Color.LIGHT_GRAY);
+        parent.setBackground(Color.DARK_GRAY);
         parent.revalidate();
      }
     

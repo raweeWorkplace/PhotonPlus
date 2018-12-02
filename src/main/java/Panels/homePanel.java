@@ -8,6 +8,7 @@ package Panels;
 import controller.functionTools;
 import Dao.DataBase_Connection;
 import controller.MyIntFilter;
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -63,6 +64,8 @@ public class homePanel extends javax.swing.JPanel {
         Calendar cal = Calendar.getInstance();
         todayDate =dateformat.format(cal.getTime());
         fill_bill_table(sql1);
+        billTable.getTableHeader().setFont(new Font("SansSerif", Font.ITALIC, 16));
+        detailTable.getTableHeader().setFont(new Font("SansSerif", Font.ITALIC, 16));
         //itemPanel.setVisible(false);
     }
     
@@ -207,7 +210,7 @@ public class homePanel extends javax.swing.JPanel {
             }
         });
 
-        detailTable.setBackground(new java.awt.Color(164, 140, 140));
+        detailTable.setBackground(java.awt.Color.darkGray);
         detailTable.setBorder(null);
         detailTable.setFont(new java.awt.Font("Century Schoolbook L", 0, 16)); // NOI18N
         detailTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -242,6 +245,7 @@ public class homePanel extends javax.swing.JPanel {
             detailTable.getColumnModel().getColumn(2).setPreferredWidth(4);
         }
 
+        billTable.setBackground(java.awt.Color.darkGray);
         billTable.setBorder(null);
         billTable.setFont(new java.awt.Font("Century Schoolbook L", 0, 16)); // NOI18N
         billTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -315,6 +319,8 @@ public class homePanel extends javax.swing.JPanel {
         );
 
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jScrollPane2.setBackground(java.awt.Color.darkGray);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);

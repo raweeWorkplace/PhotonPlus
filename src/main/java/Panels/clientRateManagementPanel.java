@@ -10,6 +10,7 @@ import controller.functionTools;
 import beans.rate_table_pojo;
 import beans.size_entry_pojo;
 import controller.rate_controller;
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import javax.swing.JOptionPane;
@@ -38,6 +39,9 @@ public class clientRateManagementPanel extends javax.swing.JPanel {
         txtDiscAmt.setEditable(true);
         fnTools = new functionTools();
         controller = new rate_controller();
+        sizeTable.getTableHeader().setFont(new Font("SansSerif", Font.ITALIC, 16));
+        clientRateTable.getTableHeader().setFont(new Font("SansSerif", Font.ITALIC, 16));
+        companyTable.getTableHeader().setFont(new Font("SansSerif", Font.ITALIC, 16));
         
     }
     

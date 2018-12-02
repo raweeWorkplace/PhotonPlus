@@ -34,14 +34,7 @@
             <version>4.0.2.GA</version>
               <type>jar</type>
           </dependency>
-          <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
-        <dependency>
-            <groupId>net.sf.jasperreports</groupId>
-            <artifactId>jasperreports</artifactId>
-            <version>6.1.0</version>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.netbeans.api/org-netbeans-modules-projectapi -->
-       
+     
 <!-- https://mvnrepository.com/artifact/com.toedter/jcalendar -->
         <dependency>
             <groupId>com.toedter</groupId>
@@ -71,6 +64,16 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>4.3.1.Final</version>
         </dependency>
+        
+        <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
+            <dependency>
+                <groupId>net.sf.jasperreports</groupId>
+                <artifactId>jasperreports</artifactId>
+                <version>6.7.0</version>
+            </dependency>
+
+        
+        
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
