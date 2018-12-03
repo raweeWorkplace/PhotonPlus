@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="HICOLA" pageWidth="432" pageHeight="360" orientation="Landscape" columnWidth="392" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="753c1f51-73dc-43f3-8eb5-af7cbe596c2c">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="80"/>
+	<queryString>
+		<![CDATA[select * from bill_table b,sales_table s,photo_size_detail_table p where s.bill_no =b.bill_no and p.size_id=s.item_code]]>
+	</queryString>
+	<field name="bill_no" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="contact" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cust_name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="disc" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="due" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="paid" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="status" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="old_due" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sales_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cost" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="item_code" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qty" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="size_id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="display" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rate" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="size" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="125" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="73" width="387" height="33" forecolor="#F40F0F" uuid="06f7b445-e6c2-4822-8f0a-6ca22fa69568"/>
+				<textElement textAlignment="Center">
+					<font fontName="TlwgTypewriter" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HICOLA COLOUR LAB]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="105" y="106" width="184" height="14" forecolor="#F44B40" uuid="01309ebd-b29c-4d3e-a02b-4e236c6fb190"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Ramanand Chowk, Janakpurdham (Nepal)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="287" y="10" width="111" height="10" forecolor="#F40F0F" uuid="3b503029-a91c-4d70-b995-0dcb254272f8"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[hicolajanakpur@gmail.com]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="335" y="20" width="63" height="10" forecolor="#F40F0F" uuid="908d68e0-f7bb-4ed1-93a6-f88f266b1555"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[041-524106]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="10" width="92" height="10" forecolor="#F40F0F" uuid="675b85f6-ff6a-4ebf-bc0b-d9fa7b785786"/>
+				<textElement>
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[PAN NO : 303840451]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="48" y="41" width="100" height="20" forecolor="#D11919" uuid="67d29584-4b16-4295-9922-833b5a558e89"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{bill_no}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="335" y="41" width="52" height="20" forecolor="#FE0D0D" uuid="8af325c4-4281-40b7-8c48-85c0304c7286"/>
+				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="37" y="15" width="100" height="20" forecolor="#B70F0F" uuid="feaccdcf-a317-4f00-b0d2-c2f4d5af2105"/>
+				<textFieldExpression><![CDATA[$F{cust_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="286" y="15" width="100" height="20" forecolor="#B70F0F" uuid="05525106-4851-4898-bd6f-12af1923d6e0"/>
+				<textFieldExpression><![CDATA[$F{contact}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="172" y="2" width="100" height="29" forecolor="#B70F0F" uuid="e0e535e2-1149-49de-89dc-1592167df3c6"/>
+				<text><![CDATA[size]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="323" y="2" width="63" height="29" forecolor="#B70F0F" uuid="63fd7e50-4007-4a8e-887e-c83406081bad"/>
+				<text><![CDATA[qty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="7" y="2" width="100" height="29" forecolor="#B70F0F" uuid="77725ef9-9676-4994-9829-b86458355cfc"/>
+				<text><![CDATA[item_code]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="7" y="31" width="100" height="20" forecolor="#B70F0F" uuid="943162b4-0ac9-44ed-bc05-c962da576569"/>
+				<textFieldExpression><![CDATA[$F{item_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="172" y="31" width="100" height="20" forecolor="#B70F0F" uuid="16ceb771-aac1-4552-8f8a-ed511e0f1c9f"/>
+				<textFieldExpression><![CDATA[$F{size}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="323" y="31" width="63" height="20" forecolor="#B70F0F" uuid="2b8b0f26-4b48-43e6-a82a-5d264e8417d7"/>
+				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="87" splitType="Stretch">
+			<textField>
+				<reportElement x="323" y="0" width="64" height="20" forecolor="#C30606" uuid="84934102-a790-46e0-8759-7c3ddbc479ed"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="322" y="66" width="70" height="20" forecolor="#C30606" uuid="5542bd64-14a5-4343-9a7c-d4047716303c"/>
+				<textFieldExpression><![CDATA[$F{due}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="322" y="43" width="68" height="20" forecolor="#C30606" uuid="c6a141c0-3b19-4a40-bca0-f3af0cf20e6a"/>
+				<textFieldExpression><![CDATA[$F{paid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="322" y="24" width="70" height="20" forecolor="#CE1111" uuid="a983fa64-7d5b-4563-b6c3-f40dbb5263cc"/>
+				<textFieldExpression><![CDATA[$F{old_due}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

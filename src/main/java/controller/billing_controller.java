@@ -11,7 +11,11 @@ import beans.journal_pojo;
 import beans.rate_table_pojo;
 import beans.sales_pojo;
 import beans.size_entry_pojo;
+import java.io.File;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +31,6 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.query.JRHibernateQueryExecuterFactory;
@@ -126,6 +129,7 @@ public class billing_controller {
         t=s.beginTransaction();
         s.saveOrUpdate(b_pojo);
         t.commit();
+        ireport();
         
     }
     
@@ -222,25 +226,40 @@ public class billing_controller {
     
     public void ireport(){
         try {
-            s = sf.openSession();
+           // s = sf.openSession();
+             Class.forName("com.mysql.jdbc.Driver");
+            Connection connectionInstance = DriverManager.getConnection("jdbc:mysql://localhost:3306/photon", "root", "");
             
-            Map params = getParameter(s);
-            String reportSql ="from billingPojo s where s.bill_no = '"+getBillNo()+"'";
-            List list = s.createQuery(reportSql).getResultList();
+            //Map params = getParameter(s);
+            String reportSql ="select * from bill_table b,sales_table s,photo_size_detail_table p where s.bill_no =b.bill_no and p.size_id=s.item_code and b.bill_no ='"+getBillNo()+"'";
+            System.out.println(reportSql);
+            //List list = s.createQuery(reportSql).getResultList();
             
-            url7 = getClass().getResourceAsStream("/report/report.jrxml");
-            JasperDesign jd = JRXmlLoader.load(url7);
+            //url7 = getClass().getResourceAsStream("/report/hicola.jrxml");
+           // System.out.println(url7);
+            JasperDesign jd = JRXmlLoader.load(getClass().getResourceAsStream("/report/hicola.jrxml"));
+            if(jd==null){
+               jd = JRXmlLoader.load(new File("/report/hicola.jrxml"));
+            }
+            if(jd==null){
+               jd = JRXmlLoader.load(getClass().getResourceAsStream("/report/hicola.jrxml"));
+            }
             JRDesignQuery newQuery = new JRDesignQuery();
             newQuery.setText(reportSql);
             jd.setQuery(newQuery);
             JasperReport jr = JasperCompileManager.compileReport(jd);
-            JasperPrint jp = JasperFillManager.fillReport(jr,params);
+            JasperPrint jp = JasperFillManager.fillReport(jr,null, connectionInstance);
+            //JasperPrint jp = JasperFillManager.fillReport(jr,params);
             JasperViewer.viewReport(jp,false);
             int dialogResult = JOptionPane.showConfirmDialog (null, "Do you want to print Bill?","Warning",JOptionPane.YES_NO_OPTION);
             if(dialogResult == JOptionPane.YES_OPTION){
                 JasperPrintManager.printReport(jp, true);
             }
         } catch (JRException ex) {
+            Logger.getLogger(billing_controller.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(billing_controller.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
             Logger.getLogger(billing_controller.class.getName()).log(Level.SEVERE, null, ex);
         }
                 

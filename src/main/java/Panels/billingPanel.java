@@ -13,8 +13,6 @@ import beans.rate_table_pojo;
 import beans.size_entry_pojo;
 import controller.billing_controller;
 import java.awt.event.KeyEvent;
-import java.io.InputStream;
-import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -995,13 +993,13 @@ public class billingPanel extends javax.swing.JPanel {
                 int dialogResult = JOptionPane.showConfirmDialog (null, "Would You Like to Make the Sales?","Warning",JOptionPane.YES_NO_OPTION);
                 if(dialogResult == JOptionPane.YES_OPTION){
                     b_pojo = new billingPojo();
-                    b_pojo.setCust_name(txtCustName.getText());
+                    b_pojo.setCust_name(txtCustName.getText().toUpperCase());
                     b_pojo.setContact(txtContact.getText());
                     b_pojo.setDate(new Date());
                     b_pojo.setTotal(Double.parseDouble(lblTotal.getText()));
                     b_pojo.setDisc(Double.parseDouble(txtDiscAmt.getText()));
                     double payment=0;
-                    
+                    b_pojo.setOld_due(Double.parseDouble(lblPrevDue.getText()));
                     if(Double.parseDouble(lblTotalDue.getText())>Double.parseDouble(txtPayment.getText())){
                         payment = Double.parseDouble(txtPayment.getText());
                     }else {

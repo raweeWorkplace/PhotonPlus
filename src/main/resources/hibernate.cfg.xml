@@ -49,8 +49,8 @@ Contributor(s):
     <property name="show_sql">false</property>
     <mapping class="beans.log_in_pojo"/>
     <mapping class="beans.data_configuration_pojo"/>
-    <mapping class="beans.billingPojo" file="" jar="" package="" resource=""/>
-    <mapping class="beans.clientPojo" file="" jar="" package="" resource=""/>
+    <mapping class="beans.billingPojo"/>
+    <mapping class="beans.clientPojo"/>
     <mapping class="beans.instock_entry_pojo"/>
     <mapping class="beans.rate_table_pojo"/>
     <mapping class="beans.sales_pojo"/>

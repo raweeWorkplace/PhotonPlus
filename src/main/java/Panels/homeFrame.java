@@ -52,6 +52,7 @@ public class homeFrame extends javax.swing.JFrame {
     public homeFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
+        //this.setOpacity((float) 0.5);
         //this.setBackground(new Color(0,0,0,0));
         try {
 

@@ -50,6 +50,25 @@ public class billingPojo implements Serializable {
     @Column
     private double due;
     
+    @Column
+    private double old_due;
+
+    public int getBill_no() {
+        return bill_no;
+    }
+
+    public void setBill_no(int bill_no) {
+        this.bill_no = bill_no;
+    }
+
+    public double getOld_due() {
+        return old_due;
+    }
+
+    public void setOld_due(double old_due) {
+        this.old_due = old_due;
+    }
+    
        
     @Column
     private String status;
