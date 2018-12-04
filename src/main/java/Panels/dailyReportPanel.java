@@ -7,6 +7,8 @@ package Panels;
 
 import controller.functionTools;
 import Dao.DataBase_Connection;
+import controller.billing_controller;
+import controller.expences_controller;
 import java.awt.Font;
 import java.io.File;
 import java.io.FileWriter;
@@ -14,13 +16,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
@@ -99,10 +97,7 @@ public class dailyReportPanel extends javax.swing.JPanel {
 
     
     private void fillTable(String selectedTable, DefaultTableModel tableModel,JTextField txt){
-         
-        try
-        {
-          
+        
             
             java.sql.Date dFrom = new java.sql.Date(dateFrom.getDate().getTime());
             java.sql.Date dTo = new java.sql.Date(dateTo.getDate().getTime());
@@ -119,76 +114,74 @@ public class dailyReportPanel extends javax.swing.JPanel {
             queryClose ="Select sum(total) from "+selectedTable+" where date ='" + dFrom + "'";
             
         }
-//            smtInstance = conInstance.createStatement();
-//            rsOpen = smtInstance.executeQuery(queryClose);
-//            while ( rsOpen.next() ) //step through the result set
-//                    {
-//                      Double sum = rsOpen.getDouble(1);
-//                        txtTotalSales.setText(new DecimalFormat("##.##").format(sum));
-//                        if(txtTotalSales.getText().isEmpty()){
-//                            txtTotalSales.setText("0.0"); 
-//                        }
-//                    }
             }
             else{
-            //queryOpen ="Select sum(product_sales.amount) from product_sales, productBills where product_sales.BillNo = productBills.BillNo and productBills.date <'" + dFrom + "'";
             queryUsingSelection = "from "+selectedTable+" order by date";
             queryClose ="Select sum(total) from "+selectedTable+"";
             txt.setText("0.0");    
         }
-            
-            smtInstance = conInstance.createStatement();
-            rsClose = smtInstance.executeQuery(queryClose);
-            while ( rsClose.next() ) //step through the result set
-                    {
-                        Double sum = rsClose.getDouble(1);
-                        txt.setText(new DecimalFormat("##.##").format(sum));
-                        if(txt.getText().isEmpty()){
-                            txt.setText("0.0"); 
-                        }
-                    }
-            
-            smtUsingDate = conInstance.createStatement();
-            
-            rs1 = smtUsingDate.executeQuery(queryUsingSelection);
+           if(selectedTable.equals("instock_entry_pojo")){
+               new expences_controller().fill_report_table(purchaseTable, queryUsingSelection);
+           }else{
+               new billing_controller().fill_report_table(salesTable, queryUsingSelection);
+            }
+            String closingValue = "0.0";
+            closingValue =new functionTools().getData(queryClose);
+            txt.setText(new DecimalFormat("##.##").format(Double.parseDouble(closingValue)));
             
             
-            if (rs1 != null){
-                    
-                int i = 0;
-                while ( rs1.next() ) //step through the result set
-                    {
-                        i++;//count raws
-                    }
-                    int j = 0;
-                    rs1.beforeFirst();
-                    while (rs1.next()) 
-                    {
-                        Date dbDate = rs1.getDate(2);
-                        DateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
-                        String todayDate =dateformat.format(dbDate);
-                        String billId = rs1.getString(1);
-                        String NAME = rs1.getString(3);
-                        String total = rs1.getString(4);
-                        //String rate = rs1.getString("product_sales.rate");
-                        Double amt = (Double.parseDouble(total));
-                        String amount = Double.toString(amt);
-
-                        tableModel.insertRow(j,new Object[]{todayDate,billId,NAME,amount});
-                        j++;
-                    }
-                }
-              } catch (SQLException ex) {
-             Logger.getLogger(dailyReportPanel.class.getName()).log(Level.SEVERE, null, ex);
-         }
-        finally
-        {
-             try {
-                 rs1.close();
-             } catch (SQLException ex) {
-                 Logger.getLogger(dailyReportPanel.class.getName()).log(Level.SEVERE, null, ex);
-             }
-        }
+//            smtInstance = conInstance.createStatement();
+//            rsClose = smtInstance.executeQuery(queryClose);
+//            while ( rsClose.next() ) //step through the result set
+//                    {
+//                        Double sum = rsClose.getDouble(1);
+//                        txt.setText(new DecimalFormat("##.##").format(sum));
+//                        if(txt.getText().isEmpty()){
+//                            txt.setText("0.0"); 
+//                        }
+//                    }
+//            
+//            smtUsingDate = conInstance.createStatement();
+            
+//            rs1 = smtUsingDate.executeQuery(queryUsingSelection);
+//            
+//            
+//            if (rs1 != null){
+//                    
+//                int i = 0;
+//                while ( rs1.next() ) //step through the result set
+//                    {
+//                        i++;//count raws
+//                    }
+//                    int j = 0;
+//                    rs1.beforeFirst();
+//                    while (rs1.next()) 
+//                    {
+//                        Date dbDate = rs1.getDate(2);
+//                        DateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
+//                        String todayDate =dateformat.format(dbDate);
+//                        String billId = rs1.getString(1);
+//                        String NAME = rs1.getString(3);
+//                        String total = rs1.getString(4);
+//                        //String rate = rs1.getString("product_sales.rate");
+//                        Double amt = (Double.parseDouble(total));
+//                        String amount = Double.toString(amt);
+//
+//                        tableModel.insertRow(j,new Object[]{todayDate,billId,NAME,amount});
+//                        j++;
+//                    }
+//                }
+//              } catch (SQLException ex) {
+//             Logger.getLogger(dailyReportPanel.class.getName()).log(Level.SEVERE, null, ex);
+//         }
+//        finally
+//        {
+//             try {
+//                 rs1.close();
+//             } catch (SQLException ex) {
+//                 Logger.getLogger(dailyReportPanel.class.getName()).log(Level.SEVERE, null, ex);
+//             }
+ //       }
         }
     
 
@@ -288,12 +281,12 @@ public class dailyReportPanel extends javax.swing.JPanel {
         jLabel2.setForeground(java.awt.Color.white);
         jLabel2.setText("Total Sales :");
 
-        dateFrom.setBackground(java.awt.Color.darkGray);
-        dateFrom.setForeground(java.awt.Color.white);
+        dateFrom.setBackground(java.awt.Color.white);
+        dateFrom.setForeground(java.awt.Color.darkGray);
         dateFrom.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
-        dateTo.setBackground(java.awt.Color.darkGray);
-        dateTo.setForeground(java.awt.Color.white);
+        dateTo.setBackground(java.awt.Color.white);
+        dateTo.setForeground(java.awt.Color.darkGray);
         dateTo.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         rbnMonthly.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
@@ -318,7 +311,7 @@ public class dailyReportPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Date", "Invoice", "Customer Name", "Amount"
+                "Date", "Category", "Item", "Amount"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -342,16 +335,16 @@ public class dailyReportPanel extends javax.swing.JPanel {
             purchaseTable.getColumnModel().getColumn(0).setResizable(false);
             purchaseTable.getColumnModel().getColumn(0).setPreferredWidth(10);
             purchaseTable.getColumnModel().getColumn(1).setResizable(false);
-            purchaseTable.getColumnModel().getColumn(1).setPreferredWidth(8);
+            purchaseTable.getColumnModel().getColumn(1).setPreferredWidth(75);
             purchaseTable.getColumnModel().getColumn(2).setResizable(false);
-            purchaseTable.getColumnModel().getColumn(2).setPreferredWidth(125);
+            purchaseTable.getColumnModel().getColumn(2).setPreferredWidth(75);
             purchaseTable.getColumnModel().getColumn(3).setResizable(false);
             purchaseTable.getColumnModel().getColumn(3).setPreferredWidth(8);
         }
 
         jLabel3.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
         jLabel3.setForeground(java.awt.Color.white);
-        jLabel3.setText("Total Purchase :");
+        jLabel3.setText("Total Expenses :");
 
         jLabel4.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
         jLabel4.setForeground(java.awt.Color.white);
@@ -387,7 +380,7 @@ public class dailyReportPanel extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 643, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 643, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtTotalSales, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTotalPurchase, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -479,6 +472,7 @@ public class dailyReportPanel extends javax.swing.JPanel {
 
     private void salesTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesTableMouseClicked
             try {
+                if(!fnTools.isEmpty(salesTable)){
                 int index = salesTable.getSelectedRow();
                 salesTableModel  =(DefaultTableModel)salesTable.getModel();
                 String billId = salesTableModel.getValueAt(index, 1).toString();
@@ -495,6 +489,7 @@ public class dailyReportPanel extends javax.swing.JPanel {
                 JasperViewer.viewReport(jp,false);
                 //JasperPrintManager.printReport(jp, true);
                 //JasperExportManager.exportReportToPdfFile(jp,"sample_report.pdf");
+                }
             } catch (JRException ex) {
                 Logger.getLogger(dailyReportPanel.class.getName()).log(Level.SEVERE, null, ex);
             }

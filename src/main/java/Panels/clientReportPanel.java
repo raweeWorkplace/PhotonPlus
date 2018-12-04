@@ -7,18 +7,17 @@ package Panels;
 
 import controller.functionTools;
 import Dao.DataBase_Connection;
+import beans.billingPojo;
+import controller.billing_controller;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
@@ -39,9 +38,7 @@ import net.sf.jasperreports.view.JasperViewer;
  * @author ranjan
  */
 public class clientReportPanel extends javax.swing.JPanel {
-        protected Connection conInstance;
-        protected Statement smtInstance,smtUsingDate;
-        ResultSet rs,rs1, rsOpen,rsClose;
+
         protected String queryUsingSelection,queryPaid, queryTotal,reportSql;
         protected String excelFilePath = null,billId= null;
         DataBase_Connection dao;
@@ -58,8 +55,6 @@ public class clientReportPanel extends javax.swing.JPanel {
         initComponents();
         dir.setEditable(false);
         filename.setEditable(false);
-        dao = new DataBase_Connection();
-        conInstance = dao.getConnection();
         fnTools= new functionTools();
         ButtonGroup();
         dateFrom.setDate(Calendar.getInstance().getTime());
@@ -76,122 +71,75 @@ public class clientReportPanel extends javax.swing.JPanel {
 
 
     
-    private void fillTable(String selectedTable, String selectedName, DefaultTableModel tableModel,JTextField txtTotal,JTextField txtPaid){
+    private void fillTable(){
          
-        try{
-          java.sql.Date dFrom = new java.sql.Date(dateFrom.getDate().getTime());
+             java.sql.Date dFrom = new java.sql.Date(dateFrom.getDate().getTime());
             java.sql.Date dTo = new java.sql.Date(dateTo.getDate().getTime());
             if(rbnMonthly.isSelected() ||rbnDate.isSelected()){
             if(rbnMonthly.isSelected()){
             
-            queryUsingSelection = "select * from "+selectedTable+" where (date between '"+dFrom+"' And '"+dTo+"') and "+selectedName+" = '"+txtCompanyName.getText()+"'order by date";
-            queryTotal ="Select sum(total), sum(paid) from "+selectedTable+" where (date between '"+dFrom+"' And '"+dTo+"')  and "+selectedName+" = '"+txtCompanyName.getText()+"'";
-            //queryPaid ="Select sum(paid) from "+selectedTable+" where (date between '"+dFrom+"' And '"+dTo+"')  and "+selectedName+" = '"+txtCompanyName.getText()+"'";
-            
+            queryUsingSelection = "from billingPojo where (date between '"+dFrom+"' And '"+dTo+"') and cust_name = '"+txtCompanyName.getText()+"'order by date";
+            queryTotal ="Select sum(total) as total from billingPojo where (date between '"+dFrom+"' And '"+dTo+"')  and cust_name = '"+txtCompanyName.getText()+"'";
+           queryPaid ="Select sum(paid) as paid from billingPojo where (date between '"+dFrom+"' And '"+dTo+"')  and cust_name = '"+txtCompanyName.getText()+"'";
+           
         }
             else if(rbnDate.isSelected()){
             
-            queryUsingSelection = "select * from "+selectedTable+" where date ='" + dFrom + "'  and "+selectedName+" = '"+txtCompanyName.getText()+"' order by date";
-            queryTotal ="Select sum(total),sum(paid) from "+selectedTable+" where date ='" + dFrom + "'  and "+selectedName+" = '"+txtCompanyName.getText()+"'";
-            //queryPaid ="Select sum(paid) from "+selectedTable+" where date ='" + dFrom + "'  and "+selectedName+" = '"+txtCompanyName.getText()+"'";
-            
+            queryUsingSelection = "from billingPojo where date ='" + dFrom + "'  and cust_name = '"+txtCompanyName.getText()+"' order by date";
+            queryTotal ="Select sum(total) as total from billingPojo where date ='" + dFrom + "'  and cust_name = '"+txtCompanyName.getText()+"'";
+            queryPaid ="Select sum(paid) as paid from billingPojo where date ='" + dFrom + "'  and cust_name = '"+txtCompanyName.getText()+"'";
+           
         }
             }
-            else{
-            //queryOpen ="Select sum(product_sales.amount) from product_sales, productBills where product_sales.BillNo = productBills.BillNo and productBills.date <'" + dFrom + "'";
-            queryUsingSelection = "select * from "+selectedTable+"  where "+selectedName+" = '"+txtCompanyName.getText()+"' order by date";
-            queryTotal ="Select sum(total),sum(paid) from "+selectedTable+"  where "+selectedName+" = '"+txtCompanyName.getText()+"'";
-            txtTotal.setText("0.0");
-            txtPaid.setText("0.0");
+            else{ 
+                queryUsingSelection = "from billingPojo  where cust_name = '"+txtCompanyName.getText()+"' order by date";
+                queryTotal ="Select sum(total) as total from billingPojo  where cust_name = '"+txtCompanyName.getText()+"'";
+                queryPaid ="Select sum(paid) as paid from billingPojo  where cust_name = '"+txtCompanyName.getText()+"'";
+                
+                txtTotalSales.setText("0.0");
+                txtRecieved.setText("0.0");
         }
             
-            smtInstance = conInstance.createStatement();
-            rsClose = smtInstance.executeQuery(queryTotal);
-            while ( rsClose.next() ) //step through the result set
-                    {
-                        Double sum = rsClose.getDouble(1);
-                        txtTotal.setText(new DecimalFormat("##.##").format(sum));
-                        Double paid = rsClose.getDouble(2);
-                        txtPaid.setText(new DecimalFormat("##.##").format(paid));
-                        if(txtPaid.getText().isEmpty()){
-                            txtPaid.setText("0.0"); 
-                        }
-                    }
-            
-            smtUsingDate = conInstance.createStatement();
-            
-            rs1 = smtUsingDate.executeQuery(queryUsingSelection);
-            
-            
-            if (rs1 != null){
-                    
-                int i = 0;
-                while ( rs1.next() ) //step through the result set
-                    {
-                        i++;//count raws
-                    }
-                    int j = 0;
-                    rs1.beforeFirst();
-                    while (rs1.next()) 
-                    {
-                        Date dbDate = rs1.getDate(2);
-                        DateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
-                        String todayDate =dateformat.format(dbDate);
-                        String billId = rs1.getString(1);
-                        String NAME = rs1.getString(3);
-                        String total = rs1.getString("total");
-                        String paid = rs1.getString("paid");
-                        String due = rs1.getString("due");
-//                        String rate = rs1.getString("product_sales.rate");
-//                        Double amt = (Double.parseDouble(total));
-//                        String amount = Double.toString(amt);
+                String value =  fnTools.getData(queryTotal);
+                Double sum = Double.parseDouble(value);
+                txtTotalSales.setText(new DecimalFormat("##.##").format(sum));
+                String paid_value =  fnTools.getData(queryPaid);
+                Double paid = Double.parseDouble(paid_value);
+                 txtRecieved.setText(new DecimalFormat("##.##").format(paid));
+                 if(txtRecieved.getText().isEmpty()){
+                     txtRecieved.setText("0.0"); 
 
-                        tableModel.insertRow(j,new Object[]{todayDate,billId,NAME,total,paid,due});
-                        j++;
-                    }
-                }
-              } catch (SQLException ex) {
-             Logger.getLogger(clientReportPanel.class.getName()).log(Level.SEVERE, null, ex);
-         }
-        finally
-        {
-             try {
-                 rs1.close();
-             } catch (SQLException ex) {
-                 Logger.getLogger(clientReportPanel.class.getName()).log(Level.SEVERE, null, ex);
-             }
-        }
+            }
+
+            
+            List<billingPojo> pojo = fnTools.getAllData(queryUsingSelection);
+            if(pojo!=null){
+                 int j=0;
+                for(billingPojo rs:pojo){
+                    Date dbDate = rs.getDate();
+                    DateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
+                    String todayDate =dateformat.format(dbDate);
+                    int billId = rs.getBill_no();
+                    String NAME = rs.getCust_name();
+                    Double total = rs.getTotal();
+                    Double pay = rs.getPaid();
+    //                        String rate = rs1.getString("product_sales.rate");
+    //                        Double amt = (Double.parseDouble(total));
+    //                        String amount = Double.toString(amt);
+
+                    salesTableModel.insertRow(j,new Object[]{todayDate,billId,NAME,total,pay});
+                    j++;
+            }
+            }
         }
     
     private void fill_company_name_table(){
        companyTableModel  =(DefaultTableModel)companyTable.getModel();
        String values = txtCompanyName.getText();
-        try {
-                    
-            String  sql1= "SELECT * FROM client_detail_table where company_name Like '"+values+"%'";
-            //System.out.println(sql1);
-            smtInstance= conInstance.createStatement();
-            ResultSet rs1 = smtInstance.executeQuery(sql1);
-                fnTools.remove_table_data(companyTableModel,companyTable);
-                int i = 0;
-                while ( rs1.next() ) //step through the result set
-                {
-                    i++;//count raws
-                }
-                if (i>0){
-                        int j= 0;
-                        rs1.beforeFirst();
-                        
-                        while (rs1.next()) {
-                    String C = rs1.getString("company_name");                  
-                    companyTableModel.insertRow(j,new Object[]{C});
-                 
-                    j++;
-                }
-                }    
-         } catch (SQLException ex) {
-           // Logger.getLogger(Pharmacy_In_Frame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       String  sql1= "FROM clientPojo where company_name Like '"+values+"%'";
+       
+       new billing_controller().fill_company_name(companyTable, sql1);
+            
               
 }
     
@@ -303,16 +251,17 @@ public class clientReportPanel extends javax.swing.JPanel {
         txtTotalSales.setEditable(false);
         txtTotalSales.setBackground(java.awt.Color.darkGray);
         txtTotalSales.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtTotalSales.setForeground(java.awt.Color.white);
 
         jLabel2.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
         jLabel2.setForeground(java.awt.Color.white);
         jLabel2.setText("Sales :");
 
-        dateFrom.setBackground(java.awt.Color.darkGray);
+        dateFrom.setBackground(java.awt.Color.white);
         dateFrom.setDateFormatString("dd-MM-yyyy");
         dateFrom.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
-        dateTo.setBackground(java.awt.Color.darkGray);
+        dateTo.setBackground(java.awt.Color.white);
         dateTo.setDateFormatString("dd-MM-yyyy");
         dateTo.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
@@ -332,6 +281,7 @@ public class clientReportPanel extends javax.swing.JPanel {
         txtRecieved.setEditable(false);
         txtRecieved.setBackground(java.awt.Color.darkGray);
         txtRecieved.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtRecieved.setForeground(java.awt.Color.white);
 
         jLabel8.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
         jLabel8.setForeground(java.awt.Color.white);
@@ -340,6 +290,7 @@ public class clientReportPanel extends javax.swing.JPanel {
         txtBalance.setEditable(false);
         txtBalance.setBackground(java.awt.Color.darkGray);
         txtBalance.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtBalance.setForeground(java.awt.Color.white);
 
         jLabel12.setBackground(java.awt.Color.lightGray);
         jLabel12.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
@@ -348,6 +299,7 @@ public class clientReportPanel extends javax.swing.JPanel {
 
         txtCompanyName.setBackground(java.awt.Color.darkGray);
         txtCompanyName.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtCompanyName.setForeground(java.awt.Color.white);
         txtCompanyName.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCompanyNameKeyPressed(evt);
@@ -501,7 +453,7 @@ public class clientReportPanel extends javax.swing.JPanel {
         txtBalance.setText("0.0");
         salesTableModel= (DefaultTableModel)salesTable.getModel();
         fnTools.remove_table_data(salesTableModel, salesTable);
-        fillTable("bill_table","cust_name",salesTableModel,txtTotalSales,txtRecieved);
+        fillTable();
         calculate();
         
         txtCompanyName.setText("");
@@ -510,25 +462,10 @@ public class clientReportPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void salesTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_salesTableMouseClicked
-            try {
-                int index = salesTable.getSelectedRow();
-                salesTableModel  =(DefaultTableModel)salesTable.getModel();
-                String billId = salesTableModel.getValueAt(index, 1).toString();
-                    
-                        reportSql = "select * from bill_table as b, sales_table as s where b.bill_no= s.bill_no and b.bill_no = '"+billId+"'";
-                            url7 = getClass().getResourceAsStream("/report/report.jrxml");
-                        
-                JasperDesign jd = JRXmlLoader.load(url7);
-                JRDesignQuery newQuery = new JRDesignQuery();
-                newQuery.setText(reportSql);
-                jd.setQuery(newQuery);
-                JasperReport jr = JasperCompileManager.compileReport(jd);
-                JasperPrint jp = JasperFillManager.fillReport(jr, null, conInstance);
-                JasperViewer.viewReport(jp,false);
-                //JasperExportManager.exportReportToPdfFile(jp,"sample_report.pdf");
-            } catch (JRException ex) {
-                Logger.getLogger(clientReportPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        int index = salesTable.getSelectedRow();
+        salesTableModel  =(DefaultTableModel)salesTable.getModel();
+        int billId = Integer.parseInt(salesTableModel.getValueAt(index, 1).toString());
+        new billing_controller().ireport(billId);
     }//GEN-LAST:event_salesTableMouseClicked
 
     private void rbnMonthlyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbnMonthlyActionPerformed
@@ -558,7 +495,12 @@ public class clientReportPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCompanyNameKeyReleased
 
     private void companyTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_companyTableMouseClicked
-        
+    if(!fnTools.isEmpty(companyTable)){
+            int row_index = companyTable.getSelectedRow();
+            String value = companyTable.getModel().getValueAt(row_index,0).toString();
+            txtCompanyName.setText(value);
+            btnSearch.requestFocus();
+    }
     }//GEN-LAST:event_companyTableMouseClicked
 
     private void companyTableKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_companyTableKeyPressed

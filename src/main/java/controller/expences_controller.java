@@ -51,4 +51,16 @@ public class expences_controller {
             j++;
         }
     }
+    
+        public void fill_report_table(JTable table, String sql){
+        s = sf.openSession();
+        DefaultTableModel table_model = (DefaultTableModel)table.getModel();
+        List<instock_entry_pojo> list =s.createQuery(sql).getResultList();
+        fnTools.remove_table_data(table_model, table);
+        int j=0;
+        for(instock_entry_pojo rs_pojo : list){
+            table_model.insertRow(j, new Object[]{rs_pojo.getDate(),rs_pojo.getCategory(),rs_pojo.getItem_name(),rs_pojo.getTotal_exp()});
+            j++;
+        }
+    }
 }

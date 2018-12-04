@@ -1038,7 +1038,7 @@ public class billingPanel1 extends javax.swing.JPanel {
                     }
                     resetBill();
                     billTableIndex=0;
-                    controller.ireport();
+                    //controller.ireport();
                     resetTables();
                     resetBill();
                     txtCustName.requestFocus();

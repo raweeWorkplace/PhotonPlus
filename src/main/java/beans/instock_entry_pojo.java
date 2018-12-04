@@ -36,7 +36,7 @@ public class instock_entry_pojo implements Serializable {
     private String item_name;
     
     @Column
-    private double total_exp;
+    private double total;
     
     @Column
     private int unit;
@@ -56,7 +56,7 @@ public class instock_entry_pojo implements Serializable {
         super();
         this.date = date;
         this.item_name = item_name;
-        this.total_exp = total_exp;
+        this.total = total_exp;
         this.unit = unit;
         this.category = category;
     }
@@ -89,11 +89,11 @@ public class instock_entry_pojo implements Serializable {
     }
 
     public double getTotal_exp() {
-        return total_exp;
+        return total;
     }
 
     public void setTotal_exp(double total_exp) {
-        this.total_exp = total_exp;
+        this.total = total_exp;
     }
 
     public int getUnit() {

@@ -11,6 +11,6 @@ package controller;
  */
 public class test {
     public static void main(String[] args) {
-       new billing_controller().ireport();
+       new billing_controller().ireport(1);
     }
 }

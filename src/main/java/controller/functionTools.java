@@ -5,19 +5,75 @@
  */
 package controller;
 
+import beans.clientPojo;
+import beans.size_entry_pojo;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
+import java.io.InputStream;
+import java.util.List;
+import javax.persistence.Query;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 
 /**
  *
  * @author idiotbox
  */
 public class functionTools {
+    
+    Session s;
+    SessionFactory sf;
+    Transaction t;
+    Configuration conf;
+    List<clientPojo>  r_list;
+    InputStream url7;
+    
+
+    public functionTools() {
+        conf = new Configuration();
+        conf.configure();
+        sf = conf.buildSessionFactory();
+    }
+    
+    
+    public String getData(String sql){
+        s = sf.openSession();
+        String pojo=null;
+        Query query = s.createQuery(sql);
+        try{
+          pojo= query.getSingleResult().toString();
+              return pojo;
+        }catch(Exception ex){         
+        }
+         if((pojo == null || pojo.equals("")) || pojo.length()<=0)return "0.0";else {
+             return pojo;
+         }
+    }
+    
+        public List getAllData(String sql){
+        s = sf.openSession();
+        List pojo=null;
+        Query query = s.createQuery(sql);
+        try{
+          pojo= query.getResultList();
+              return pojo;
+        }catch(Exception ex){         
+        }
+         if((!pojo.isEmpty())){
+             return pojo;
+         }else{
+             return null;
+         }
+    }
+    
+    
     
      public void remove_table_data(DefaultTableModel tableModel, JTable table) {
           if(!isEmpty(table)){

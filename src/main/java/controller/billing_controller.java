@@ -129,7 +129,7 @@ public class billing_controller {
         t=s.beginTransaction();
         s.saveOrUpdate(b_pojo);
         t.commit();
-        ireport();
+        ireport(getBillNo());
         
     }
     
@@ -224,14 +224,14 @@ public class billing_controller {
         return params;
     }
     
-    public void ireport(){
+    public void ireport(int bill_no){
         try {
            // s = sf.openSession();
              Class.forName("com.mysql.jdbc.Driver");
             Connection connectionInstance = DriverManager.getConnection("jdbc:mysql://localhost:3306/photon", "root", "");
             
             //Map params = getParameter(s);
-            String reportSql ="select * from bill_table b,sales_table s,photo_size_detail_table p where s.bill_no =b.bill_no and p.size_id=s.item_code and b.bill_no ='"+getBillNo()+"'";
+            String reportSql ="select * from bill_table b,sales_table s,photo_size_detail_table p where s.bill_no =b.bill_no and p.size_id=s.item_code and b.bill_no ='"+bill_no+"'";
             System.out.println(reportSql);
             //List list = s.createQuery(reportSql).getResultList();
             
@@ -264,4 +264,19 @@ public class billing_controller {
         }
                 
     }
+
+
+
+        public void fill_report_table(JTable table, String sql){
+        s = sf.openSession();
+        DefaultTableModel table_model = (DefaultTableModel)table.getModel();
+        List<billingPojo> list =s.createQuery(sql).getResultList();
+        fnTools.remove_table_data(table_model, table);
+        int j=0;
+        for(billingPojo rs_pojo : list){
+            table_model.insertRow(j, new Object[]{rs_pojo.getDate(),rs_pojo.getBill_no(),rs_pojo.getCust_name(),rs_pojo.getTotal()});
+            j++;
+        }
+    }
+
 }

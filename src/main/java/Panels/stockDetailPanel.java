@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
@@ -68,69 +69,47 @@ private void calculateSubtotal(){
         while(i<item_count_table.getRowCount())
         {
         subTotal = subTotal+Double.parseDouble((String) item_count_table.getValueAt(i, 1));
-        txtTotalPurchase.setText(new DecimalFormat("##.##").format(subTotal));
+        txtTotalPrinted.setText(new DecimalFormat("##.##").format(subTotal));
         i++;
         }
         }
         else{
-             txtTotalPurchase.setText("");
+             txtTotalPrinted.setText("");
         }
     }
     
-    private void fillTable(String selectedTable, DefaultTableModel tableModel,JTextField txt){
+    private void fillTable(){
          
-        try
-        {
-            
-            String item_name_search = "Select distinct(item_name) as name from sales_table";
-            smtInstance = conInstance.createStatement();
-            ResultSet rs = smtInstance.executeQuery(item_name_search);
-            while(rs.next()){
-                item_name = rs.getString("name");
-                java.sql.Date dFrom = new java.sql.Date(dateFrom.getDate().getTime());
+        String item_name_search = "Select distinct(size.size) as name from size_entry_pojo size, sales_pojo sales where sales.item_code=size.size_id";
+        List<String> rs = fnTools.getAllData(item_name_search);
+        int j = 0;
+        for(String pojo :rs){
+            item_name = pojo;
+            java.sql.Date dFrom = new java.sql.Date(dateFrom.getDate().getTime());
             java.sql.Date dTo = new java.sql.Date(dateTo.getDate().getTime());
             if(rbnMonthly.isSelected() ||rbnDate.isSelected()){
-            if(rbnMonthly.isSelected()){
-            
-            queryUsingSelection = "select count(s.item_name) as count_item from "+selectedTable+ " and (date between '"+dFrom+"' And '"+dTo+"') and s.item_name = '"+item_name+"'";
-         
-            }
-            else if(rbnDate.isSelected()){
-            
-            queryUsingSelection = "select count(s.item_name) as count_item from "+selectedTable+" and date ='" + dFrom + "' and s.item_name = '"+item_name+"'";
-        }
+                if(rbnMonthly.isSelected()){
+                    
+                    queryUsingSelection = "Select count(sales.item_code) as name from size_entry_pojo size, sales_pojo sales where sales.item_code=size.size_id and (date between '"+dFrom+"' And '"+dTo+"') and size.size = '"+item_name+"'";
+                    
+                }
+                else if(rbnDate.isSelected()){
+                    
+                    queryUsingSelection = "Select count(sales.item_code) as name from size_entry_pojo size, sales_pojo sales where sales.item_code=size.size_id and date ='" + dFrom + "' and size.size = '"+item_name+"'";
+                }
             }
             else{
-           queryUsingSelection = "select count(s.item_name) as count_item from "+selectedTable+" and s.item_name = '"+item_name+"'";
-        }
-         smtUsingDate = conInstance.createStatement();
-            
-            ResultSet rs1 = smtUsingDate.executeQuery(queryUsingSelection);
-            
-            
-            if (rs1 != null){
-                    
-                int i = 0;
-                while ( rs1.next() ) //step through the result set
-                    {
-                        i++;//count raws
-                    }
-                    int j = 0;
-                    rs1.beforeFirst();
-                    while (rs1.next()) 
-                    {
-                        String count_item = rs1.getString("count_item");
-                        tableModel.insertRow(j,new Object[]{item_name,count_item});
-                        j++;
-                    }
-                }
- 
+                queryUsingSelection = "Select count(sales.item_code) as name from size_entry_pojo size, sales_pojo sales where sales.item_code=size.size_id and size.size = '"+item_name+"'";
             }
-            calculateSubtotal();
             
-        } catch (SQLException ex) {
-             Logger.getLogger(stockDetailPanel.class.getName()).log(Level.SEVERE, null, ex);
-         }
+            
+            String count_item = fnTools.getData(queryUsingSelection);
+            purchaseTableModel.insertRow(j,new Object[]{item_name,count_item});
+            j++;
+            
+            
+        }
+        calculateSubtotal();
         
         }
     
@@ -150,7 +129,7 @@ private void calculateSubtotal(){
         dateFrom = new com.toedter.calendar.JDateChooser();
         dateTo = new com.toedter.calendar.JDateChooser();
         rbnMonthly = new javax.swing.JRadioButton();
-        txtTotalPurchase = new javax.swing.JTextField();
+        txtTotalPrinted = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         item_count_table = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
@@ -179,12 +158,12 @@ private void calculateSubtotal(){
             }
         });
 
-        dateFrom.setBackground(java.awt.Color.darkGray);
-        dateFrom.setForeground(java.awt.Color.white);
+        dateFrom.setBackground(java.awt.Color.white);
+        dateFrom.setForeground(java.awt.Color.darkGray);
         dateFrom.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
-        dateTo.setBackground(java.awt.Color.darkGray);
-        dateTo.setForeground(java.awt.Color.white);
+        dateTo.setBackground(java.awt.Color.white);
+        dateTo.setForeground(java.awt.Color.darkGray);
         dateTo.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
 
         rbnMonthly.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
@@ -196,10 +175,10 @@ private void calculateSubtotal(){
             }
         });
 
-        txtTotalPurchase.setEditable(false);
-        txtTotalPurchase.setBackground(java.awt.Color.darkGray);
-        txtTotalPurchase.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
-        txtTotalPurchase.setForeground(java.awt.Color.white);
+        txtTotalPrinted.setEditable(false);
+        txtTotalPrinted.setBackground(java.awt.Color.darkGray);
+        txtTotalPrinted.setFont(new java.awt.Font("Century Schoolbook L", 1, 24)); // NOI18N
+        txtTotalPrinted.setForeground(java.awt.Color.white);
 
         item_count_table.setBackground(java.awt.Color.darkGray);
         item_count_table.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
@@ -255,7 +234,7 @@ private void calculateSubtotal(){
                                 .addGap(78, 78, 78)
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTotalPurchase, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtTotalPrinted, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(115, 115, 115)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,11 +279,11 @@ private void calculateSubtotal(){
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtTotalPurchase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTotalPrinted, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel3, txtTotalPurchase});
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel3, txtTotalPrinted});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -327,17 +306,10 @@ private void calculateSubtotal(){
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         
-       // salesTableModel= (DefaultTableModel)salesTable.getModel();
-        //fnTools.remove_table_data(salesTableModel, salesTable);
         purchaseTableModel = (DefaultTableModel)item_count_table.getModel();
         fnTools.remove_table_data(purchaseTableModel, item_count_table);
-        //fillTable("bill_table",salesTableModel,txtTotalSales);
-        fillTable("sales_table as s, bill_table as b where s.bill_no = b.bill_no ",purchaseTableModel,txtTotalPurchase);
-//        if((!txtTotalSales.getText().isEmpty()) && (!txtTotalPurchase.getText().isEmpty())){
-//            double due = Double.parseDouble(txtTotalSales.getText())- Double.parseDouble(txtTotalPurchase.getText());
-//            txtBalance.setText(new DecimalFormat("##.##").format(due));
-//            
-//        }
+        fillTable();
+
 
     }//GEN-LAST:event_btnSearchActionPerformed
 
@@ -362,6 +334,6 @@ private void calculateSubtotal(){
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JRadioButton rbnDate;
     private javax.swing.JRadioButton rbnMonthly;
-    private javax.swing.JTextField txtTotalPurchase;
+    private javax.swing.JTextField txtTotalPrinted;
     // End of variables declaration//GEN-END:variables
 }
