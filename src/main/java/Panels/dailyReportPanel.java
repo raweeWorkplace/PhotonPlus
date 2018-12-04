@@ -109,13 +109,13 @@ public class dailyReportPanel extends javax.swing.JPanel {
             if(rbnMonthly.isSelected() ||rbnDate.isSelected()){
             if(rbnMonthly.isSelected()){
             
-            queryUsingSelection = "select * from "+selectedTable+" where (date between '"+dFrom+"' And '"+dTo+"')order by date";
+            queryUsingSelection = "from "+selectedTable+" where (date between '"+dFrom+"' And '"+dTo+"')order by date";
             queryClose ="Select sum(total) from "+selectedTable+" where (date between '"+dFrom+"' And '"+dTo+"')";
             
         }
             else if(rbnDate.isSelected()){
             
-            queryUsingSelection = "select * from "+selectedTable+" where date ='" + dFrom + "' order by date";
+            queryUsingSelection = "from "+selectedTable+" where date ='" + dFrom + "' order by date";
             queryClose ="Select sum(total) from "+selectedTable+" where date ='" + dFrom + "'";
             
         }
@@ -132,7 +132,7 @@ public class dailyReportPanel extends javax.swing.JPanel {
             }
             else{
             //queryOpen ="Select sum(product_sales.amount) from product_sales, productBills where product_sales.BillNo = productBills.BillNo and productBills.date <'" + dFrom + "'";
-            queryUsingSelection = "select * from "+selectedTable+" order by date";
+            queryUsingSelection = "from "+selectedTable+" order by date";
             queryClose ="Select sum(total) from "+selectedTable+"";
             txt.setText("0.0");    
         }
@@ -467,8 +467,8 @@ public class dailyReportPanel extends javax.swing.JPanel {
         fnTools.remove_table_data(salesTableModel, salesTable);
         purchaseTableModel = (DefaultTableModel)purchaseTable.getModel();
         fnTools.remove_table_data(purchaseTableModel, purchaseTable);
-        fillTable("bill_table",salesTableModel,txtTotalSales);
-        fillTable("instock_entry_table",purchaseTableModel,txtTotalPurchase);
+        fillTable("billingPojo",salesTableModel,txtTotalSales);
+        fillTable("instock_entry_pojo",purchaseTableModel,txtTotalPurchase);
         if((!txtTotalSales.getText().isEmpty()) && (!txtTotalPurchase.getText().isEmpty())){
             double due = Double.parseDouble(txtTotalSales.getText())- Double.parseDouble(txtTotalPurchase.getText());
             txtBalance.setText(new DecimalFormat("##.##").format(due));
