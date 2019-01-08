@@ -33,10 +33,54 @@ public class billingPojo implements Serializable {
     private Date date;
     
     @Column
+    @Temporal(TemporalType.DATE)
+    private Date updateDate;
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public String getCustomerFlag() {
+        return customerFlag;
+    }
+
+    public void setCustomerFlag(String customerFlag) {
+        this.customerFlag = customerFlag;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+    
+    @Column
     private String cust_name;
     
     @Column
     private String contact;
+    @Column
+    private String status;
+    @Column
+    private String customerFlag;
+    @Column
+    private int month;
+    @Column
+    private int year;
     
     @Column
     private double total;
@@ -69,9 +113,6 @@ public class billingPojo implements Serializable {
         this.old_due = old_due;
     }
     
-       
-    @Column
-    private String status;
 
     public billingPojo() {
     }
