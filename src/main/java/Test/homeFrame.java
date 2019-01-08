@@ -288,7 +288,7 @@ public class homeFrame extends javax.swing.JFrame {
         jMenuBar1.add(salesMenu);
 
         purchaseMenu.setBackground(java.awt.Color.white);
-        purchaseMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Test/icon/put-in-cart.png"))); // NOI18N
+        purchaseMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BillingIcon/put-out-the-chart.png"))); // NOI18N
         purchaseMenu.setText("PURCHASE");
         purchaseMenu.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
 
@@ -305,7 +305,7 @@ public class homeFrame extends javax.swing.JFrame {
         jMenuBar1.add(purchaseMenu);
 
         masterMenu.setBackground(java.awt.Color.white);
-        masterMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Test/icon/man-sitting-on-office-desk-working-in-front-a-monitor-of-computer.png"))); // NOI18N
+        masterMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BillingIcon/master-icon.png"))); // NOI18N
         masterMenu.setText("MASTER");
         masterMenu.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
 
@@ -342,7 +342,7 @@ public class homeFrame extends javax.swing.JFrame {
         jMenuBar1.add(masterMenu);
 
         reportMenu.setBackground(java.awt.Color.white);
-        reportMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Test/icon/payment-method.png"))); // NOI18N
+        reportMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BillingIcon/scale.png"))); // NOI18N
         reportMenu.setText("REPORT");
         reportMenu.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
 
@@ -394,7 +394,7 @@ public class homeFrame extends javax.swing.JFrame {
         exitMenu.add(LogOff);
 
         jMenuItem1.setFont(new java.awt.Font("Century Schoolbook L", 1, 18)); // NOI18N
-        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Test/icon/client-profile.png"))); // NOI18N
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/BillingIcon/about-us-icon.png"))); // NOI18N
         jMenuItem1.setText("About");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
